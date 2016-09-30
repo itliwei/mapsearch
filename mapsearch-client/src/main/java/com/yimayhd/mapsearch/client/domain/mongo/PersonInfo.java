@@ -1,7 +1,10 @@
 package com.yimayhd.mapsearch.client.domain.mongo;
 
 
-public class PersonInfo {
+import java.io.Serializable;
+
+public class PersonInfo implements Serializable {
+    private static final long serialVersionUID = 1l;
     private Person person;
     private  double distance;
 
