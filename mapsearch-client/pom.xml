@@ -24,6 +24,7 @@
 			<groupId>com.yimayhd.api</groupId>
 			<artifactId>api-util</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>com.yimayhd.fhtd</groupId>
 			<artifactId>fhtd</artifactId>

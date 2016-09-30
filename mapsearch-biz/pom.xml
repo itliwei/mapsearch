@@ -38,6 +38,17 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>com.yimayhd.mapsearch</groupId>
 			<artifactId>mapsearch-client</artifactId>
@@ -125,10 +136,6 @@
 		<dependency>
 			<groupId>com.taobao.tair</groupId>
 			<artifactId>tair-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.yimayhd</groupId>
-			<artifactId>es-core</artifactId>
 		</dependency>
 	</dependencies>
 

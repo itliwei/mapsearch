@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+       >
+
+
+    <bean id="exportMongoLbsService" class="com.alibaba.dubbo.config.spring.ServiceBean">
+        <property name="interface" value="com.yimayhd.mapsearch.client.service.MongoLbsService"/>
+        <property name="ref" ref="mongoLbsService"/>
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="timeout" value="${zk.timeout}"/>
+        <property name="version" value="${tm.provider.dubbo.version}"/>
+        <property name="retries" value="${tm.provider.dubbo.retries}"/>
+    </bean>
+</beans>
