@@ -1,0 +1,58 @@
+<form action="$!request.getContextPath()/address/ajax/saveOrUpdate" method="post"  name="addressform" id="winform">
+	<table width="100%" class="gf-address-table">
+		<tbody>
+			<tr>
+				<th>*收货人：</th>
+				<td>
+					<input type="hidden" name="aid" value="$!{addressDetail.id}"/>
+					<input type="text" class="gf-input" name="recipientsName" value="$!{addressDetail.recipientsName}"/>
+					<span class="gf-error">请填写正确的收货人姓名，4-20个字符限制</span>
+				</td>
+			</tr>
+			<tr>
+				<th>*所在省市：</th>
+				<td>
+					<div class="gf-select" id="win-province">
+						<span><em>请选择省份</em><i class="icon-jt"><input type="hidden" name="provinceCode" value="100001"></i></span>
+						<ul>
+							<li data-value="0">请选择省份</li>
+						</ul>
+					</div>
+					<div class="gf-select" id="win-city">
+						<span><em>请选择城市</em><i class="icon-jt"><input type="hidden" name="cityCode" value="100011"></i></span>
+						<ul>
+							<li data-value="0">请选择城市</li>
+						</ul>
+					</div>	
+					<div class="gf-select" id="win-area">
+						<span><em>请选择地区</em><i class="icon-jt"><input type="hidden" name="areaCode" value="100101"></i></span>
+						<ul>
+							<li data-value="0">请选择地区</li>
+						</ul>
+					</div>									
+				</td>
+			</tr>
+			<tr>
+				<th>*详细地址：</th>
+				<td><input type="text" class="gf-input gf-w630" name="detailAddress" value="$!{addressDetail.recipientsName}"/></td>
+			</tr>
+			<tr>
+				<th>*邮编：</th>
+				<td><input type="text" class="gf-input" name="zipCode" value="$!{addressDetail.zipCode}"/></td>
+			</tr>
+			<tr>
+				<th>*手机号码：</th>
+				<td><input type="text" class="gf-input" name="recipientsPhone" value="$!{addressDetail.recipientsPhone}"/></td>
+			</tr>
+			<tr>
+				<th></th>
+				<td><label>
+						<input type="checkbox" value="1" #if($!addressDetail.isDefault == 1) checked #end name="isDefault">设置为默认收货地址</label></td>
+			</tr>
+			<tr>
+				<th></th>
+				<td><input type="submit" name="submit" class="gf-submit-btn" value="保存"></td>
+			</tr>						
+		</tbody>
+	</table>
+</form>	

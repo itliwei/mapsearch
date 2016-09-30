@@ -1,0 +1,74 @@
+#set($params = {"title":"图片上传"})
+#set($layout = "/layout/template.vm")
+#set($base = $!request.getContextPath())
+<h1>模拟请求</h1>
+<div class="jk-mt10">
+    <div>
+    <form>
+        <div class="control-group">
+            <label class="control-label" for="inputType">请求参数:<font color="red">*</font>：</label>
+            <div class="controls">
+                <input style="width:580px;" id="params" name="paras" placeholder='请输入参数名和值没有可不输入 (例如 "name1":value1,name2:value2) ' >
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="inputType">请求地址:<font color="red">*</font>：</label>
+            <div class="controls">
+                <input style="width:580px;" id="url" name="url" placeholder="请输入请求地址, (例如: /doctor/doctor_info)" >
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" onclick="save()">确认请求</button>
+            </div>
+        </div>
+    </form>
+    </div>
+    <div id="result" style="font-size:16px; margin-top: 60px; width:600px; word-break: break-all;word-wrap: break-word;">
+        <span>
+
+        </span>
+    </div>
+</div>
+<script>
+    function save(){
+        $("#result").find("span").html("");
+        var param=$("#params").val();
+        var a='{"cityCode":"1001","cityName":"长宁区","code":200120,"departId":1234,"departName":"内科","departPhone":"400280129","doctorId":12,"doctorName":"ICQ","doctorTitle":"EXPERT","famous":true,"firstFreeDuration":0,"goodAt":"内科拿手医生，","hospitalId":1234556,"jobTitle":"专家","provinceCode":"1000","provinceName":"杭州","user":{"avatar":"32GBDK1FJF4D1H3CG4CE2DK2A5A3BFKF.png","birthday":1436681847622,"cityCode":"1001","gender":"FEMALE","id":12,"mobile":"13821882177","name":"张三","nick":"眺望","provinceCode":"1000","role":"Doctor"},"version":0}';
+        var b="MTMxMjIxNzIyNzNfNjY2NjY2XzE0MzY2Nzg0MDg0NzM=";
+        var params = param.split("|");
+        var url=$("#url").val();
+        if(url==''){
+            alert("必须输入请求链接");
+            return;
+        }
+        var doctor=JSON.stringify(params[0]);
+        var token=JSON.stringify(params[1]);
+        try{
+            doctor = JSON.parse(a);
+        }catch(e){
+            console.log("parse error . ",e);
+            alert("输入的参数json格式有错误!");
+        }
+        jQuery.ajax({
+            type: "post",
+            url: "$base"+url,
+//            dataType: "json",
+//            contentType: "application/json",
+            data :{doctor:doctor,token:b},
+            success: function(data){
+//                var result = eval("("+data+")")
+                $("#result").find("span").html(JSON.stringify(data));
+
+//                if(data.success){
+//                    $("#result").find("span").html(JSON.stringify(data));
+//
+//                }else{
+//                    alert(data.errorCode.description);
+//                }
+            }
+        });
+    }
+</script>

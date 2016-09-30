@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=9" />
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <meta property="wb:webmaster" content="3aababe5ed22e23c" />     
+        <title>支付信息</title>
+		<link rel="stylesheet" href="http://s0.yimayholiday.com/GF_PC/src/css/base.css">
+    </head>
+	<body class="white">
+		<!--新版头部开始-->
+		<div id="gf-header">
+			<div class="gf-iframe">
+				<div class="gf-topbar clearfix">
+					<a href="" class="gf-fl">我的账户</a>
+					<ul class="clearfix">
+						<li><a href="javascript:" id="login-btn">登陆</a></li>
+						<li class="last"><a href="" id="regedit-btn">注册</a></li>
+					</ul>
+				</div>
+				<div class="gf-logo"><a href=""><img src="http://s0.yimayholiday.com/GF_PC/img/logo.png" width="200" height="105"/></a></div>
+			</div>
+			<input type="hidden" id="login-window" value="../login/login.html"/>
+		</div>
+		<div id="gf-navbox">
+			<div class="gf-iframe">
+				<div class="gf-nav">
+					<a href="" class="first">首页</a>
+					<a href="" class="on">魔装商城</a>
+					<a href="">GF社区</a>
+					<a href="">1826</a>
+				</div>			
+			</div>
+		</div>
+		<!--新版头部结束-->	
+		<div id="gf-navlink">当前位置：<a href="">首页</a> &gt; 查看购物车</div>
+		<div class="gf-iframe gf-pay-info">
+			<div class = "gf-info-line"></div>
+			<div class = "gf-info-img">
+				<img class = "gf-info-img1"src = "http://s0.yimayholiday.com/GF_PC/img/pay/pay-info-img1.png">
+				<img src = "http://s0.yimayholiday.com/GF_PC/img/pay/pay-info-img2.png">
+				<img src = "http://s0.yimayholiday.com/GF_PC/img/pay/pay-info-img3.png">
+			</div>
+			<div class = "gf-info-lab">
+				<p><label class = "first">查看购物车</label><label>核对订单信息</label><label>成功提交订单</label></p>
+			</div>
+		</div>
+		<div class="gf-iframe gf-pay-id gf-pay-info">
+			<form action="$!request.getContextPath()/pay/toAlipay" method="post"  name="" id="">
+				<span>
+					<img class = "gf-info-check"src = "http://s0.yimayholiday.com/GF_PC/img/pay/gf-info-check.png"><label>订单提交成功，请您在24小时内完成支付！</label>
+				</span>
+				<p class = "gf-pay-num "><label>订单号：</label><em>$orderId</em><label class = "gf-pay-moy">应付金额：</label><em>￥$orderPrice</em></p>
+				<p class = "gf-pay-title gf-info-pay">Quick payment</p>
+				<p class = "gf-pay-lab">快捷支付</p>	
+				<p class = "gf-check-id"><input type = "radio" name = ""><img src = "http://s0.yimayholiday.com/GF_PC/img/pay/gf-pay-mony.png"></p>
+				<a><button type = "submit">确认</button></a>
+				<input type="hidden" name="orderId" value="$orderId">
+			</form>
+		</div>
+		<!-- 尾部 -->
+		<div id="gf-footer">
+			<div class="gf-iframe">
+				<p class="foot-logo"><a href=""><img src="http://s0.yimayholiday.com/GF_PC/img/foot-names.png" width="190"/></a></p>
+				<p class="foot-icon">
+					<a href="javascript:void(0)" class="wx-icon"><img src="http://s0.yimayholiday.com/GF_PC/img/weixin.png" width="276"/></a><a href="javascript:void(0)" class="wb-icon"><img src="http://s0.yimayholiday.com/GF_PC/img/weixin.png" width="276"/></a>
+				</p>
+				<p class="foot-link">
+					<a href="" target = "_blank">常见问题</a> | 
+					<a href="" target = "_blank">媒体报道</a> |
+					<a href="" target = "_blank">品牌故事</a> |
+					<a href="" target = "_blank">联系我们</a>					
+				</p>
+				<p class="foot-copyright">
+					Copyright  北京婕珞芙电子商务有限公司. All rights resverved.</br><a href="http://www.miitbeian.gov.cn/" target="_blank" class = "jing-addressID">京ICP备15054826号-1</a>				
+				</p>
+			</div>
+		</div>
+		<script type="text/javascript" src="http://s0.yimayholiday.com/GF_PC/src/js/sea.js"></script>
+		<script type="text/javascript" src="http://s0.yimayholiday.com/GF_PC/src/js/seajs-preload.js"></script>
+		<script type="text/javascript" src="http://s0.yimayholiday.com/GF_PC/src/js/config.js"></script>		
+		<script>seajs.use("public");</script>		
+	</body>
+</html>

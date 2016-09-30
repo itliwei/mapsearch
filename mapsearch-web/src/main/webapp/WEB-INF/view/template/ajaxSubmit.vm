@@ -1,0 +1,41 @@
+<script type="text/javascript" src="$!request.getContextPath()/js/jquery.form.js"></script>
+<script>
+	function replaceChar(id) {
+		if(id !=  null) {
+			form = $("#"+id)[0];
+		}
+		for(var i=0;i<form.length;i++) {
+			if(form[i].name != '') {
+				form[i].value=form[i].value.replace(new RegExp("<", 'g'),"&lt;");
+				form[i].value=form[i].value.replace(new RegExp(">", 'g'),"&gt;");
+				form[i].value=form[i].value.replace(new RegExp("\"", 'g'),"&quot;");
+			}
+		}
+		return true;
+	}
+	
+	//提交数据
+	function submitData(id ,subUrl, retUrl){
+		replaceChar(id);
+		var options = {
+			url : subUrl,
+			type : "POST",	
+			dataType : "json",
+			cache:false,
+			success : function(r){
+				//添加拦截器
+	    	    if(r == null){
+	    	    	alert("服务器无返回，请刷新后重试！");
+	    	    	return ;
+	    	    }
+				if(r.success){
+					alert("操作成功");
+					location.href=retUrl; //添加成功跳转
+				}else{
+					alert(r.msg);
+				}
+			}
+		};
+		$('#'+id).ajaxSubmit(options);
+	}
+</script>

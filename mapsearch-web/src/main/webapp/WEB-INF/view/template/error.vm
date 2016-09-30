@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$!title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+	<!-- Bootstrap -->
+    #parse("/template/macro.vm")
+    <style type="text/css">
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+    </style>
+    
+</head>
+<body>
+ 
+#parse("layout/top.vm")
+
+<div class="container-fluid">
+
+    您没有访问该系统的权限，请联系系统管理员
+
+
+</div>
+<div style="text-align: center">
+
+   #parse("layout/footer.vm")
+</div>
+</body>
+</html>
