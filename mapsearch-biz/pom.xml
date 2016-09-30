@@ -126,6 +126,10 @@
 			<groupId>com.taobao.tair</groupId>
 			<artifactId>tair-client</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.yimayhd</groupId>
+			<artifactId>es-core</artifactId>
+		</dependency>
 	</dependencies>
 
 

@@ -25,10 +25,6 @@
 			<artifactId>api-util</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.yimayhd.mapsearch</groupId>
-			<artifactId>mapsearch-api</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.yimayhd.fhtd</groupId>
 			<artifactId>fhtd</artifactId>
 		</dependency>

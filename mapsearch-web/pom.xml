@@ -29,10 +29,6 @@
 			<artifactId>mapsearch-biz</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.yimayhd.mapsearch</groupId>
-			<artifactId>mapsearch-api</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
