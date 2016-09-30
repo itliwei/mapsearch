@@ -21,10 +21,5 @@
         <property name="port" value="${zk.port}"/>
     </bean>
     
-    <bean id="baiduMapConfig" class="com.yimayhd.trademanager.entity.BaiDuMapConfig">
-        <property name="url" value="${tm.baidu.map.url}"/>
-        <property name="key" value="${tm.baidu.map.key}"/>
-    </bean>
-    
 
 </beans>

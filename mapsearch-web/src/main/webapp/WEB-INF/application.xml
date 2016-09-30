@@ -20,5 +20,6 @@
 	<import resource="../META-INF/spring/application-repo.xml" />
 	<import resource="../META-INF/spring/application-export-client.xml" />
 	<import resource="../META-INF/spring/application-export-api.xml"/>-->
+	<import resource="../META-INF/spring/application-mongo.xml" />
 
 </beans>
