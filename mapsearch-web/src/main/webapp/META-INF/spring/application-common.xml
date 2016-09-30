@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd"
+       >
+    <context:property-placeholder location="WEB-INF/config.properties"/>
+
+    <bean id="dubboApplicationConfig" class="com.alibaba.dubbo.config.ApplicationConfig">
+        <property name="name" value="${app.name}"/>
+    </bean>
+
+    <bean id="dubboRegistryConfig" class="com.alibaba.dubbo.config.RegistryConfig">
+        <property name="address" value="${zk.address}"/>
+        <property name="protocol" value="zookeeper"/>
+    </bean>
+
+    <bean id="dubboProtocolConfig" class="com.alibaba.dubbo.config.ProtocolConfig">
+        <property name="port" value="${zk.port}"/>
+    </bean>
+    
+    <bean id="baiduMapConfig" class="com.yimayhd.trademanager.entity.BaiDuMapConfig">
+        <property name="url" value="${tm.baidu.map.url}"/>
+        <property name="key" value="${tm.baidu.map.key}"/>
+    </bean>
+    
+
+</beans>

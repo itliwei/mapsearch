@@ -1,5 +1,6 @@
 package com.yimayhd.mapsearch.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.yimayhd.mapsearch.client.domain.mongo.*;
 import com.yimayhd.mapsearch.client.service.MongoLbsService;
 import com.yimayhd.mapsearch.util.MongoUtil;
@@ -24,6 +25,7 @@ import java.util.Random;
 /**
  * 实现类
  */
+@Service
 public class MongoLbsServiceImpl implements MongoLbsService {
     private static final Logger logger = LoggerFactory.getLogger(MongoLbsServiceImpl.class);
     private final double maxLat = 40.017472;
