@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=9" />
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <meta property="wb:webmaster" content="3aababe5ed22e23c" />     
+        <title>GF-有收货地址下单页</title>
+		<link rel="stylesheet" href="http://s0.yimayholiday.com/GF_PC/src/css/base.css">
+    </head>
+	<body>
+		<!--新版头部开始-->
+		<div id="gf-header">
+			<div class="gf-iframe">
+				<div class="gf-topbar clearfix">
+					<a href="" class="gf-fl">我的账户</a>
+					<ul class="clearfix">
+						<li><a href="javascript:" id="login-btn">登陆</a></li>
+						<li class="last"><a href="" id="regedit-btn">注册</a></li>
+					</ul>
+				</div>
+				<div class="gf-logo"><a href=""><img src="http://s0.yimayholiday.com/GF_PC/img/logo.png" width="200" height="105"/></a></div>
+			</div>
+			<input type="hidden" id="login-window" value="../login/login.html"/>
+		</div>
+		<div id="gf-navbox">
+			<div class="gf-iframe">
+				<div class="gf-nav">
+					<a href="" class="first">首页</a>
+					<a href="" class="on">魔装商城</a>
+					<a href="">GF社区</a>
+					<a href="">1826</a>
+				</div>			
+			</div>
+		</div>
+		<!--新版头部结束-->
+		<div class="gf-iframe">
+			<h2 class="gf-title">收货地址</h2>
+			<div id="gf-address">
+				<form action="$!request.getContextPath()/address/ajax/saveOrUpdate" method="post"  name="addressform" id="addressform" style="#if($!addressList) display:none #else  display:block #end">
+					<table width="100%" class="gf-address-table">
+						<tbody>
+							<tr>
+								<th>*收货人：</th>
+								<td>
+									<input type="text" class="gf-input" name="recipientsName" id="username"  value=""/>
+									<span class="gf-error">请填写正确的收货人姓名，4-20个字符限制</span>
+								</td>
+							</tr>
+							<tr>
+								<th>*所在省市：</th>
+								<td>
+									<div class="gf-select" id="province">
+										<span><em>请选择省份</em><i class="icon-jt"><input type="hidden" name="provinceCode" value="100001"></i></span>
+										<ul>
+											<li data-value="0">请选择省份</li>
+										</ul>
+									</div>
+									<div class="gf-select" id="city">
+										<span><em>请选择城市</em><i class="icon-jt"><input type="hidden" name="cityCode" value="100011"></i></span>
+										<ul>
+											<li data-value="0">请选择城市</li>
+										</ul>
+									</div>	
+									<div class="gf-select" id="area">
+										<span><em>请选择地区</em><i class="icon-jt"><input type="hidden" name="areaCode" value="100101"></i></span>
+										<ul>
+											<li data-value="0">请选择地区</li>
+										</ul>
+									</div>									
+								</td>
+							</tr>
+							<tr>
+								<th>*详细地址：</th>
+								<td><input type="text" class="gf-input gf-w630" name="detailAddress" id="address" value=""/></td>
+							</tr>
+							<tr>
+								<th>*邮编：</th>
+								<td><input type="text" class="gf-input" name="zipCode" id="postcode" value=""/></td>
+							</tr>
+							<tr>
+								<th>*手机号码：</th>
+								<td><input type="text" class="gf-input" name="recipientsPhone" id="phone" value=""/></td>
+							</tr>
+							<tr>
+								<th></th>
+								<td><label><input type="checkbox" value="1" name="isDefault">设置为默认收货地址</label></td>
+							</tr>
+							<tr>
+								<th></th>
+								<td><input type="submit" name="submit" class="gf-submit-btn" value="保存"></td>
+							</tr>						
+						</tbody>
+					</table>
+				</form>			
+				<ul class="gf-address-list clearfix" style=" #if($!addressList) display:block #else display:none #end  ">
+					#foreach($address in $addressList)
+					<li class="#if($!address.isDefault==1) on #else  #end">
+						<i class="gf-border-t"></i>
+						<span class="title clearfix"><em class="gf-fl">$!{address.province} $!{address.city} $!{address.area}</em><em class="gf-fr">$!{address.recipientsName}</em></span>
+						<table width="100%">
+							<tbody>
+								<tr>
+									<td width="30%">详细地址：</td>
+									<td width="70%">$!{address.detailAddress}</td>
+								</tr>
+								<tr>
+									<td width="30%">联系电话：</td>
+									<td width="70%">$!{address.recipientsPhone}</td>
+								</tr>								
+							</tbody>
+						</table>
+						<span class="btngroup">
+							<a href="javascript:void(0)" class="edit-btn" data-value="$!{address.id}">修改</a>
+							<a href="javascript:void(0)" class="setinit-btn" data-value="$!{address.id}">#if($!address.isDefault==1) 默认地址 #else设为默认 #end</a>						
+						</span>
+						<textarea style="display:none">$!{address.id}</textarea>
+						<i class="gf-border-b"></i>
+					</li>	
+					#end				
+				</ul>
+				<div class="gf-address-foot" style=" #if($!addressList) display:block #else display:none #end ">
+					<a href="javascript:void(0)" id="add-pay-address">+ 使用新地址</a>
+					<a href="javascript:void(0)" id="more-address">显示全部地址</a>
+				</div>
+			</div>
+			<h2 class="gf-title">订单信息</h2>
+			<div id="gf-orderinfo">
+				<form action="$!request.getContextPath()/shop/submitOrder" method="post"  name="orderform" id="orderform">
+					<table width="100%">
+						<thead>
+							<tr>
+								<th align="left" width="40%">商品信息</th>
+								<th align="center" width="15%">单价</th>
+								<th align="center" width="15%">购买数量</th>
+								<th align="center" width="15%">促销优惠</th>
+								<th align="right" width="15%">小计</th>
+							</tr>
+						</thead>
+						<tbody>
+							#foreach( $createOrderItemBean in $createOrderItemBeanList)
+
+							<tr class="first">
+								<td align="left">
+									<dl class="clearfix">
+										<dt><img src="$createOrderItemBean.picUrl" width="62"/></dt>
+										<dd>
+											<span class="name">$createOrderItemBean.orderItem.itemTitle</span>
+											<!-- <p class="disc">质感绵滑柔润轻薄，润而不腻，吸收迅速；及时修复并预防肌肤损伤。</p> -->
+										</dd>
+									</dl>
+								</td>
+								<td align="center">￥$createOrderItemBean.price</td>
+								<td align="center">$createOrderItemBean.orderItem.buyAmount</td>
+								<td align="center">—</td>
+								<td align="right">￥$createOrderItemBean.actualTotalFee</td>
+								<input type="hidden" name="createOrderItemBeanList[0].orderItem.itemId" value="$createOrderItemBean.orderItem.itemId">
+								<input type="hidden" name="createOrderItemBeanList[0].orderItem.skuId" value="$createOrderItemBean.orderItem.skuId">
+								<input type="hidden" name="createOrderItemBeanList[0].orderItem.buyAmount" value="$createOrderItemBean.orderItem.buyAmount">
+							</tr>
+							#end
+							<tr class="last">
+								<td colspan="3" align="left" class="clearfix">
+									<label class="gf-fl">买家留言：</label>
+									<span class="gf-msg-input gf-fl"><i class="gf-icon-jt"></i><input type="text" name="buyerLeaveMassage" value="" placeholder="选填，可以告诉商家您的特殊要求"/></span>
+								</td>
+								<td colspan="3" align="right" class="cpr clearfix">
+									<label class="gf-fl">运送方式：</label>
+									<div class="gf-select">
+										<span><em>平邮：8元</em><i class="icon-jt"><input type="hidden" name="freight" value="8"></i></span>
+										<ul>
+											<li data-value="8.00">平邮：8元</li>
+										</ul>
+									</div>
+								</td>
+							</tr>						
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="5" align="right">
+									商品总金额（含运费）： <span>￥$actualTotalFee</span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="5" align="right">
+									<em class="gf-col-black">应付总额：</em><span class="big">￥$actualTotalFee</span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="5" align="right">
+									<a href="javascript:" class="gf-purple-btn" id="order-submit-btn">提交订单</a>
+								</td>
+							</tr>						
+						</tfoot>
+					</table>
+					<textarea name="addressId" style="display:none" id="contact">$addressId
+					</textarea>
+					<input type="hidden" name="buyOrderGroupKey.sellerId" value="$groupKey.sellerId"/>
+					<input type="hidden" name="buyOrderGroupKey.bizType" value="$groupKey.bizType"/>
+					<!-- <input type="hidden" name="addressId" value="242"> -->
+				</form>
+			</div>
+		</div>
+		<input type="hidden" id="setDefaultUrl" value="$!request.getContextPath()/address/ajax/setDefault"/><!--设置默认请求地址-->
+		<input type="hidden" id="getAddresTmpl" value="$!request.getContextPath()/address/init.htm"/><!--添加地址弹窗请求地址-->
+		<!-- 尾部 -->
+		<div id="gf-footer">
+			<div class="gf-iframe">
+				<p class="foot-logo"><a href=""><img src="http://s0.yimayholiday.com/GF_PC/img/foot-names.png" width="190"/></a></p>
+				<p class="foot-icon">
+					<a href="javascript:void(0)" class="wx-icon"><img src="http://s0.yimayholiday.com/GF_PC/img/weixin.png" width="276"/></a><a href="javascript:void(0)" class="wb-icon"><img src="http://s0.yimayholiday.com/GF_PC/img/weixin.png" width="276"/></a>
+				</p>
+				<p class="foot-link">
+					<a href="" target = "_blank">常见问题</a> | 
+					<a href="" target = "_blank">媒体报道</a> |
+					<a href="" target = "_blank">品牌故事</a> |
+					<a href="" target = "_blank">联系我们</a>					
+				</p>
+				<p class="foot-copyright">
+					Copyright  北京婕珞芙电子商务有限公司. All rights resverved.</br><a href="http://www.miitbeian.gov.cn/" target="_blank" class = "jing-addressID">京ICP备15054826号-1</a>				
+				</p>
+			</div>
+		</div>
+		<script type="text/x-template" id="tmpl-address">
+			<li {{if isDefault}}class="on"{{/if}}>
+				<i class="gf-border-t"></i>
+				<span class="title clearfix"><em class="gf-fl">${province} ${city} ${area}</em><em class="gf-fr">${recipientsName}</em></span>
+				<table width="100%">
+					<tbody>
+						<tr>
+							<td width="30%">详细地址：</td>
+							<td width="70%">${detailAddress}</td>
+						</tr>
+						<tr>
+							<td width="30%">联系电话：</td>
+							<td width="70%">${recipientsPhone}</td>
+						</tr>								
+					</tbody>
+				</table>
+				<span class="btngroup">
+					<a href="javascript:void(0)" class="edit-btn" data-value="${id}">修改</a>
+					<a href="javascript:void(0)" class="setinit-btn" data-value="${id}">{{if isDefault}}默认地址{{else}}设为默认{{/if}}</a>						
+				</span>
+				<i class="gf-border-b"></i>
+				<textarea style="display:none">${id}</textarea>
+			</li>			
+		</script>
+		<script type="text/javascript" src="http://s0.yimayholiday.com/GF_PC/src/js/sea.js"></script>
+		<script type="text/javascript" src="http://s0.yimayholiday.com/GF_PC/src/js/seajs-preload.js"></script>
+		<script type="text/javascript" src="http://s0.yimayholiday.com/GF_PC/src/js/config.js"></script>
+		<script type="text/javascript">seajs.use("pay")</script>			
+	</body>
+</html>

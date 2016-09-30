@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd"
+	>
+
+<!-- +++++++++++++++++++++++++++++++  此xml 暂废    +++++++++++++++++++++++++-->
+
+	<!-- ======================= scheduler ========================= -->
+
+
+
+
+
+	<!-- ======================= job detail ========================= -->
+	<bean id="snsHotSchedulerBean"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="snsHotScheduler"/>
+		<property name="targetMethod" value="execute"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+
+
+	<!-- ======================= quartz Cron Trigger ========================= -->
+	<bean id="snsHotSchedulerCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="snsHotSchedulerBean"/>
+		<property name="cronExpression" value="${sns.hot.cron}"/>
+	</bean>
+
+
+
+
+	<!-- ======================= Scheduler Factory ========================= -->
+	<bean id="schedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="snsHotSchedulerCronTrigger"/>
+			</list>
+		</property>
+	</bean>
+</beans>				

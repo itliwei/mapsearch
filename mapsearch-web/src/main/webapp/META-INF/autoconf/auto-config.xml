@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<group name="dubbo">
+		<property name="zk.address" defaultValue="192.168.1.202:2181"			description="dubbo注册的zookeeper地址" />
+		<property name="zk.port" defaultValue="-1" description="dubbo服务使用的端口号" />
+		<property name="export.dubbo.timeout" defaultValue="5000"			description="提供dubbo服务的默认超时时间" />
+		<property name="export.dubbo.version" defaultValue="LATEST"			description="暴露dubbo的版本号" />
+		<property name="dubbo.retries" defaultValue="0" description="dubbo调用不重试" />
+		<property name="consumer.dubbo.timeout" defaultValue="5000"			description="使用其他dubbo服务的超市时间" />
+		<property name="consumer.dubbo.check" defaultValue="false"			description="启东时是否强依赖其他服务，如果true那么依赖的服务必须先启动；如果false,其他服务可以不存在，但是调用的时候，如果服务依然不存在，则报错" />
+		<property name="consumer.user.dubbo.version" defaultValue="LATEST"			description="消费user的dubbo的版本号" />
+		<property name="consumer.idgen.dubbo.version" defaultValue="LATEST"			description="消费id generator的版本" />
+	</group>
+
+	<group name="">
+		<property name="app.name" defaultValue="center"			description="应用名称" />
+		<property name="jdbc.url"			defaultValue="jdbc:mysql://192.168.1.202:3306/center?useUnicode=true&amp;amp;characterset=utf-8"			description="数据库链接url" />
+		<property name="jdbc.username" defaultValue="root"			description="数据库用户名" />
+		<property name="jdbc.password" defaultValue="123456"			description="数据库密码" />
+		<property name="log.home" defaultValue="/home/admin/logs/center"			description="日志输出目录" />
+	</group>
+
+	<group name="tair">
+		<property name="tair.namespace" defaultValue="30"			description=" tair命名空间" />
+		<property name="tair.groupName.per" defaultValue="p_group1"			description=" 持久化tair的namespace" />
+		<property name="tair.groupName.temp" defaultValue="m_group1"			description=" 非持久化tair的namespace" />
+		<property name="tair.timeout" defaultValue="5000"			description=" tair超时" />
+		<property name="tair.configServer.main" defaultValue="192.168.1.202:5198"			description=" tair服务器的地址" />
+		<property name="tair.configServer.slave" defaultValue="192.168.1.202:5198"			description=" tair服务器的地址" />
+	</group>
+
+	<group name="mq">
+		<property name="rocketmq.server.name" defaultValue="192.168.1.206:9876"			description="rocketmq的注册中心地址" />
+		<property name="rocketmq.consumer.group" defaultValue="_consume_group" />
+		<property name="rocketmq.domain.name" defaultValue="*" />
+	</group>
+
+	<group name="idgen">
+		<property name="idgen.allocount" defaultValue="10"			description="idgen" />
+		<property name="idgen.domain" defaultValue="center"			description="idgen" />
+	</group>
+	<script>
+		<generate template="config.properties.vm" destfile="WEB-INF/config.properties"
+				  charset="UTF-8" />
+		<generate template="logback.xml.vm" destfile="WEB-INF/logback.xml"
+				  charset="UTF-8" />
+		<generate template="web.xml.vm" destfile="WEB-INF/web.xml"
+				  charset="UTF-8" />
+	</script>
+</config>
+

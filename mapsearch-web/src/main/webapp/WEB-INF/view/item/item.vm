@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=9" />
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <meta property="wb:webmaster" content="3aababe5ed22e23c" />     
+        <title>GF-详情页面</title>
+		<link rel="stylesheet" href="http://s0.yimayholiday.com/GF_PC/src/css/base.css">
+		<link rel="stylesheet" href="http://s0.yimayholiday.com/GF_PC/src/css/login.css">
+    </head>
+	<body>
+		<!--新版头部开始-->
+		#parse("/include/head.vm") 
+		<!--新版头部结束-->
+		<!--面包屑导航开始-->
+		<div id="gf-navlink">当前位置：<a href="">首页</a> &gt; <a href="">系列产品</a> &gt;全能精油</div>
+		<!--面包屑导航结束-->
+		<div class="gf-iframe">
+			<div id="gf-goodsinfo" class="clearfix">
+				<a href="" class="gf-img"><img src="$smallpic" width="400"/></a>
+				<div class="gf-bd">
+					<form action="$!request.getContextPath()/shop/toCreateOrder" method="post" name="goodsForm" id="goodsForm">
+						<h2>$itemDO.title</h2>
+						<p>$itemDO.subTitle</p>
+						<ul>
+							<li class="first"><label>售价：</label> <span class="price"><em>￥</em>500.00</span></li>
+							<!--
+							<li><label>香味：</label> <span class="item checked">玫瑰</span><span class="item disabled">茉莉</span></li>
+							<li><label>容量：</label> <span class="item">30ml</span><span class="item">50ml</span></li>
+							-->
+							<li><label>数量：</label> <span class="num clearfix"><em class="minus">-</em><input type="text" name="buyAmount" value="1" max-num="8000"/><em class="add">+</em></span><span class="error-msg"></span></li>
+							<li class="last"><label>库存：</label> <span class="total"><em>$totalCount</em> 件</span></li>
+						</ul>
+						<input type="hidden" id="goodsId" name="itemId" value="$itemDO.id"/><!--商品ID-->
+						<input type="hidden" id="goodsInventory" name="goodsInventory" value="$totalCount"/><!--商品库存-->
+						<input type="hidden" id="goodsSelectType" name="skuId" value=""/><!--选择的商品类型-->
+						<a href="javascript:void(0)" class="gf-purple-btn" id="gf-buy-btn">立即购买</a>
+					</form>
+					<!--商品配型对象-->
+					<textarea style="display:none" id="goodsType">
+						$skuJson
+					</textarea>					
+				</div>
+			</div>
+			<div id="gf-goodsmain">
+				<ul class="gf-tablist clearfix">
+					<li>商品详情</li>
+				</ul>
+				
+				<div class="gf-bd">
+					$detailUrl
+				</div>
+				
+				<!--
+				<div class="gf-hd">
+					<table width="100%">
+						<tr>
+							<td>产品功效：美白 补水 保湿 滋润 深层清洁</td>
+							<td>品牌：婕珞芙</td>
+							<td>研发生产：婕珞芙</td>
+							<td>产品实拍：100%实拍</td>
+							<td>产品推荐：保温水、润肤露</td>
+						</tr>
+						<tr>
+							<td>产品成分：薰衣草</td>
+							<td>原料产地：云南</td>
+							<td>达人推荐：林志玲、范冰冰</td>
+							<td>使用方法：轻涂面部</td>
+							<td></td>
+						</tr>					
+					</table>
+				</div>
+				<div class="gf-bd">
+					<img src="http://s0.yimayholiday.com/GF_PC/tmp/goods-c1.jpg" width="1120"/>
+					<img src="http://s0.yimayholiday.com/GF_PC/tmp/goods-c2.jpg" width="1120"/>
+					<img src="http://s0.yimayholiday.com/GF_PC/tmp/goods-c3.jpg" width="1120"/>
+					<img src="http://s0.yimayholiday.com/GF_PC/tmp/goods-c4.jpg" width="1120"/>
+				</div>
+				-->
+			</div>
+		</div>
+		<!-- 尾部 -->
+		
+		#parse("/include/foot.vm") 
+		
+		<script type="text/javascript" src="http://s0.yimayholiday.com/GF_PC/src/js/sea.js"></script>
+		<script type="text/javascript" src="http://s0.yimayholiday.com/GF_PC/src/js/seajs-preload.js"></script>
+		<script type="text/javascript" src="http://s0.yimayholiday.com/GF_PC/src/js/config.js"></script>
+		<script type="text/javascript">seajs.use("goods")</script>		
+	</body>
+</html>

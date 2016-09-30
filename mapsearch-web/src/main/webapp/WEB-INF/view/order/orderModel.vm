@@ -1,0 +1,159 @@
+<table width="100%" class="gf-thead">
+	<thead>
+		<tr>
+			<th width="103"></th>
+			<th align="left" width="130">订单商品</th>
+			<th align="center" width="136">单价</th>
+			<th align="center" width="106">数量</th>
+			<th align="center" width="136">订单金额</th>
+			<th align="center" width="136">订单状态</th>
+			<th align="center" width="136">操作</th>
+		</tr>
+	</thead>
+</table>
+<table width="100%" class="gf-table">
+	<thead>
+		<tr>
+			<td colspan="4">
+				<input type="checkbox" name="orderid" value="1"/>
+				<span>订单编号：20150515103712</span>
+				<span>2015-05-15</span>
+				<span>12:06:55</span>
+			</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td align="left" width="469">
+				<ul class="clearfix">
+					<li class="img"><img src="http://s0.yimayholiday.com/GF_PC/tmp/goods.jpg" width="75" height="80"></li>
+					<li class="name">
+						<span>婕珞芙魔药系列1号</span>
+						<em>30ml</em>
+					</li>
+					<li class="price">￥22.00</li>
+					<li class="number">1</li>
+				</ul>
+				<ul class="last-child clearfix">
+					<li class="img"><img src="http://s0.yimayholiday.com/GF_PC/tmp/goods.jpg" width="75" height="80"></li>
+					<li class="name">
+						<span>婕珞芙魔药系列1号</span>
+						<em>30ml</em>
+					</li>
+					<li class="price">￥22.00</li>
+					<li class="number">1</li>
+				</ul>								
+			</td>
+			<td align="center" width="136">
+				<p>￥450.00<br>（包邮）</p>
+			</td>
+			<td align="center" width="136">
+				<p>
+					<a href="javascript:void(0)">待付款</a>
+					<a href="javascript:void(0)">取消订单</a>
+				</p>
+			</td>
+			<td align="center" width="136">
+				<p>
+					<a href="javascript:void(0)" class="gf-purple-btn">付款</a>
+					<a href="javascript:void(0)">详情</a>
+				</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<table width="100%" class="gf-table">
+	<thead>
+		<tr>
+			<td colspan="4">
+				<input type="checkbox" name="orderid" value="1"/>
+				<span>订单编号：20150515103712</span>
+				<span>2015-05-15</span>
+				<span>12:06:55</span>
+			</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td align="left" width="469">
+				<ul class="last-child clearfix">
+					<li class="img"><img src="http://s0.yimayholiday.com/GF_PC/tmp/goods.jpg" width="75" height="80"></li>
+					<li class="name">
+						<span>婕珞芙魔药系列1号</span>
+						<em>30ml</em>
+					</li>
+					<li class="price">￥22.00</li>
+					<li class="number">1</li>
+				</ul>								
+			</td>
+			<td align="center" width="136">
+				<p>￥450.00<br>（包邮）</p>
+			</td>
+			<td align="center" width="136">
+				<p>
+					<a href="javascript:void(0)">待付款</a>
+					<a href="javascript:void(0)">取消订单</a>
+				</p>
+			</td>
+			<td align="center" width="136">
+				<p>
+					<a href="javascript:void(0)" class="gf-purple-btn">付款</a>
+					<a href="javascript:void(0)">详情</a>
+				</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<table width="100%" class="gf-table">
+	<thead>
+		<tr>
+			<td colspan="4">
+				<input type="checkbox" name="orderid" value="1"/>
+				<span>订单编号：20150515103712</span>
+				<span>2015-05-15</span>
+				<span>12:06:55</span>
+			</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td align="left" width="469">
+				<ul class="last-child clearfix">
+					<li class="img"><img src="http://s0.yimayholiday.com/GF_PC/tmp/goods.jpg" width="75" height="80"></li>
+					<li class="name">
+						<span>婕珞芙魔药系列1号</span>
+						<em>30ml</em>
+					</li>
+					<li class="price">￥22.00</li>
+					<li class="number">1</li>
+				</ul>								
+			</td>
+			<td align="center" width="136">
+				<p>￥450.00<br>（包邮）</p>
+			</td>
+			<td align="center" width="136">
+				<p>
+					<a href="javascript:void(0)">待付款</a>
+					<a href="javascript:void(0)">取消订单</a>
+				</p>
+			</td>
+			<td align="center" width="136">
+				<p>
+					<a href="javascript:void(0)" class="gf-purple-btn">付款</a>
+					<a href="javascript:void(0)">详情</a>
+				</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div class="gf-page">
+	<a href="" class="prev">&nbsp;</a>
+	<a href="" class="num on">1</a>
+	<a href="" class="num">2</a>
+	<a href="" class="num">3</a>
+	<a href="" class="num">4</a>
+	<a href="" class="num">5</a>
+	<a href="" class="next">&nbsp;</a>
+</div>

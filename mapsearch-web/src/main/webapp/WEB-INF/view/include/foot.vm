@@ -1,0 +1,17 @@
+<div id="gf-footer">
+			<div class="gf-iframe">
+				<p class="foot-logo"><a href=""><img src="http://s0.yimayholiday.com/GF_PC/img/foot-names.png" width="190"/></a></p>
+				<p class="foot-icon">
+					<a href="javascript:void(0)" class="wx-icon"><img src="http://s0.yimayholiday.com/GF_PC/img/weixin.png" width="276"/></a><a href="javascript:void(0)" class="wb-icon"><img src="http://s0.yimayholiday.com/GF_PC/img/weixin.png" width="276"/></a>
+				</p>
+				<p class="foot-link">
+					<a href="" target = "_blank">常见问题</a> | 
+					<a href="" target = "_blank">媒体报道</a> |
+					<a href="" target = "_blank">品牌故事</a> |
+					<a href="" target = "_blank">联系我们</a>					
+				</p>
+				<p class="foot-copyright">
+					Copyright  北京婕珞芙电子商务有限公司. All rights resverved.</br><a href="http://www.miitbeian.gov.cn/" target="_blank" class = "jing-addressID">京ICP备15054826号-1</a>				
+				</p>
+			</div>
+		</div>
