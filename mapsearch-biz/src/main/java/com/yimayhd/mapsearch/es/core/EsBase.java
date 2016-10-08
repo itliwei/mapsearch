@@ -1,5 +1,145 @@
-¥§$jœ¢l¢™¬¡vf©±æ«r¬rŠŞŠjh®×(™©bm¦Ú}«-Ê'%#9¸ŞrØ¦¦Šír‰²Šf²…Ùš¦Çš­È^²·¬º[D±'š­ÈQzË¥¶)©¢»h®¥jËbrÇš­ÈZrØ¨œ-Š‰ÅºÛ«z)©¢»h®¥jËbrÇš­ÈZrØ¨»¥¥‘ª¹ë-è¥uêâšš+¶ŠàzV¬¶',yªÜ…§-Š‰ÛºYºYzÊhÇ¢šš+¶ŠàzV¬¶',yªÜ…§-Š‰İzW­x7¥z×‘zÊhÇ¢šš+¶ŠàzV¬¶',yªÜ…§-Š‰àzÑµ¬¦‰ìz)©¢»h®¥jËbrÇš­ÈZrØ¨)İ{'uìQz«²Ø¦¦Ší¢¸•«-‰Ëj·!iËb¢x§uìH×±Eê®zËAº)]z¸¦¦Ší¢¸•«-‰Ëj·!iËb¢x§uìH×±Eë)¢{Šjh®Ú+éZ²Øœ±æ«rœ¶*'±æ«rj·!Eê®zËAº)]z¸¦¦Ší¢¸•«-‰Ëj·!iËb¢{j·!Iæ«r^²š'±è¦¦Ší¢¸•«-‰Ëj·!iËb¢{©u«^R—Zµä^ªç¬¶)©¢»h®¥jËbrÇš­ÈZrØ¨ê]j×”¥Ö­y¬¦‰ìz)©¢»h®¥jËbrÇš­Èb×±ªç«É¯ nŠW^®)©¢»h®¥jËbrÇš­ÈlyªÜ…'š­ÈGŠØ¦¦Ší¢¸•«-‰Ëj·!±æ«r(®Ô¨®ĞnŠW^®)©¢»h®)®)à~¶¦{
-+‘·šÇÚrÚ+É©ç¢Ö­Š‰ÀºÚ0Š·Šjh®ØÚ½«­ŠP+­¬‹ŠËbšš+¶6¯jëb”¸¬¶)©¢»cjö®¶)\¢w.®·§´L^rëb¢q1qêmŠ‰ÿÀZ±æ®¶+–)bÖ­{^¿÷ı»ş››–'nËkiË\•«,ÀZ±à.¶Œ"­çi®+Úµá,
-XÑZrÚ+ÉÉbz{i¹¹bqº(•æ§Š{®Ô­®)àŠw^Å+kŠx-Ê—’¶¸§‚'R¶¸§‚;(+k"w^Å¬¦‰ìz·¬¦‰ìz­"w^Åª¹ë-è¥uêâ×±·*^‰Øì¢t­®­­ën®zŞ²š'±è¬
-·šµçi¹¹bp‰İ{^ªç¬´¢•×«ëH×±Eê®zËAº)]z´­®)àŠw^Å+kŠx-Ê—’¶¸§‚'R¶¸§‚;(+k­ën®w%‰éíëB–'§¶šŞ¥ªŞ"w^Æ)İ{r¥è±ëR¢êÜz;(+k¦æå‰ÄÓëR¶¸§‚)İ{­®)à·*^JÚâ
-V¬±;FzÔ^²š'±êŞ²š'±
+package com.yimayhd.mapsearch.es.core;
+
+import com.alibaba.fastjson.JSONObject;
+import com.yimayhd.mapsearch.es.result.EsSearchResult;
+import org.elasticsearch.action.ActionFuture;
+import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.delete.DeleteResponse;
+import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.sort.SortBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+/**
+ * EsBase
+ *
+ * @author lilin
+ * @date 16/9/27
+ */
+public abstract class EsBase {
+
+    @Autowired
+    private EsClientFactory esClientFactory;
+
+    public boolean insert(String _index, String _type, String _id, String jsonStr) {
+        IndexResponse response = getIndexRequestBuilder(_index, _type, _id, jsonStr).get();
+        return response.isCreated();
+    }
+
+    public IndexRequestBuilder getIndexRequestBuilder(String _index, String _type, String _id, String jsonStr) {
+        return esClientFactory.getClient().prepareIndex(_index, _type, _id)
+                .setSource(jsonStr);
+    }
+
+    public <T> T get(String _index, String _type, String _id, Class<T> t) {
+        GetResponse response = esClientFactory.getClient().prepareGet(_index, _type, _id).
+                setOperationThreaded(false)
+                .get();
+        if (response.isExists()) {
+            return JSONObject.parseObject(response.getSourceAsString(), t);
+        } else {
+            return null;
+        }
+    }
+
+    public boolean delete(String _index, String _type, String _id) {
+        DeleteResponse response = esClientFactory.getClient().prepareDelete(_index, _type, _id)
+                .get();
+        return response.isFound();
+    }
+
+    public boolean upsert(String _index, String _type, String _id, String jsonStr) {
+        IndexRequest indexRequest = new IndexRequest(_index, _type, _id)
+                .source(jsonStr);
+        UpdateRequest updateRequest = new UpdateRequest(_index, _type, _id)
+                .doc(jsonStr)
+                .upsert(indexRequest);
+        UpdateResponse updateResponse;
+        try {
+            updateResponse = esClientFactory.getClient().update(updateRequest).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return updateResponse.isCreated();
+    }
+
+    public boolean bulkInsert(List<IndexRequestBuilder> indexRequestBuilders, ActionFuture<UpdateResponse>... updateResponseActionFuture) {
+        BulkRequestBuilder bulkRequest = esClientFactory.getClient().prepareBulk();
+        for (IndexRequestBuilder indexRequestBuilder : indexRequestBuilders) {
+            bulkRequest.add(indexRequestBuilder);
+        }
+        BulkResponse bulkResponse = bulkRequest.get();
+        return !bulkResponse.hasFailures();
+    }
+
+    /**
+     * è®¾ç½®typ mapping çš„å‰ææ¡ä»¶æ˜¯index å­˜åœ¨
+     * @param _index
+     * @param _type
+     * @param mapping
+     * @return
+     */
+    public boolean setIndexTypeMapping(String _index, String _type, String mapping) {
+
+        boolean existIndex = esClientFactory.getClient().admin().indices().prepareExists(_index).get().isExists();
+        if(!existIndex){
+            boolean createSuc = esClientFactory.getClient().admin().indices().prepareCreate(_index).get().isAcknowledged();
+            if(!createSuc){
+                return false;
+            }
+        }
+        return esClientFactory.getClient().admin().indices().preparePutMapping(_index).setType(_type).setSource(mapping).get().isAcknowledged();
+    }
+
+    public <T> EsSearchResult<T> search(String _index, String _type, Class<T> t, int from, int size, QueryBuilder queryBuilders, SortBuilder... sortBuilders) {
+
+        SearchRequestBuilder searchRequestBuilder = esClientFactory.getClient().prepareSearch()
+                .setIndices(_index)
+                .setTypes(_type)
+                .setFrom(from)
+                .setSize(size)
+                .setQuery(queryBuilders);
+        for (SortBuilder sortBuilder : sortBuilders) {
+            searchRequestBuilder.addSort(sortBuilder);
+        }
+
+        SearchResponse searchResponse = searchRequestBuilder.execute().actionGet();
+        List<T> tList = new ArrayList<T>(searchResponse.getHits().getHits().length);
+        for (SearchHit hit : searchResponse.getHits().getHits()) {
+            tList.add(JSONObject.parseObject(hit.getSourceAsString(), t));
+        }
+
+        EsSearchResult<T> searchResult = new EsSearchResult<T>();
+        searchResult.setResults(tList);
+        return searchResult;
+    }
+
+    public <T> T searchById(String _index, String _type, String _id, Class<T> t) {
+        GetResponse response = esClientFactory.getClient().prepareGet(_index, _type, _id)
+                .setOperationThreaded(false)
+                .get();
+        if (response.isExists()) {
+            return JSONObject.parseObject(response.getSourceAsString(), t);
+        } else {
+            return null;
+        }
+    }
+
+}
