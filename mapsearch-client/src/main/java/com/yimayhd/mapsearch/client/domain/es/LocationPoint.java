@@ -1,12 +1,14 @@
 package com.yimayhd.mapsearch.client.domain.es;
 
+import java.io.Serializable;
+
 /**
  * LocationPoint
  *
  * @author lilin
  * @date 16/9/28
  */
-public class LocationPoint {
+public class LocationPoint implements Serializable{
     private double lat;
     private double lon;
 

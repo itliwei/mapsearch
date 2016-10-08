@@ -67,7 +67,7 @@ public class CarServiceImplTest {
         stopWatch.start();
         while (true) {
             List<CarVo> carList = new ArrayList<CarVo>(10000);
-            for (int i = 1; i <= 20000; i++) {
+            for (int i = 1; i <= 10000; i++) {
                 CarVo carVo = new CarVo();
                 carVo.setId(i);
                 carVo.setTitle("测试测量" + i);

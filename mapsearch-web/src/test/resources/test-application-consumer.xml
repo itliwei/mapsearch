@@ -27,6 +27,7 @@
 			id="carService"
 			interface="com.yimayhd.mapsearch.client.service.CarService"
 			url="dubbo://127.0.0.1:20880"
+			timeout="1200000"
 			version="1.0.0.test" />
 
 	<!--<bean id="liveRecordHttpService" class="com.alibaba.dubbo.config.spring.ReferenceBean">
