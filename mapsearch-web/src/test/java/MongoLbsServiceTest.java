@@ -1,7 +1,5 @@
 import com.alibaba.fastjson.JSON;
-import com.yimayhd.mapsearch.client.domain.mongo.Person;
-import com.yimayhd.mapsearch.client.domain.mongo.PersonQuery;
-import com.yimayhd.mapsearch.client.domain.mongo.PersonResult;
+import com.yimayhd.mapsearch.client.domain.mongo.*;
 import com.yimayhd.mapsearch.client.service.MongoLbsService;
 
 import org.junit.Test;
@@ -9,8 +7,15 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Random;
 
 /**
  * User : jianjun.xu
@@ -23,6 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		locations = {"classpath:test-application-consumer.xml"})
 public class MongoLbsServiceTest {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MongoLbsServiceTest.class);
+
 	@Autowired
 	private MongoLbsService mongoLbsService;
 
@@ -40,8 +46,14 @@ public class MongoLbsServiceTest {
 		printResult(personList, "testGetPersonNearList");
 	}
 
+	@Test
+	public void testUpdatePersonList(){
+		UpdatePersonDTO updatePersonDTO = new UpdatePersonDTO();
+		updatePersonDTO.setCount(2000);
+		UpdatePersonResult uypdatePersonResult = mongoLbsService.batchUpdatePerson(updatePersonDTO);
 
-
+		printResult(uypdatePersonResult, "testGetPersonNearList");
+	}
 
 
 	/**

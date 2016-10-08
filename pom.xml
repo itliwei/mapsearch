@@ -28,7 +28,7 @@
 		<com.version>0.0.6-SNAPSHOT</com.version>
 		<spring.version>4.2.6.RELEASE</spring.version>
 		<mybatis.version>3.2.8</mybatis.version>
-		<log4j-version>1.2.9</log4j-version>
+		<log4j-version>1.2.17</log4j-version>
 		<commons-lang3_version>3.3.1</commons-lang3_version>
 		<tradecenter.version>1.0.0-SNAPSHOT</tradecenter.version>
 		<logback.version>1.1.1</logback.version>
@@ -40,9 +40,15 @@
 
 		<spring.data.mongodb>1.9.2.RELEASE</spring.data.mongodb>
 		<mongodb.java.driver>3.2.2</mongodb.java.driver>
+		<es.version>2.4.0</es.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.elasticsearch</groupId>
+				<artifactId>elasticsearch</artifactId>
+				<version>${es.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.apache.poi</groupId>
 				<artifactId>poi</artifactId>

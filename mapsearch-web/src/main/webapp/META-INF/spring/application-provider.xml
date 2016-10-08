@@ -12,7 +12,7 @@
         <property name="application" ref="dubboApplicationConfig"/>
         <property name="registry" ref="dubboRegistryConfig"/>
         <property name="timeout" value="${zk.timeout}"/>
-        <property name="version" value="${ms.provider.dubbo.version}"/>
-        <property name="retries" value="${ms.provider.dubbo.retries}"/>
+        <property name="version" value="${tm.provider.dubbo.version}"/>
+        <property name="retries" value="${tm.provider.dubbo.retries}"/>
     </bean>
 </beans>
