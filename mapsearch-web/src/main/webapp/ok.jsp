@@ -6,16 +6,16 @@
 
 <%
 
-	WebApplicationContext wac = WebApplicationContextUtils.getWebApplicationContext(request.getServletContext());
-	UserService userService = (UserService) wac.getBean("userServiceRef");
-	int code = 0;
-	if (userService == null) {
-		code = -1;
-	}
-	PrintWriter write = response.getWriter() ;
-	write.println(code);
-	write.flush();
-	write.close();
+    WebApplicationContext wac = WebApplicationContextUtils.getWebApplicationContext(request.getServletContext());
+    UserService userService = (UserService) wac.getBean("userService");
+    int code = 0;
+    if (userService == null) {
+        code = -1;
+    }
+    PrintWriter write = response.getWriter() ;
+    write.println(code);
+    write.flush();
+    write.close();
 
 
 %>

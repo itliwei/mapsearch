@@ -1,11 +1,13 @@
 package com.yimayhd.mapsearch.client.domain.mongo;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/9/30.
  */
-public class PersonResult {
+public class PersonResult implements Serializable {
+    private static final long serialVersionUID = 1l;
     /**
      * 查询条件
      */
