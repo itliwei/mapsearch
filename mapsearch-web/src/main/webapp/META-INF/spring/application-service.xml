@@ -11,4 +11,6 @@
 	<context:annotation-config />
 
     <bean id="mongoLbsService" class="com.yimayhd.mapsearch.service.impl.MongoLbsServiceImpl" />
+
+    <bean id="carService" class="com.yimayhd.mapsearch.service.impl.CarServiceImpl" />
 </beans>

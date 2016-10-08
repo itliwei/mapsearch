@@ -23,6 +23,12 @@
 			version="1.0.0.test" />
 
 
+	<dubbo:reference
+			id="carService"
+			interface="com.yimayhd.mapsearch.client.service.CarService"
+			url="dubbo://127.0.0.1:20880"
+			version="1.0.0.test" />
+
 	<!--<bean id="liveRecordHttpService" class="com.alibaba.dubbo.config.spring.ReferenceBean">
 		<property name="interface" value="com.yimayhd.trademanager.api.LiveRecordHttpService"/>
 		<property name="application" ref="dubboApplicationConfig"/>
