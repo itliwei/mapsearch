@@ -43,20 +43,28 @@ public class CarServiceImplTest {
 
     @Test
     public void bulkInsertTest() {
-        List<CarVo> carList = new ArrayList<CarVo>(10000);
-        for (int i = 10000; i <= 100000; i++) {
-            CarVo carVo = new CarVo();
-            carVo.setId(i);
-            carVo.setTitle("测试测量" + i);
-            carVo.setRegisterDate(new Date());
-            carVo.setOnline(i%2);
-            double[] bigDecimals = randomLonLat(minLon, maxLon, minLat, maxLat);
-            LocationPoint locationPoint = new LocationPoint(bigDecimals[0], bigDecimals[1]);
-            carVo.setLocationPoint(locationPoint);
-            carList.add(carVo);
+        int currentTime = 0;
+        final int runTime = 100;
+        final int perSize = 10000;
+        List<CarVo> carList = new ArrayList<CarVo>(perSize);
+        while (currentTime < runTime) {
+            for (int i = currentTime * perSize; i < (currentTime + 1) * perSize; i++) {
+                CarVo carVo = new CarVo();
+                carVo.setId(i);
+                carVo.setTitle("测试测量" + i);
+                carVo.setRegisterDate(new Date());
+                carVo.setOnline(i % 2);
+                double[] bigDecimals = randomLonLat(minLon, maxLon, minLat, maxLat);
+                LocationPoint locationPoint = new LocationPoint(bigDecimals[0], bigDecimals[1]);
+                carVo.setLocationPoint(locationPoint);
+                carList.add(carVo);
+
+            }
+            boolean result = carService.bulkIndex(carList);
+            assertTrue(result);
+            carList.clear();
+            currentTime++;
         }
-        boolean result = carService.bulkIndex(carList);
-        assertTrue(result);
 
     }
 
@@ -84,7 +92,6 @@ public class CarServiceImplTest {
             assertTrue(result);
             System.out.println("消耗时间" + stopWatch.getTime() + "ms");
 
-
             try {
                 Thread.sleep(100l);
             } catch (InterruptedException e) {
@@ -92,7 +99,6 @@ public class CarServiceImplTest {
             }
 
         }
-
     }
 
 
@@ -110,9 +116,11 @@ public class CarServiceImplTest {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setPageNo(1);
         pageQuery.setPageSize(20);
-        List<CarVo> carVos = carService.searchByGeoDistance(39.828952, 116.390549,10d,pageQuery);
-
-        System.out.println("结果为" + carVos.size());
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        List<CarVo> carVos = carService.searchByGeoDistance(39.828952, 116.390549, 10d, pageQuery);
+        stopWatch.stop();
+        System.out.println("结果为" + carVos.size() + "耗时：" + stopWatch.getTime());
         System.out.println(JSONObject.toJSONString(carVos));
     }
 
@@ -146,7 +154,7 @@ public class CarServiceImplTest {
 
 
     @Test
-    public void getById(){
+    public void getById() {
         CarVo carVo = carService.searchById(1);
         assertNotNull(carVo);
     }

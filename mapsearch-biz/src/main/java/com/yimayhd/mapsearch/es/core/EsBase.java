@@ -89,25 +89,6 @@ public abstract class EsBase {
         return !bulkResponse.hasFailures();
     }
 
-    /**
-     * 设置typ mapping 的前提条件是index 存在
-     * @param _index
-     * @param _type
-     * @param mapping
-     * @return
-     */
-    public boolean setIndexTypeMapping(String _index, String _type, String mapping) {
-
-        boolean existIndex = esClientFactory.getClient().admin().indices().prepareExists(_index).get().isExists();
-        if(!existIndex){
-            boolean createSuc = esClientFactory.getClient().admin().indices().prepareCreate(_index).get().isAcknowledged();
-            if(!createSuc){
-                return false;
-            }
-        }
-        return esClientFactory.getClient().admin().indices().preparePutMapping(_index).setType(_type).setSource(mapping).get().isAcknowledged();
-    }
-
     public <T> EsSearchResult<T> search(String _index, String _type, Class<T> t, int from, int size, QueryBuilder queryBuilders, SortBuilder... sortBuilders) {
 
         SearchRequestBuilder searchRequestBuilder = esClientFactory.getClient().prepareSearch()
@@ -141,5 +122,7 @@ public abstract class EsBase {
             return null;
         }
     }
+
+
 
 }

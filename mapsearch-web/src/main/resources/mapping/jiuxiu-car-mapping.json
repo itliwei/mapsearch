@@ -1,0 +1,21 @@
+{
+  "car":{
+    "properties":{
+      "id":{
+        "type":"long"
+      },
+      "locationPoint":{
+        "type":"geo_point"
+      },
+      "online":{
+        "type":"integer"
+      },
+      "registerDate":{
+        "type":"long"
+      },
+      "title":{
+        "type":"string"
+      }
+    }
+  }
+}
