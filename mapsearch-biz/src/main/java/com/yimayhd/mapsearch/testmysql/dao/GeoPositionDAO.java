@@ -16,4 +16,7 @@ public interface GeoPositionDAO {
     									@Param("maxLat") double maxLat,
     									@Param("minLng") double minLng,
     									@Param("maxLng") double maxLng);
+
+    //附近检索
+	public List<GeoPosition> nearSearch(double lat, double lng,double radius);
 }

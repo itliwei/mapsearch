@@ -61,6 +61,8 @@ public class GeoPosition {
 		this.lat = lat;
 		this.lng = lng;
 	}
+	
+	//
 
 	@Override
 	public String toString() {

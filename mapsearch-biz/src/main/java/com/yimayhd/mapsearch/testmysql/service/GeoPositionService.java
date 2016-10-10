@@ -11,6 +11,13 @@ import com.yimayhd.mapsearch.testmysql.dao.GeoPositionDAO;
 import com.yimayhd.mapsearch.testmysql.model.GeoPosition;
 import com.yimayhd.mapsearch.testmysql.utils.GpsUtil;
 
+/**
+ * mysql版本的地理位置检索
+ * 
+ * @author gaotingping
+ *
+ * 2016年10月10日 下午3:19:28
+ */
 public class GeoPositionService {
 
 	@Autowired
@@ -29,11 +36,12 @@ public class GeoPositionService {
 	}
 
 	/**
-	 * 附近检索:算距离，并且按照由远到近排序
+	 * 附近检索:算距离，并且按照由近到远排序
 	 * 
-	 * @author gaotingping
-	 * 2016年10月10日
-	 *
+	 * 查询出所有满足条件的点，然后计算距离,再去tomN最近的点
+	 * 这有个问题:就是当满足条件的点特别多的时候，这个方便就特
+	 * 别不现实了，所以实际应用中，还是需要mysql来算这个距离的
+	 * 
 	 * @param lat
 	 * @param lng
 	 * @param radius
@@ -56,13 +64,17 @@ public class GeoPositionService {
 		}
 		return null;
 	}
+	
+	//附近搜索:距离的计算，给mysql完成
+	public List<GeoPosition> nearSearchTopN(double lat, double lng, double radius){
+		return geoPositionDAO.nearSearch(lat,lng,radius);
+	}
 
 	/**
 	 * 区域检索:只查询，不计算距离
+	 * 这适用拿符合条件的数据点去展示
+	 * 如将附近的车都标注到地图上
 	 * 
-	 * @author gaotingping
-	 * 2016年10月10日
-	 *
 	 * @param lat
 	 * @param lng
 	 * @param radius

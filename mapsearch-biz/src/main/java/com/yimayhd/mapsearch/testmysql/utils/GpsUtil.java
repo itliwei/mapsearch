@@ -44,10 +44,10 @@ public class GpsUtil {
 	 * @param lonB
 	 * @return
 	 */
-	public static double getDistance(double latA, double lonA, double latB, double lonB) {
+	public static long getDistance(double latA, double lonA, double latB, double lonB) {
 		double lonDistance = Math.abs((lonA - lonB) * Math.cos(Math.toRadians(latA)) * CONVERSION_UNIT_LAT);
 		double latDistance = Math.abs((latA - latB) * CONVERSION_UNIT_LAT);
 		double distance = Math.sqrt(lonDistance * lonDistance + latDistance * latDistance);
-		return distance;
+		return Math.round(distance);
 	}
 }

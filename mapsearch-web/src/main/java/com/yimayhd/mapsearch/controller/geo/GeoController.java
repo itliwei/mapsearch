@@ -5,6 +5,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
@@ -29,11 +30,20 @@ public class GeoController {
  
 	//查询
 	@ResponseBody
-    @RequestMapping(value="/query")
+    @RequestMapping(value="/query",method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	public String testQuery(){
 		Random r=new Random();
 		double t = (double)r.nextInt(100000)/100000;
 		return JSON.toJSONString(geoPositionService.nearSearch(lat+t, lng+t,(double)r.nextInt(1000)));
+	}
+	
+	//查询
+	@ResponseBody
+	@RequestMapping(value = "/queryTopN", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
+	public String testQueryTopN() {
+		Random r = new Random();
+		double t = (double) r.nextInt(100000) / 100000;
+		return JSON.toJSONString(geoPositionService.nearSearchTopN(lat + t, lng + t, (double) r.nextInt(10000)));
 	}
 	
 	//随机插入个点
