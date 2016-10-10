@@ -13,4 +13,6 @@
     <bean id="mongoLbsService" class="com.yimayhd.mapsearch.service.impl.MongoLbsServiceImpl" />
 
     <bean id="carService" class="com.yimayhd.mapsearch.service.impl.CarServiceImpl" />
+    
+    <bean id="geoPositionService" class="com.yimayhd.mapsearch.testmysql.service.GeoPositionService"/>
 </beans>

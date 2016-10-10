@@ -52,7 +52,8 @@ public class EsClientFactory {
 
 
     public void mappingForIndexs(){
-        Path mappingPath = Paths.get(EsClientFactory.class.getResource("/").getPath() + "/mapping");
+        //Path mappingPath = Paths.get(EsClientFactory.class.getResource("/").getPath() + "/mapping");
+    	Path mappingPath = Paths.get("/mapping");
         try {
             Files.walkFileTree(mappingPath, new SimpleFileVisitor<Path>() {
                 @Override

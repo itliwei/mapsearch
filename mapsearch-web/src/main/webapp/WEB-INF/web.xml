@@ -49,7 +49,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>springMvc</servlet-name>
-        <url-pattern>*.htm</url-pattern>
+         <url-pattern>*.htm</url-pattern>
     </servlet-mapping>
 
 
