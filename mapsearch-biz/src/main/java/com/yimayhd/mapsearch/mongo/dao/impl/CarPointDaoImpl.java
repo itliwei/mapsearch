@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 
-@Component("workerDao")
+@Component("carPointDao")
 public class CarPointDaoImpl extends BaseDaoImpl<CarPoint> implements CarPointDao{
 	private static final Logger logger = Logger.getLogger(CarPointDaoImpl.class);
     @Autowired
