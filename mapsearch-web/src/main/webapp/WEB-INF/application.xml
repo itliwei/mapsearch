@@ -14,6 +14,8 @@
 	<import resource="../META-INF/spring/application-tair.xml"/>
 	<!--<import resource="../META-INF/spring/application-consumer.xml" />-->
 	<import resource="../META-INF/spring/application-manager.xml" />
+	<!--<import resource="../META-INF/spring/application-tair.xml"/>
+	<import resource="../META-INF/spring/application-consumer.xml" />-->
 	<import resource="../META-INF/spring/application-service.xml" />
 	<import resource="../META-INF/spring/application-provider.xml" />
 	<!--<import resource="../META-INF/spring/application-mq.xml" />

@@ -51,7 +51,7 @@ public class EncodeUtil {
         return null;
     }
     public static void main(String[] args) {
-        String a = "今天走了{stepCount}步，将获得{sliverCount}健康点奖励（次日发放）";
+        String a = " 今天走了{stepCount}步，将获得{sliverCount}健康点奖励（次日发放）";
         StringBuilder stringBuilder = new StringBuilder();
         for (int i=0;i<a.length();i++) {
             stringBuilder.append("\\u").append(

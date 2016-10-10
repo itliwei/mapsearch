@@ -17,10 +17,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * User : jianjun.xu
- * Date : 2016/9/6
- * Time : 15:50
- * Desc :
+ *
  */
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @ContextConfiguration(

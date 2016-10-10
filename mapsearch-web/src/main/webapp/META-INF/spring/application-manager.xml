@@ -7,16 +7,17 @@
 	<context:annotation-config />
 
 	<bean id="carPointDao" class="com.yimayhd.mapsearch.mongo.dao.impl.CarPointDaoImpl"/>
+
 	<bean id="carRoadDao" class="com.yimayhd.mapsearch.mongo.dao.impl.CarRoadDaoImpl"/>
 
-	<bean id="tempCacheManager" class="com.yimayhd.mapsearch.tair.CacheManager">
+	<!--<bean id="tempCacheManager" class="com.yimayhd.mapsearch.tair.CacheManager">
 		<property name="tairManager" ref="tempDefaultTairManager"/>
 		<property name="namespace" value="${tair.namespace}"/>
 	</bean>
 	<bean id="persistenceCacheManager" class="com.yimayhd.mapsearch.tair.CacheManager">
 		<property name="tairManager" ref="persistenceDefaultTairManager"/>
 		<property name="namespace" value="${tair.namespace}"/>
-	</bean>
+	</bean>-->
 	
 	<!-- ==================   tair end    ==================== -->
 

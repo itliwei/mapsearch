@@ -379,7 +379,7 @@
 
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
-				<artifactId>httpasyncclient</artifactId>
+				<artifactId>httpclient</artifactId>
 				<version>4.0.1</version>
 			</dependency>
 
