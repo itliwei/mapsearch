@@ -52,6 +52,7 @@ public class EsClientFactory {
 
 
     public void mappingForIndexs(){
+
         String filePath = EsClientFactory.class.getResource("/").getPath() + "/mapping";
         String osAppropriatePath = System.getProperty( "os.name" ).contains( "indow" ) ? filePath.substring(1) : filePath;
         Path mappingPath = Paths.get(osAppropriatePath);

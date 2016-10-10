@@ -11,9 +11,11 @@
 
 	<import resource="../META-INF/spring/application-common.xml" />
 	<!--<import resource="../META-INF/spring/application-persistance.xml" />-->
+	<import resource="../META-INF/spring/application-tair.xml"/>
+	<!--<import resource="../META-INF/spring/application-consumer.xml" />-->
+	<import resource="../META-INF/spring/application-manager.xml" />
 	<!--<import resource="../META-INF/spring/application-tair.xml"/>
 	<import resource="../META-INF/spring/application-consumer.xml" />-->
-	<import resource="../META-INF/spring/application-manager.xml" />
 	<import resource="../META-INF/spring/application-service.xml" />
 	<import resource="../META-INF/spring/application-provider.xml" />
 	<!--<import resource="../META-INF/spring/application-mq.xml" />
@@ -22,5 +24,6 @@
 	<import resource="../META-INF/spring/application-export-api.xml"/>-->
 	<import resource="../META-INF/spring/application-mongo.xml" />
 	<import resource="../META-INF/spring/application-es.xml" />
+	<import resource="../META-INF/spring/application-dal.xml" />
 
 </beans>

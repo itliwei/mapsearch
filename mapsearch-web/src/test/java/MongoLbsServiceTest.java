@@ -72,7 +72,7 @@ public class MongoLbsServiceTest {
 			personQuery.setLongitude(arr[0]);
 			personQuery.setLatitude(arr[1]);
 			CarPointNearResult personList = mongoLbsService.geoNear(personQuery);
-			LOGGER.info("**************************   数量：" +count +" 范围："+count/100 );
+			LOGGER.info("**************************   数量：" +count +" 范围："+count/100 +JSON.toJSONString(personList));
 //			printResult(personList, "testGetPersonNearList");
 		}
 	}
