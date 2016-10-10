@@ -1,6 +1,5 @@
 package com.yimayhd.mapsearch.controller.geo;
 
-import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.yimayhd.mapsearch.testmysql.model.GeoPosition;
 import com.yimayhd.mapsearch.testmysql.service.GeoPositionService;
 
@@ -30,10 +30,10 @@ public class GeoController {
 	//查询
 	@ResponseBody
     @RequestMapping(value="/query")
-	public List<GeoPosition> testQuery(){
+	public String testQuery(){
 		Random r=new Random();
 		double t = (double)r.nextInt(100000)/100000;
-		return geoPositionService.nearSearch(lat+t, lng+t,(double)r.nextInt(1000));
+		return JSON.toJSONString(geoPositionService.nearSearch(lat+t, lng+t,(double)r.nextInt(1000)));
 	}
 	
 	//随机插入个点
