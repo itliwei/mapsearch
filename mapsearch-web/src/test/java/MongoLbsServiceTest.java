@@ -39,27 +39,26 @@ public class MongoLbsServiceTest {
 
 		long t1 = System.currentTimeMillis();
 		Random random = new Random();
-		List<Person> list = new ArrayList<Person>();
+		List<CarPoint> list = new ArrayList<CarPoint>();
 
 
 		for(int i = 0;i<100;i++){
-			Person person =new Person();
+			CarPoint carPoint =new CarPoint();
 			int nextInt = random.nextInt(50)+20;
 
 			double[] arr = MongoUtil.getRandomLocation();
-
-			person.setAge(nextInt);
-			person.setLongitude(arr[0]);
-			person.setLatitude(arr[1]);
-			person.setLocation(arr);
-			person.setName("user"+i);
-			list.add(person);
+			carPoint.setCarId("car"+i);
+			carPoint.setTime(System.currentTimeMillis()+"");
+			carPoint.setStatus(1);
+			carPoint.setLongitude(arr[0]);
+			carPoint.setLatitude(arr[1]);
+			carPoint.setLocation(arr);
+			list.add(carPoint);
 		}
-		PersonListDO personListDO = new PersonListDO();
-		personListDO.setPersonList(list);
-		mongoLbsService.batchInsert(personListDO);
+
+		int count = mongoLbsService.batchInsertCarPoint(list);
 		long t2 = System.currentTimeMillis();
-		System.out.println("耗时:"+(t2-t1)+" 记录数"+list.size());
+		System.out.println("耗时:"+(t2-t1)+" 记录数"+count);
 
 	}
 
@@ -75,20 +74,13 @@ public class MongoLbsServiceTest {
 			personQuery.setDistance(count/10);
 			personQuery.setLongitude(arr[0]);
 			personQuery.setLatitude(arr[1]);
-			CarPointNearResult personList = mongoLbsService.getPersonList(personQuery);
+			CarPointNearResult personList = mongoLbsService.geoNear(personQuery);
 			LOGGER.info("**************************   数量：" +count +" 范围："+count/100 +JSON.toJSONString(personList));
 //			printResult(personList, "testGetPersonNearList");
 		}
 	}
 
-	@Test
-	public void testUpdatePersonList(){
-		UpdatePersonDTO updatePersonDTO = new UpdatePersonDTO();
-		updatePersonDTO.setCount(2000);
-		UpdatePersonResult uypdatePersonResult = mongoLbsService.batchUpdatePerson(updatePersonDTO);
 
-		printResult(uypdatePersonResult, "testGetPersonNearList");
-	}
 
 	@Test
 	public void testGetDistance() throws IOException {

@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
 
-@Component("carRoadDao")
 public class CarRoadDaoImpl extends BaseDaoImpl<CarPoint> implements CarPointDao{
 	private static final Logger logger = Logger.getLogger(CarRoadDaoImpl.class);
     @Autowired

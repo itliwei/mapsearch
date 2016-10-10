@@ -6,6 +6,8 @@
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 	<context:annotation-config />
 
+	<bean id="carPointDao" class="com.yimayhd.mapsearch.mongo.dao.impl.CarPointDaoImpl"/>
+	<bean id="carRoadDao" class="com.yimayhd.mapsearch.mongo.dao.impl.CarRoadDaoImpl"/>
 
 	<bean id="tempCacheManager" class="com.yimayhd.mapsearch.tair.CacheManager">
 		<property name="tairManager" ref="tempDefaultTairManager"/>
