@@ -52,7 +52,9 @@ public class EsClientFactory {
 
 
     public void mappingForIndexs(){
-        Path mappingPath = Paths.get(EsClientFactory.class.getResource("/").getPath() + "/mapping");
+        String filePath = EsClientFactory.class.getResource("/").getPath() + "/mapping";
+        String osAppropriatePath = System.getProperty( "os.name" ).contains( "indow" ) ? filePath.substring(1) : filePath;
+        Path mappingPath = Paths.get(osAppropriatePath);
         try {
             Files.walkFileTree(mappingPath, new SimpleFileVisitor<Path>() {
                 @Override
