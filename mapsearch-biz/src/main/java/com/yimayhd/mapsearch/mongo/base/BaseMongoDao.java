@@ -42,7 +42,7 @@ import org.springframework.data.mongodb.core.query.Update;
 	 * @param update
 	 * @return
 	 */
-	 void findAndModify(Query query, Update update, String collectionName) ;
+	 T findAndModify(Query query, Update update, String collectionName) ;
 	
 	/**
 	 * 通过条件查询更新数据
@@ -51,7 +51,7 @@ import org.springframework.data.mongodb.core.query.Update;
 	 * @param collectionName
 	 * @return
 	 */
-	 void findAndRemove(Query query, String collectionName) ;
+	 List<T> findAndRemove(Query query, String collectionName) ;
 	
 	/**
 	 * 保存一个对象到mongodb

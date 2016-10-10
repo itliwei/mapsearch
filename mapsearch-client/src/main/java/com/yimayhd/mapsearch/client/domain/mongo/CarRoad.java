@@ -8,9 +8,8 @@ import java.io.Serializable;
  */
 public class CarRoad implements Serializable{
     private static final long serialVersionUID = 1l;
+    //carId
     String id;
-    //车ID
-    String carId;
     //位置
     String locations;
     //时间
@@ -52,14 +51,6 @@ public class CarRoad implements Serializable{
 
     public void setLocations(String locations) {
         this.locations = locations;
-    }
-
-    public String getCarId() {
-        return carId;
-    }
-
-    public void setCarId(String carId) {
-        this.carId = carId;
     }
 
     public String getId() {

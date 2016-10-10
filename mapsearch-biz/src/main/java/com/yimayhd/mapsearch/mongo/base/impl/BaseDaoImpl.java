@@ -39,7 +39,8 @@ public  class BaseDaoImpl<T> implements BaseMongoDao<T> {
 	/**
 	 * 通过条件查询实体(集合)
 	 * 
-	 * @param query
+	 * @param query Query
+	 * @param collectionName String
 	 */
 	public List<T> find(Query query,String collectionName) {
 		return mongoTemplate.find(query, entityClass,collectionName);
@@ -72,8 +73,8 @@ public  class BaseDaoImpl<T> implements BaseMongoDao<T> {
 	 * @param update
 	 * @return
 	 */
-	public void findAndModify(Query query, Update update,String collectionName) {
-		mongoTemplate.findAndModify(query, update, entityClass,collectionName);
+	public T findAndModify(Query query, Update update,String collectionName) {
+		return  mongoTemplate.findAndModify(query, update, entityClass, collectionName);
 	}
 
 	/**
@@ -84,13 +85,12 @@ public  class BaseDaoImpl<T> implements BaseMongoDao<T> {
 	 * @return
 	 */
 	@Override
-	public void findAndRemove(Query query, String collectionName) {
-		// TODO Auto-generated method stub
-		mongoTemplate.findAllAndRemove(query, entityClass, collectionName);
+	public List<T> findAndRemove(Query query, String collectionName) {
+		return  mongoTemplate.findAllAndRemove(query, entityClass, collectionName);
 	}
 
 	/**
-	 * 保存一个对象到mongodb
+	 * 插入一个对象到mongodb
 	 *
 	 * @param bean
 	 * @return
@@ -114,8 +114,7 @@ public  class BaseDaoImpl<T> implements BaseMongoDao<T> {
 		return batchToSave.size();
 	}
 	/**
-	 * 保存一个对象到mongodb
-	 * 
+	 * 保存一个对象到mongodb,如果ID一致则更新
 	 * @param bean
 	 * @return
 	 */

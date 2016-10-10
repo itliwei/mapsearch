@@ -17,6 +17,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.data.mongodb.core.index.IndexInfo;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 
@@ -56,6 +57,13 @@ public class MongoLbsServiceImpl implements MongoLbsService {
     }
 
     @Override
+    public List<CarPoint> queryTopN(int count) {
+        Query query = new Query();
+        query.limit(count);
+        return mongoTemplate.find(query,CarPoint.class,"carPoint");
+    }
+
+    @Override
     public int saveCarPoint(CarPoint carPoint) {
         if (carPoint == null ){
             logger.error("saveCarRoad 参数异常");
@@ -70,8 +78,7 @@ public class MongoLbsServiceImpl implements MongoLbsService {
             logger.error("saveCarRoad 参数异常");
             DubboExtProperty.setErrorCode(ReturnCode.PARAMETER_ERROR);
         }
-        carRoadDao.save(carRoad,"carRoad");
-        return 0;
+        return  carRoadDao.save(carRoad,"carRoad");
     }
 
     @Override

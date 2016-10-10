@@ -17,6 +17,13 @@ public interface MongoLbsService {
     int batchInsertCarPoint(List<CarPoint> carPointList);
 
     /**
+     * 查询多条记录
+     * @param count int
+     * @return List<CarPoint>
+     */
+    List<CarPoint> queryTopN(int count);
+
+    /**
      * 插入单个carPoint
      * @param carPoint CarPoint
      * @return int
@@ -25,7 +32,7 @@ public interface MongoLbsService {
 
     /**
      * 插入单个carRoad信息
-     * @param carRoad
+     * @param carRoad CarRoad
      * @return
      */
     int saveCarRoad(CarRoad carRoad);
@@ -36,5 +43,9 @@ public interface MongoLbsService {
      * @return List<CarPoint>
      */
     CarPointNearResult geoNear(CarPointNearQuery carPointNearQuery);
+
+
+
+
 
 }
