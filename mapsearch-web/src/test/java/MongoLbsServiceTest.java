@@ -39,7 +39,7 @@ public class MongoLbsServiceTest {
 		List<CarPoint> list = new ArrayList<CarPoint>();
 
 
-		for(int i = 0;i<100;i++){
+		for(int i = 0;i<100000;i++){
 			CarPoint carPoint =new CarPoint();
 			int nextInt = random.nextInt(50)+20;
 
@@ -72,7 +72,7 @@ public class MongoLbsServiceTest {
 			personQuery.setLongitude(arr[0]);
 			personQuery.setLatitude(arr[1]);
 			CarPointNearResult personList = mongoLbsService.geoNear(personQuery);
-			LOGGER.info("**************************   数量：" +count +" 范围："+count/100 +JSON.toJSONString(personList));
+			LOGGER.info("**************************   数量：" +count +" 范围："+count/100 );
 //			printResult(personList, "testGetPersonNearList");
 		}
 	}
