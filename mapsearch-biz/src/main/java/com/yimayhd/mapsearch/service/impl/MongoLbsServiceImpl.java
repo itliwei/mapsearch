@@ -2,9 +2,12 @@ package com.yimayhd.mapsearch.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.yimayhd.mapsearch.client.domain.mongo.*;
+import com.yimayhd.mapsearch.client.enums.ErrorCode;
+import com.yimayhd.mapsearch.client.errorcode.ReturnCode;
 import com.yimayhd.mapsearch.client.service.MongoLbsService;
-import com.yimayhd.mapsearch.util.MongoUtil;
-import org.apache.commons.lang3.StringUtils;
+import com.yimayhd.mapsearch.mongo.dao.CarPointDao;
+import com.yimayhd.mapsearch.mongo.dao.CarRoadDao;
+import net.pocrd.dubboext.DubboExtProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,6 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -37,74 +39,84 @@ public class MongoLbsServiceImpl implements MongoLbsService {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    @Override
-    public UpdatePersonResult batchUpdatePerson(UpdatePersonDTO updatePersonDTO) {
-        UpdatePersonResult updatePersonResult = new UpdatePersonResult();
-        Query query = new Query();
-        query.limit(updatePersonDTO.getCount());
-        List<Person> findList = mongoTemplate.find(query, Person.class, "person");
+    @Autowired
+    CarPointDao carPointDao;
 
-        long t1 = System.currentTimeMillis();
-        for(Person p : findList){
-            double[] arr = MongoUtil.getRandomLocation();
-            p.setLongitude(arr[0]);
-            p.setLatitude(arr[1]);
-            p.setLocation(arr);
-            mongoTemplate.save(p, "person");
+    @Autowired
+    CarRoadDao carRoadDao;
+
+
+    @Override
+    public int batchInsertCarPoint(List<CarPoint> carPointList) {
+        if (carPointList == null || carPointList.size() == 0 ){
+            logger.error("saveCarRoad 参数异常");
+            DubboExtProperty.setErrorCode(ReturnCode.PARAMETER_ERROR);
         }
-        long t2 = System.currentTimeMillis();
-        updatePersonResult.setCount(findList.size());
-        updatePersonResult.setCostTime(t2-t1);
-        return updatePersonResult;
+        return carPointDao.batchInsert(carPointList,"carPoint");
     }
 
     @Override
-    public PersonResult getPersonList(PersonQuery personQuery) {
+    public int saveCarPoint(CarPoint carPoint) {
+        if (carPoint == null ){
+            logger.error("saveCarRoad 参数异常");
+            DubboExtProperty.setErrorCode(ReturnCode.PARAMETER_ERROR);
+        }
+        return carPointDao.save(carPoint,"carPoint");
+    }
 
+    @Override
+    public int saveCarRoad(CarRoad carRoad) {
+        if (carRoad == null ){
+            logger.error("saveCarRoad 参数异常");
+            DubboExtProperty.setErrorCode(ReturnCode.PARAMETER_ERROR);
+        }
+        carRoadDao.save(carRoad,"carRoad");
+        return 0;
+    }
+
+    @Override
+    public CarPointNearResult geoNear(CarPointNearQuery carPointNearQuery) {
+        CarPointNearResult carPointNearResult = new CarPointNearResult();
+        //判断是否有索引
+        if (carPointNearQuery == null || carPointNearQuery.getLongitude()==0.0 || carPointNearQuery.getLatitude()==0){
+            logger.error("geoNear 参数异常");
+            carPointNearResult.setErrorCode(ErrorCode.PARAM_ERROR);
+            return null;
+        }
         createIndex();
+        Point point =new Point(carPointNearQuery.getLongitude(), carPointNearQuery.getLatitude());
 
-
-        Point point =new Point(personQuery.getLongitude(), personQuery.getLatitude());
-
-        NearQuery near =NearQuery.near(point, Metrics.KILOMETERS);
+        NearQuery near = NearQuery.near(point, Metrics.KILOMETERS);
         Query query =new Query();
         //	       query.addCriteria(Criteria.where("name").is("liwei"));
-        query.limit(personQuery.getCount()==0?100:personQuery.getCount());
+        query.limit(carPointNearQuery.getCount()==0?100:carPointNearQuery.getCount());
         near.query(query);
-        near.maxDistance(new Distance(personQuery.getDistance(), Metrics.KILOMETERS));
+        near.maxDistance(new Distance(carPointNearQuery.getDistance()==0?1:carPointNearQuery.getDistance(), Metrics.KILOMETERS));
         near.spherical(true);
 
         long t1 = System.currentTimeMillis();
-        GeoResults<Person> geoResults = mongoTemplate.geoNear(near, Person.class,"person");
+        GeoResults<CarPoint> geoResults = carPointDao.geoNear(near, CarPoint.class, "carPoint");
         long t2 = System.currentTimeMillis();
         logger.info("耗时："+(t2-t1)+" 记录数"+geoResults.getContent().size());
 
+        carPointNearQuery.setCount(geoResults.getContent().size());
+        carPointNearQuery.setDistance(near.getMaxDistance().getValue());
+        carPointNearResult.setCarPointNearQuery(carPointNearQuery);
 
-        PersonResult personResult = new PersonResult();
-        personQuery.setCount(geoResults.getContent().size());
-        personQuery.setDistance(near.getMaxDistance().getValue());
-        personResult.setPersonQuery(personQuery);
-
-        List<GeoResult<Person>> geoResultsContent = geoResults.getContent();
-        List<PersonInfo> personList = new ArrayList<PersonInfo>();
-        for (GeoResult<Person> geoResult : geoResultsContent){
-            PersonInfo personInfo = new PersonInfo();
-            personInfo.setDistance(geoResult.getDistance().getValue());
-            personInfo.setPerson(geoResult.getContent());
-            personList.add(personInfo);
+        List<GeoResult<CarPoint>> geoResultsContent = geoResults.getContent();
+        List<CarPointResult> resultsList = new ArrayList<CarPointResult>();
+        for (GeoResult<CarPoint> geoResult : geoResultsContent){
+            CarPointResult carPointResult = new CarPointResult();
+            carPointResult.setDistance(geoResult.getDistance().getValue());
+            carPointResult.setCarPoint(geoResult.getContent());
+            resultsList.add(carPointResult);
         }
-        personResult.setPersonList(personList);
-        return personResult;
-    }
-
-    @Override
-    public int batchInsert(PersonListDO personListDO) {
-        mongoTemplate.insert(personListDO.getPersonList(),"person");
-        return personListDO.getPersonList().size();
+        carPointNearResult.setCarPointList(resultsList);
+        return carPointNearResult;
     }
 
     private void createIndex() {
-        IndexOperations io=mongoTemplate.indexOps("person");
+        IndexOperations io=mongoTemplate.indexOps("carPoint");
 //	     io.dropIndex("location_2dsphere");
         List<IndexInfo> indexInfoList = io.getIndexInfo();
         boolean status = false;

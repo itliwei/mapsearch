@@ -5,15 +5,15 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2016/9/30.
  */
-public class PersonQuery implements Serializable{
+public class CarPointNearQuery implements Serializable{
     private static final long serialVersionUID = 1l;
     /** 经度 （小数点后六位）*/
     private double longitude;
     /** 纬度 （小数点后六位）*/
     private double latitude;
-    /** 距离 (米)*/
+    /** 距离 (�?)*/
     private double distance;
-    /** 记录数*/
+    /** 记录�?*/
     private int count;
 
     public double getLongitude() {

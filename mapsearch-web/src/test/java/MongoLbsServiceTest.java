@@ -1,16 +1,8 @@
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.yimayhd.mapsearch.client.domain.mongo.*;
 import com.yimayhd.mapsearch.client.service.MongoLbsService;
 
 import com.yimayhd.mapsearch.util.MongoUtil;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -74,7 +66,7 @@ public class MongoLbsServiceTest {
 	@Test
 	public void testGetPersonNearList(){
 
-		PersonQuery personQuery = new PersonQuery();
+		CarPointNearQuery personQuery = new CarPointNearQuery();
 		Random random = new Random();
 		for (;;){
 			int count = random.nextInt(100);
@@ -83,7 +75,7 @@ public class MongoLbsServiceTest {
 			personQuery.setDistance(count/10);
 			personQuery.setLongitude(arr[0]);
 			personQuery.setLatitude(arr[1]);
-			PersonResult personList = mongoLbsService.getPersonList(personQuery);
+			CarPointNearResult personList = mongoLbsService.getPersonList(personQuery);
 			LOGGER.info("**************************   ÊýÁ¿£º" +count +" ·¶Î§£º"+count/100 +JSON.toJSONString(personList));
 //			printResult(personList, "testGetPersonNearList");
 		}

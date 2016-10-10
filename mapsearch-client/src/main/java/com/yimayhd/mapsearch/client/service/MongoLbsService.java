@@ -3,31 +3,38 @@ package com.yimayhd.mapsearch.client.service;
 
 import com.yimayhd.mapsearch.client.domain.mongo.*;
 
+import java.util.List;
+
 /**
  *
  */
 public interface MongoLbsService {
+    /**
+     * 批量导入carPoint
+     * @param carPointList
+     * @return int
+     */
+    int batchInsertCarPoint(List<CarPoint> carPointList);
 
     /**
-     * 获取附近的结果
-     * @param updatePersonDTO UpdatePersonDTO
-     * @return UpdatePersonResult
+     * 插入单个carPoint
+     * @param carPoint CarPoint
+     * @return int
      */
-    UpdatePersonResult batchUpdatePerson(UpdatePersonDTO updatePersonDTO);
+    int saveCarPoint(CarPoint carPoint);
 
     /**
-     * 获取附近的结果
-     * @param personQuery PersonQuery
-     * @return PersonResult
+     * 插入单个carRoad信息
+     * @param carRoad
+     * @return
      */
-    PersonResult getPersonList(PersonQuery personQuery);
+    int saveCarRoad(CarRoad carRoad);
 
     /**
-     * 批量导入
-     * @param personVO PersonListDO
-     * @return UpdatePersonResult
+     * 附近的点
+     * @param carPointNearQuery CarPointNearQuery
+     * @return List<CarPoint>
      */
-    int batchInsert(PersonListDO personVO);
-
+    CarPointNearResult geoNear(CarPointNearQuery carPointNearQuery);
 
 }

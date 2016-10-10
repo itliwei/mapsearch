@@ -83,12 +83,11 @@ public class MongoUtil {
      * @param time String
      * @param direction String
      * @param speed String
-     * @return
+     * @return String
      * @throws IOException
      */
     public static  String  getRoadLocation(String carid,String locations,String time,String direction,String speed ) throws IOException {
         HttpClient httpclient = new DefaultHttpClient();
-        long t = System.currentTimeMillis();
         long t1 = System.currentTimeMillis();
 
         HttpGet httpget = new HttpGet(
