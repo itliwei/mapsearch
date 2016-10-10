@@ -376,6 +376,13 @@
 				<artifactId>spring-data-redis</artifactId>
 				<version>1.5.2.RELEASE</version>
 			</dependency>
+
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpasyncclient</artifactId>
+				<version>4.0.1</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 	<build>

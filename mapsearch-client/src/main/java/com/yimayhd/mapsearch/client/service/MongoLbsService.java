@@ -22,5 +22,12 @@ public interface MongoLbsService {
      */
     PersonResult getPersonList(PersonQuery personQuery);
 
+    /**
+     * 批量导入
+     * @param personVO PersonListDO
+     * @return UpdatePersonResult
+     */
+    int batchInsert(PersonListDO personVO);
+
 
 }

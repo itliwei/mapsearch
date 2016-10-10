@@ -43,18 +43,13 @@ public class MongoLbsServiceImpl implements MongoLbsService {
         Query query = new Query();
         query.limit(updatePersonDTO.getCount());
         List<Person> findList = mongoTemplate.find(query, Person.class, "person");
-        Random random = new Random();
+
         long t1 = System.currentTimeMillis();
         for(Person p : findList){
-            int nextLon = random.nextInt((int) ((maxLon-minLon)*10000));
-            int nextLat = random.nextInt((int) ((maxLat-minLat)*10000));
-            double lon = MongoUtil.add(minLon, 0.00001 * nextLon);
-            double lat = MongoUtil.add(minLat, 0.00001 * nextLat);
-            double[] arr1={lon,lat};
-
-            p.setLongitude(lon);
-            p.setLatitude(lat);
-            p.setLocation(arr1);
+            double[] arr = MongoUtil.getRandomLocation();
+            p.setLongitude(arr[0]);
+            p.setLatitude(arr[1]);
+            p.setLocation(arr);
             mongoTemplate.save(p, "person");
         }
         long t2 = System.currentTimeMillis();
@@ -65,15 +60,8 @@ public class MongoLbsServiceImpl implements MongoLbsService {
 
     @Override
     public PersonResult getPersonList(PersonQuery personQuery) {
-      /*  IndexOperations io=mongoTemplate.indexOps("person");
-//	     io.dropIndex("location_2dsphere");
-	     GeospatialIndex index =new GeospatialIndex("location");
-		 index.typed(GeoSpatialIndexType.GEO_2DSPHERE);
-	     index.named("location_2dsphere");
-	     index.withBits(26);
-	     index.withMax(900);
-	     index.withMin(0);
-	     io.ensureIndex(index); */
+
+        createIndex();
 
 
         Point point =new Point(personQuery.getLongitude(), personQuery.getLatitude());
@@ -107,5 +95,33 @@ public class MongoLbsServiceImpl implements MongoLbsService {
         }
         personResult.setPersonList(personList);
         return personResult;
+    }
+
+    @Override
+    public int batchInsert(PersonListDO personListDO) {
+        mongoTemplate.insert(personListDO.getPersonList(),"person");
+        return personListDO.getPersonList().size();
+    }
+
+    private void createIndex() {
+        IndexOperations io=mongoTemplate.indexOps("person");
+//	     io.dropIndex("location_2dsphere");
+        List<IndexInfo> indexInfoList = io.getIndexInfo();
+        boolean status = false;
+        for (IndexInfo info:indexInfoList){
+            if("location_2dsphere".equals(info.getName())){
+                status = true;
+                break;
+            }
+        }
+        if (!status){
+            GeospatialIndex index =new GeospatialIndex("location");
+            index.typed(GeoSpatialIndexType.GEO_2DSPHERE);
+            index.named("location_2dsphere");
+            index.withBits(26);
+            index.withMax(900);
+            index.withMin(0);
+            io.ensureIndex(index);
+        }
     }
 }
