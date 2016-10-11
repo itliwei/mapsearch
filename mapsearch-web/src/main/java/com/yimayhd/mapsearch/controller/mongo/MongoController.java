@@ -1,12 +1,9 @@
 package com.yimayhd.mapsearch.controller.mongo;
 
 import com.alibaba.fastjson.JSON;
-import com.yimayhd.idgen.IDGenService;
 import com.yimayhd.mapsearch.client.domain.mongo.CarPoint;
 import com.yimayhd.mapsearch.client.domain.mongo.CarPointNearQuery;
 import com.yimayhd.mapsearch.client.service.MongoLbsService;
-import com.yimayhd.mapsearch.testmysql.model.GeoPosition;
-import com.yimayhd.mapsearch.testmysql.service.GeoPositionService;
 import com.yimayhd.mapsearch.util.MongoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,15 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 /**
- * 
- * @author gaotingping
- *
- * 2016年10月10日 下午1:08:34
+ * mongo测试
  */
 @Controller
 @RequestMapping("/mongo")
