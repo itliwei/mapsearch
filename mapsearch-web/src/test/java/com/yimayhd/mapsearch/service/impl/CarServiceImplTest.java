@@ -97,7 +97,6 @@ public class CarServiceImplTest {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -159,4 +158,19 @@ public class CarServiceImplTest {
         assertNotNull(carVo);
     }
 
+
+    @Test
+    public void testSearch(){
+        carService.testSearch(10d);
+    }
+
+    @Test
+    public void testUpdate(){
+        carService.testUpdateIndex();
+    }
+
+    @Test
+    public void testInit(){
+        carService.testInitIndex();
+    }
 }

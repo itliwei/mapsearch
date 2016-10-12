@@ -67,9 +67,8 @@ public abstract class EsBase {
         UpdateRequest updateRequest = new UpdateRequest(_index, _type, _id)
                 .doc(jsonStr)
                 .upsert(indexRequest);
-        UpdateResponse updateResponse;
         try {
-            updateResponse = esClientFactory.getClient().update(updateRequest).get();
+            esClientFactory.getClient().update(updateRequest).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
             return false;
@@ -77,7 +76,7 @@ public abstract class EsBase {
             e.printStackTrace();
             return false;
         }
-        return updateResponse.isCreated();
+        return true;
     }
 
     public boolean bulkInsert(List<IndexRequestBuilder> indexRequestBuilders, ActionFuture<UpdateResponse>... updateResponseActionFuture) {

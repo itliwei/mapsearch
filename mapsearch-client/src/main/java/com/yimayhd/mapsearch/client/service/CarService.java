@@ -31,4 +31,14 @@ public interface CarService {
     public List<CarVo> searchByGeoDistance(double lat, double lon, double distance, PageQuery pageQuery);
 
     public boolean bulkIndex(List<CarVo> carVos);
+
+    public boolean updateIndex(CarVo carVo);
+
+
+    public boolean testUpdateIndex();
+
+    public List<CarVo> testSearch(double distance);
+
+    public boolean testInitIndex();
+
 }
