@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.elasticsearch.index.query.QueryBuilders.geoDistanceQuery;
 import static org.elasticsearch.index.query.QueryBuilders.geoDistanceRangeQuery;
 import static org.elasticsearch.search.sort.SortBuilders.geoDistanceSort;
 
@@ -40,6 +41,13 @@ public class CarClient extends EsBase {
 
     public List<CarVo> geoSearch(double lat, double lon, double distance, PageQuery pageQuery) {
 
+        geoDistanceQuery("locationPoint")
+                .distance(distance,DistanceUnit.KILOMETERS)
+                .point(lat,lon)
+                .optimizeBbox("memory")
+                .geoDistance(GeoDistance.ARC);
+
+
         QueryBuilder qb = geoDistanceRangeQuery("locationPoint")
                 .point(lat, lon)
                 .from("0km")
@@ -48,6 +56,29 @@ public class CarClient extends EsBase {
                 .includeUpper(true)
                 .optimizeBbox("memory")
                 .geoDistance(GeoDistance.ARC);
+
+        SortBuilder sortBuilder = geoDistanceSort("locationPoint")
+                .point(lat, lon)
+                .order(SortOrder.ASC)
+                .unit(DistanceUnit.KILOMETERS)
+                .sortMode("min")
+                .geoDistance(GeoDistance.ARC);
+
+
+        EsSearchResult<CarVo> search = search(EsBasicEnum.CAR.getIndex(), EsBasicEnum.CAR.getType(), CarVo.class, pageQuery.getPageSize() * (pageQuery.getPageNo() - 1), pageQuery.getPageSize() * pageQuery.getPageNo(), qb, sortBuilder);
+        return search.getResults();
+
+    }
+
+
+    public List<CarVo> geoSearch2(double lat, double lon, double distance, PageQuery pageQuery) {
+
+        QueryBuilder qb = geoDistanceQuery("locationPoint")
+                .distance(distance,DistanceUnit.KILOMETERS)
+                .point(lat,lon)
+                .optimizeBbox("memory")
+                .geoDistance(GeoDistance.ARC);
+
 
         SortBuilder sortBuilder = geoDistanceSort("locationPoint")
                 .point(lat, lon)

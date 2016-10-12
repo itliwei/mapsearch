@@ -49,7 +49,7 @@ public class CarServiceImpl implements CarService {
     }
 
     public List<CarVo> searchByGeoDistance(double lat, double lon, double distance, PageQuery pageVo) {
-        return carClient.geoSearch(lat,lon,distance,pageVo);
+        return carClient.geoSearch2(lat,lon,distance,pageVo);
     }
 
     @Override
