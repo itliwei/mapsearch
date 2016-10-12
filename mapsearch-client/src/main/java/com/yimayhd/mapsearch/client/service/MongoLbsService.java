@@ -42,10 +42,19 @@ public interface MongoLbsService {
      * @param carPointNearQuery CarPointNearQuery
      * @return List<CarPoint>
      */
-    CarPointNearResult geoNear(CarPointNearQuery carPointNearQuery);
+    CarPointNearResult geoNearCarPoint(CarPointNearQuery carPointNearQuery);
 
 
 
+    /**
+     * 随机修改
+     * @return CarPoint
+     */
+    CarPoint updateCarPoint();
 
+    /**
+     * 创建地理位置索引
+     */
+    void createGeoIndex();
 
 }

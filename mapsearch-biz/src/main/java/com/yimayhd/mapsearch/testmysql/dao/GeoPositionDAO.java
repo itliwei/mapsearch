@@ -19,4 +19,7 @@ public interface GeoPositionDAO {
 
     //附近检索
 	public List<GeoPosition> nearSearch(double lat, double lng,double radius);
+	
+	//update数据
+	public Long updatePoint(GeoPosition geoPosition);
 }

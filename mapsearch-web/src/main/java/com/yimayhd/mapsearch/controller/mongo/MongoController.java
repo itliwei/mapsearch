@@ -58,7 +58,7 @@ public class
 		personQuery.setDistance(distance);
 		personQuery.setLongitude(arr[0]);
 		personQuery.setLatitude(arr[1]);
-		return JSON.toJSONString(mongoLbsService.geoNear(personQuery));
+		return JSON.toJSONString(mongoLbsService.geoNearCarPoint(personQuery));
 	}
 
 	//批量修改 单个记录
@@ -118,5 +118,12 @@ public class
 		int count = mongoLbsService.batchInsertCarPoint(list);
 		long t2 = System.currentTimeMillis();
 		return ("cost time:" + (t2 - t1) + " 记录数" + count);
+	}
+
+	//查询
+	@ResponseBody
+	@RequestMapping(value = "/update", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+	public String testUpdateCarPoint() {
+		return JSON.toJSONString(mongoLbsService.updateCarPoint());
 	}
 }
