@@ -7,6 +7,7 @@ import com.yimayhd.mapsearch.client.errorcode.ReturnCode;
 import com.yimayhd.mapsearch.client.service.MongoLbsService;
 import com.yimayhd.mapsearch.mongo.dao.CarPointDao;
 import com.yimayhd.mapsearch.mongo.dao.CarRoadDao;
+import com.yimayhd.mapsearch.util.MongoUtil;
 import net.pocrd.dubboext.DubboExtProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +21,11 @@ import org.springframework.data.mongodb.core.index.IndexInfo;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -36,9 +39,6 @@ public class MongoLbsServiceImpl implements MongoLbsService {
 
     private final double maxLon = 116.542984;
     private final double minLon = 116.216141;
-
-    @Autowired
-    MongoTemplate mongoTemplate;
 
     @Autowired
     CarPointDao carPointDao;
@@ -60,7 +60,7 @@ public class MongoLbsServiceImpl implements MongoLbsService {
     public List<CarPoint> queryTopN(int count) {
         Query query = new Query();
         query.limit(count);
-        return mongoTemplate.find(query,CarPoint.class,"carPoint");
+        return carPointDao.find(query,"carPoint");
     }
 
     @Override
@@ -82,7 +82,7 @@ public class MongoLbsServiceImpl implements MongoLbsService {
     }
 
     @Override
-    public CarPointNearResult geoNear(CarPointNearQuery carPointNearQuery) {
+    public CarPointNearResult geoNearCarPoint(CarPointNearQuery carPointNearQuery) {
         CarPointNearResult carPointNearResult = new CarPointNearResult();
         //判断是否有索引
         if (carPointNearQuery == null || carPointNearQuery.getLongitude()==0.0 || carPointNearQuery.getLatitude()==0){
@@ -90,7 +90,7 @@ public class MongoLbsServiceImpl implements MongoLbsService {
             carPointNearResult.setErrorCode(ErrorCode.PARAM_ERROR);
             return null;
         }
-        createIndex();
+//        createIndex();
         Point point =new Point(carPointNearQuery.getLongitude(), carPointNearQuery.getLatitude());
 
         NearQuery near = NearQuery.near(point, Metrics.KILOMETERS);
@@ -122,25 +122,15 @@ public class MongoLbsServiceImpl implements MongoLbsService {
         return carPointNearResult;
     }
 
-    private void createIndex() {
-        IndexOperations io=mongoTemplate.indexOps("carPoint");
-//	     io.dropIndex("location_2dsphere");
-        List<IndexInfo> indexInfoList = io.getIndexInfo();
-        boolean status = false;
-        for (IndexInfo info:indexInfoList){
-            if("location_2dsphere".equals(info.getName())){
-                status = true;
-                break;
-            }
-        }
-        if (!status){
-            GeospatialIndex index =new GeospatialIndex("location");
-            index.typed(GeoSpatialIndexType.GEO_2DSPHERE);
-            index.named("location_2dsphere");
-            index.withBits(26);
-            index.withMax(900);
-            index.withMin(0);
-            io.ensureIndex(index);
-        }
+    @Override
+    public CarPoint updateCarPoint() {
+        Random random = new Random();
+        double[] randomLocation = MongoUtil.getRandomLocation();
+        return carPointDao.findAndModify(Query.query(Criteria.where("id").is(random.nextInt(100000))), Update.update("location",randomLocation), "carPoint");
     }
+    @Override
+    public void createGeoIndex(){
+        carPointDao.createGeoIndex();
+    }
+
 }

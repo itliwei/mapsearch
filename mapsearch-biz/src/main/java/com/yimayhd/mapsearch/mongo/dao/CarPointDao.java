@@ -8,5 +8,7 @@ import com.yimayhd.mapsearch.mongo.base.BaseMongoDao;
 
 public interface CarPointDao extends BaseMongoDao<CarPoint> {
 
+    void createGeoIndex();
+
 
 }
