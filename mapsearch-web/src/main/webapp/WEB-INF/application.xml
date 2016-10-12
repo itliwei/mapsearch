@@ -12,7 +12,7 @@
 	<import resource="../META-INF/spring/application-common.xml" />
 	<!--<import resource="../META-INF/spring/application-persistance.xml" />-->
 	<import resource="../META-INF/spring/application-tair.xml"/>
-	<!--<import resource="../META-INF/spring/application-consumer.xml" />-->
+	<import resource="../META-INF/spring/application-consumer.xml" />
 	<import resource="../META-INF/spring/application-manager.xml" />
 	<!--<import resource="../META-INF/spring/application-tair.xml"/>
 	<import resource="../META-INF/spring/application-consumer.xml" />-->

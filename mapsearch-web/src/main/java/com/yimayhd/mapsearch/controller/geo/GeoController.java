@@ -2,7 +2,6 @@ package com.yimayhd.mapsearch.controller.geo;
 
 import java.util.Random;
 
-import com.yimayhd.mapsearch.client.service.MongoLbsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +61,18 @@ public class
 		geoPosition.setLng(lng+t);
 
 		geoPositionService.add(geoPosition);
+
+		return "ok";
+	}
+	
+	//随机更新一个点
+	@ResponseBody
+	@RequestMapping(value = "/update")
+	public String testUpdate() {
+		Random r = new Random();
+		double t = (double) r.nextInt(100000) / 100000;
+		long id=r.nextInt(100000);
+		geoPositionService.updatePoint(lat + t, lng + t,id);
 
 		return "ok";
 	}

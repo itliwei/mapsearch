@@ -25,4 +25,24 @@
         <property name="version" value="${export.dubbo.version}"/>
         <property name="retries" value="${dubbo.retries}"/>
     </bean>
+    
+    <bean id="exportGeoPositionService" class="com.alibaba.dubbo.config.spring.ServiceBean">
+        <property name="interface" value="com.yimayhd.mapsearch.testmysql.service.GeoPositionService"/>
+        <property name="ref" ref="geoPositionService"/>
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="timeout" value="${export.dubbo.timeout}"/>
+        <property name="version" value="${export.dubbo.version}"/>
+        <property name="retries" value="${dubbo.retries}"/>
+    </bean>
+    
+     <bean id="exportSpatialRetrievalService" class="com.alibaba.dubbo.config.spring.ServiceBean">
+        <property name="interface" value="com.yimayhd.mapsearch.testmysql.service.SpatialRetrievalService"/>
+        <property name="ref" ref="spatialRetrievalService"/>
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="timeout" value="${export.dubbo.timeout}"/>
+        <property name="version" value="${export.dubbo.version}"/>
+        <property name="retries" value="${dubbo.retries}"/>
+    </bean>
 </beans>

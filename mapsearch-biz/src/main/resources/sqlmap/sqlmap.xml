@@ -30,4 +30,10 @@
 			order by distance
 			limit 0,50
 	</select>
+	
+	<!-- updatePoint -->
+	<select id="updatePoint">
+	        update geo_position set latitude=#{lat},longitude=#{lng}
+	        where id=#{id}
+	</select>
 </mapper>
