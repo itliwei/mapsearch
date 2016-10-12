@@ -44,6 +44,7 @@ public class MongoLbsServiceTest {
 			int nextInt = random.nextInt(50)+20;
 
 			double[] arr = MongoUtil.getRandomLocation();
+			carPoint.setId(i);
 			carPoint.setCarId("car"+i);
 			carPoint.setTime(System.currentTimeMillis()+"");
 			carPoint.setStatus(1);
@@ -61,7 +62,7 @@ public class MongoLbsServiceTest {
 
 	@Test
 	public void testGetPersonNearList(){
-
+		mongoLbsService.createGeoIndex();
 		CarPointNearQuery personQuery = new CarPointNearQuery();
 		Random random = new Random();
 		for (;;){
@@ -71,7 +72,7 @@ public class MongoLbsServiceTest {
 			personQuery.setDistance(count/10);
 			personQuery.setLongitude(arr[0]);
 			personQuery.setLatitude(arr[1]);
-			CarPointNearResult personList = mongoLbsService.geoNear(personQuery);
+			CarPointNearResult personList = mongoLbsService.geoNearCarPoint(personQuery);
 			LOGGER.info("**************************   ÊýÁ¿£º" +count +" ·¶Î§£º"+count/100 +JSON.toJSONString(personList));
 //			printResult(personList, "testGetPersonNearList");
 		}

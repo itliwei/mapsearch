@@ -58,7 +58,7 @@ public class
 		personQuery.setDistance(distance);
 		personQuery.setLongitude(arr[0]);
 		personQuery.setLatitude(arr[1]);
-		return JSON.toJSONString(mongoLbsService.geoNear(personQuery));
+		return JSON.toJSONString(mongoLbsService.geoNearCarPoint(personQuery));
 	}
 
 	//批量修改 单个记录
