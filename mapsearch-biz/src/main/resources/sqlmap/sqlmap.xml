@@ -15,12 +15,15 @@
 			INSERT INTO geo_position (name,latitude,longitude) VALUES (#{name},#{lat},#{lng})
 	</insert>
 		
+	<!-- 取正方形的点，前100个(实际中满足条件的车不会那么多，假设<100,这里限制100是安全防护)  -->
 	<select id="areaSearch" resultMap="resultMap">
 		SELECT id,name,latitude,longitude FROM geo_position 
 		WHERE (latitude BETWEEN #{minLat} AND #{maxLat})
-		  AND (longitude BETWEEN #{minLng} AND #{maxLng})
+		AND (longitude BETWEEN #{minLng} AND #{maxLng})
+		limit 0,100
 	</select>
 	
+	<!-- 结测试，mysql来计算距离，无法使用到索引，计算台满了 80W时 100并发就4s  30并发就1.5s -->
 	<select id="nearSearch" resultMap="resultMap">
 			SELECT id,name,latitude,longitude, SQRT(POWER(ABS(#{0} - latitude)*111, 2) + POWER(ABS(#{1} - longitude)*111*COS(RADIANS(#{0})),2))*1000 as distance FROM geo_position
 			WHERE SQRT(POWER(ABS(#{0} - latitude)*111, 2) + POWER(ABS(#{1} - longitude)*111*COS(RADIANS(#{0})),2))*1000  &lt; #{2}

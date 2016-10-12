@@ -18,7 +18,7 @@ import com.yimayhd.mapsearch.testmysql.utils.GpsUtil;
  *
  * 2016年10月10日 下午3:19:28
  */
-public class GeoPositionService {
+public class GeoPositionService implements GeoApi{
 
 	@Autowired
 	private GeoPositionDAO geoPositionDAO;
