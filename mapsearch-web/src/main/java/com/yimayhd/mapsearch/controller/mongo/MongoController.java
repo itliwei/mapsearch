@@ -26,10 +26,18 @@ public class
 	@Autowired
 	private MongoLbsService mongoLbsService;
 
+
+	//查询
+	@ResponseBody
+	@RequestMapping(value = "/query", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+	public String testQuery() {
+		List<CarPoint> carPoints = mongoLbsService.queryTopN(1);
+		return JSON.toJSONString(carPoints);
+	}
 	//查询
 	@ResponseBody
 	@RequestMapping(value = "/queryTopN", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
-	public String testQuery() {
+	public String testQueryTopN() {
 		List<CarPoint> carPoints = mongoLbsService.queryTopN(2000);
 		return JSON.toJSONString(carPoints);
 	}
