@@ -26,8 +26,12 @@ public class SpatialRetrievalServiceImpl implements SpatialRetrievalService{
 		Random r = new Random();
 		double t = (double) r.nextInt(100000) / 100000;
 		long id=r.nextInt(100000);
-
-		geoPositionDAO.updatePoint(lat + t, lng + t, id);
+		
+		GeoPosition geo=new GeoPosition();
+		geo.setLat(lat+t);
+		geo.setLng(lng+t);
+		geo.setId(id);
+		geoPositionDAO.updatePoint(geo);
 	}
 
 	@Override

@@ -21,5 +21,5 @@ public interface GeoPositionDAO {
 	public List<GeoPosition> nearSearch(double lat, double lng,double radius);
 	
 	//update数据
-	public long updatePoint(double lat, double lng,long id);
+	public Long updatePoint(GeoPosition geoPosition);
 }
