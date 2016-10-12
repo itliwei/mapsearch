@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 public class CarPoint implements Serializable{
     private static final long serialVersionUID = 1l;
-    String id;
+    int id;
 
     String carId;
 
@@ -71,11 +71,11 @@ public class CarPoint implements Serializable{
         this.carId = carId;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 }
