@@ -78,7 +78,11 @@ public class MongoLbsServiceTest {
 		}
 	}
 
-
+	@Test
+	public void testUpdate() throws IOException {
+		CarPoint carPoint = mongoLbsService.updateCarPoint();
+		System.out.print(JSON.toJSONString(carPoint));
+	}
 
 	@Test
 	public void testGetDistance() throws IOException {

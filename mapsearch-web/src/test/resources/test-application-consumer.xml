@@ -20,6 +20,7 @@
 			id="mongoLbsService"
 			interface="com.yimayhd.mapsearch.client.service.MongoLbsService"
 			url="dubbo://127.0.0.1:20880"
+			timeout="1200000"
 			version="1.0.0.test" />
 
 

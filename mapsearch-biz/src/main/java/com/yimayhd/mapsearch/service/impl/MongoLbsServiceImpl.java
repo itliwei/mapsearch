@@ -13,11 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.*;
-import org.springframework.data.mongodb.core.IndexOperations;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
-import org.springframework.data.mongodb.core.index.GeospatialIndex;
-import org.springframework.data.mongodb.core.index.IndexInfo;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
@@ -126,7 +121,7 @@ public class MongoLbsServiceImpl implements MongoLbsService {
     public CarPoint updateCarPoint() {
         Random random = new Random();
         double[] randomLocation = MongoUtil.getRandomLocation();
-        return carPointDao.findAndModify(Query.query(Criteria.where("id").is(random.nextInt(100000))), Update.update("location",randomLocation), "carPoint");
+        return carPointDao.findAndModify(Query.query(Criteria.where("id").is(random.nextInt(100000)+"")), Update.update("location",randomLocation), "carPoint");
     }
     @Override
     public void createGeoIndex(){
