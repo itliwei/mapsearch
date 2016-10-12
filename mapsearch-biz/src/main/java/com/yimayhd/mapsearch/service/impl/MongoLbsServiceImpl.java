@@ -95,7 +95,7 @@ public class MongoLbsServiceImpl implements MongoLbsService {
 
         NearQuery near = NearQuery.near(point, Metrics.KILOMETERS);
         Query query =new Query();
-        //	       query.addCriteria(Criteria.where("name").is("liwei"));
+
         query.limit(carPointNearQuery.getCount()==0?100:carPointNearQuery.getCount());
         near.query(query);
         near.maxDistance(new Distance(carPointNearQuery.getDistance()==0?1:carPointNearQuery.getDistance(), Metrics.KILOMETERS));
