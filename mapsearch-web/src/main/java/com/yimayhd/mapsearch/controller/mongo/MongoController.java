@@ -119,4 +119,11 @@ public class
 		long t2 = System.currentTimeMillis();
 		return ("cost time:" + (t2 - t1) + " 记录数" + count);
 	}
+
+	//查询
+	@ResponseBody
+	@RequestMapping(value = "/update", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+	public String testUpdateCarPoint() {
+		return JSON.toJSONString(mongoLbsService.updateCarPoint());
+	}
 }
