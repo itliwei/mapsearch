@@ -86,6 +86,12 @@ public class GeoPositionServiceImpl implements GeoPositionService{
 	}
 	
 	public void updatePoint(double lat, double lng, long id){
-		geoPositionDAO.updatePoint(lat, lng, id);
+		
+		GeoPosition geo=new GeoPosition();
+		geo.setLat(lat);
+		geo.setLng(lng);
+		geo.setId(id);
+		
+		geoPositionDAO.updatePoint(geo);
 	}
 }
