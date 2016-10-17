@@ -36,7 +36,8 @@
         <property name="version" value="${export.dubbo.version}"/>
         <property name="retries" value="${dubbo.retries}"/>
     </bean>
-    <bean id="exportCarLocService" class="com.alibaba.dubbo.config.spring.ServiceBean">
+    
+    <bean id="exportCarTraceService" class="com.alibaba.dubbo.config.spring.ServiceBean">
         <property name="interface" value="com.yimayhd.mapsearch.client.service.CarTraceService"/>
         <property name="ref" ref="carTraceService"/>
         <property name="application" ref="dubboApplicationConfig"/>

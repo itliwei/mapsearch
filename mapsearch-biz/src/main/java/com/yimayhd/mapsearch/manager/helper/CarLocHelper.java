@@ -12,7 +12,7 @@ public class CarLocHelper {
 		if(carLocDTO==null){
 			return false;
 		}
-		return false;
+		return true;
 	}
 
 	public static CarLocDO fullCarLoc(CarLocDTO carLocDTO) {

@@ -4,7 +4,7 @@
 	
 	<resultMap id="baseResultMap" type="com.yimayhd.mapsearch.client.domain.CarLocDO">
 		<id column="id" jdbcType="BIGINT" property="id" />
-		<result column="car_id" jdbcType="INTEGER" property="carId" />
+		<result column="car_id" jdbcType="BIGINT" property="carId" />
 		<result column="status" jdbcType="INTEGER" property="status" />
 		<result column="lat" jdbcType="DOUBLE" property="lat" />
 		<result column="lng" jdbcType="DOUBLE" property="lng" />
