@@ -2,7 +2,6 @@ package com.yimayhd.mapsearch.manager;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import com.yimayhd.mapsearch.client.domain.param.CarLocDTO;
 import com.yimayhd.mapsearch.client.domain.param.CarLocQueryDTO;
 import com.yimayhd.mapsearch.client.query.CarLocNearQuery;
 import com.yimayhd.mapsearch.dao.CarLocDOMapper;
+import com.yimayhd.mapsearch.manager.helper.CarLocHelper;
 import com.yimayhd.mapsearch.util.GpsUtil;
 
 public class CarLocManager {
@@ -23,12 +23,7 @@ public class CarLocManager {
 	public int saveCarLoc(CarLocDTO carLocDTO) {
 		
 		if(carLocDTO!=null){
-			CarLocDO carLocDO=new CarLocDO();
-			carLocDO.setLat(carLocDTO.getLat());
-			carLocDO.setLng(carLocDTO.getLng());
-			carLocDO.setGmtCreated(new Date());
-			carLocDO.setGmtModified(new Date());
-			return carLocDOMapper.insert(carLocDO);
+			return carLocDOMapper.insert(CarLocHelper.fullCarLoc(carLocDTO));
 		}
 		return -1;
 	}
@@ -36,9 +31,12 @@ public class CarLocManager {
 	public int updateCarLoc(CarLocDTO carLocDTO) {
 		
 		if(carLocDTO!=null){
+			
 			CarLocDO carLocDO=new CarLocDO();
 			carLocDO.setLat(carLocDTO.getLat());
 			carLocDO.setLng(carLocDTO.getLng());
+			carLocDO.setCarId(carLocDTO.getCarId());
+			
 			return carLocDOMapper.updateByCarId(carLocDO);
 		}
 		
@@ -78,5 +76,13 @@ public class CarLocManager {
 		query.setPageSize(carLocSearchDTO.getTopN());
 		
 		return carLocDOMapper.nearSearch(query);
+	}
+
+	public int updateCarStatus(long carId,int status) {
+		return carLocDOMapper.updateCarStatus(carId,status);
+	}
+
+	public CarLocDO getCarByCarId(long carId) {
+		return carLocDOMapper.getCarByCarId(carId);
 	}
 }

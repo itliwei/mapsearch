@@ -12,17 +12,17 @@ public class CarTraceDTO extends BaseDO {
 
 	private long orderId;
 
-	private Integer status;
+	private int status;
 
-	private Double lat;
+	private double lat;
 
-	private Double lng;
+	private double lng;
 
 	private String gpsTime;
 
-	private Integer direction;
+	private int direction;
 
-	private Double speed;
+	private double speed;
 
 	public long getId() {
 		return id;
@@ -30,6 +30,30 @@ public class CarTraceDTO extends BaseDO {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public long getCarId() {
+		return carId;
+	}
+
+	public void setCarId(long carId) {
+		this.carId = carId;
+	}
+
+	public long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public double getLat() {
@@ -48,22 +72,6 @@ public class CarTraceDTO extends BaseDO {
 		this.lng = lng;
 	}
 
-	public long getCarId() {
-		return carId;
-	}
-
-	public void setCarId(long carId) {
-		this.carId = carId;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	public String getGpsTime() {
 		return gpsTime;
 	}
@@ -72,35 +80,19 @@ public class CarTraceDTO extends BaseDO {
 		this.gpsTime = gpsTime;
 	}
 
-	public Integer getDirection() {
+	public int getDirection() {
 		return direction;
 	}
 
-	public void setDirection(Integer direction) {
+	public void setDirection(int direction) {
 		this.direction = direction;
 	}
 
-	public Double getSpeed() {
+	public double getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(Double speed) {
+	public void setSpeed(double speed) {
 		this.speed = speed;
-	}
-
-	public void setLat(Double lat) {
-		this.lat = lat;
-	}
-
-	public void setLng(Double lng) {
-		this.lng = lng;
-	}
-
-	public long getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(long orderId) {
-		this.orderId = orderId;
 	}
 }

@@ -23,22 +23,14 @@
 		speed, gmt_created
 	</sql>
 
-	<select id="getCarTraceByOrderId" parameterType="java.lang.Long"
-		resultMap="baseResultMap">
-		select
-		<include refid="base_Column_List" />
-		from car_trace
-		where car_id = #{carId}
-	</select>
-
 	<insert id="insert" parameterType="com.yimayhd.mapsearch.client.domain.CarTraceDO">
 		insert into car_trace (car_id,
 		order_id,
 		lat, lng, road_lng, road_lat,
 		gps_time, direction, speed,
 		gmt_created)
-		values (#{carId,jdbcType=INTEGER},
-		#{orderId,jdbcType=INTEGER},
+		values (#{carId,jdbcType=BIGINT},
+		#{orderId,jdbcType=BIGINT},
 		#{lat,jdbcType=DOUBLE},
 		#{lng,jdbcType=DOUBLE}, #{roadLng,jdbcType=DOUBLE},
 		#{roadLat,jdbcType=DOUBLE},
@@ -46,4 +38,11 @@
 		#{direction,jdbcType=INTEGER}, #{speed,jdbcType=DOUBLE},
 		#{gmtCreated,jdbcType=TIMESTAMP})
 	</insert>
+	
+	<select id="getCarTraceByOrderId" resultMap="baseResultMap">
+		select
+		<include refid="base_Column_List" />
+		from car_trace
+		where order_id = #{orderId}
+	</select>
 </mapper>

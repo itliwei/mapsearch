@@ -2,8 +2,10 @@ package com.yimayhd.mapsearch.client.service;
 
 import com.yimayhd.mapsearch.client.domain.param.CarLocDTO;
 import com.yimayhd.mapsearch.client.domain.param.CarLocQueryDTO;
-import com.yimayhd.mapsearch.client.result.NearSearchResult;
+import com.yimayhd.mapsearch.client.domain.param.CarStatusDTO;
+import com.yimayhd.mapsearch.client.result.BatchQueryResult;
 import com.yimayhd.mapsearch.client.result.ResultSupport;
+import com.yimayhd.mapsearch.client.result.SingleQueryResult;
 
 /**
  * 车实时位置
@@ -15,7 +17,7 @@ import com.yimayhd.mapsearch.client.result.ResultSupport;
 public interface CarLocService {
 
 	/**
-	 * 保存实时位置:有则更新无则插入
+	 * 保存实时位置
 	 *
 	 * @param carLocDTO
 	 */
@@ -32,6 +34,24 @@ public interface CarLocService {
 	
 	
 	/**
+	 * 更新车的状态
+	 *
+	 * @param carLocDTO
+	 * @return
+	 */
+	public ResultSupport updateCarStatus(CarStatusDTO carStatusDTO);
+	
+	
+	/**
+	 * 更新车的状态
+	 *
+	 * @param carLocDTO
+	 * @return
+	 */
+	public SingleQueryResult getCarByCarId(CarLocDTO carLocDTO);
+	
+	
+	/**
 	 * 附近搜索:计算点直接的位置，并排序
 	 *
 	 * @param lat
@@ -39,7 +59,7 @@ public interface CarLocService {
 	 * @param radius
 	 * @return
 	 */
-	public NearSearchResult nearSearch(CarLocQueryDTO carLocSearchDTO);
+	public BatchQueryResult nearSearch(CarLocQueryDTO carLocSearchDTO);
 
 	
 	/**
@@ -50,5 +70,5 @@ public interface CarLocService {
 	 * @param radius
 	 * @return
 	 */
-	public NearSearchResult areaSearch(CarLocQueryDTO carLocSearchDTO);
+	public BatchQueryResult areaSearch(CarLocQueryDTO carLocSearchDTO);
 }

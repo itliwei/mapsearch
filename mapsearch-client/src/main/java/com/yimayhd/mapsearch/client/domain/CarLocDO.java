@@ -4,21 +4,21 @@ import java.util.Date;
 
 public class CarLocDO {
 	
-    private Long id;
+    private long id;
 
-    private Integer carId;
+    private long carId;
 
-    private Integer status;
+    private int status;
 
-    private Double lat;
+    private double lat;
 
-    private Double lng;
+    private double lng;
 
     private String gpsTime;
 
-    private Integer direction;
+    private int direction;
 
-    private Double speed;
+    private double speed;
 
     private Date gmtCreated;
 
@@ -28,89 +28,111 @@ public class CarLocDO {
     //tmp
     private double distance;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public Integer getCarId() {
-        return carId;
-    }
 
-    public void setCarId(Integer carId) {
-        this.carId = carId;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public long getCarId() {
+		return carId;
+	}
 
-    public Double getLat() {
-        return lat;
-    }
 
-    public void setLat(Double lat) {
-        this.lat = lat;
-    }
+	public void setCarId(long carId) {
+		this.carId = carId;
+	}
 
-    public Double getLng() {
-        return lng;
-    }
 
-    public void setLng(Double lng) {
-        this.lng = lng;
-    }
+	public int getStatus() {
+		return status;
+	}
 
-    public String getGpsTime() {
-        return gpsTime;
-    }
 
-    public void setGpsTime(String gpsTime) {
-        this.gpsTime = gpsTime;
-    }
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
-    public Integer getDirection() {
-        return direction;
-    }
 
-    public void setDirection(Integer direction) {
-        this.direction = direction;
-    }
+	public double getLat() {
+		return lat;
+	}
 
-    public Double getSpeed() {
-        return speed;
-    }
 
-    public void setSpeed(Double speed) {
-        this.speed = speed;
-    }
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
 
-    public Date getGmtCreated() {
-        return gmtCreated;
-    }
 
-    public void setGmtCreated(Date gmtCreated) {
-        this.gmtCreated = gmtCreated;
-    }
+	public double getLng() {
+		return lng;
+	}
 
-    public Date getGmtModified() {
-        return gmtModified;
-    }
 
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
+
+
+	public String getGpsTime() {
+		return gpsTime;
+	}
+
+
+	public void setGpsTime(String gpsTime) {
+		this.gpsTime = gpsTime;
+	}
+
+
+	public int getDirection() {
+		return direction;
+	}
+
+
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+
+
+	public double getSpeed() {
+		return speed;
+	}
+
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+
+
+	public Date getGmtCreated() {
+		return gmtCreated;
+	}
+
+
+	public void setGmtCreated(Date gmtCreated) {
+		this.gmtCreated = gmtCreated;
+	}
+
+
+	public Date getGmtModified() {
+		return gmtModified;
+	}
+
+
+	public void setGmtModified(Date gmtModified) {
+		this.gmtModified = gmtModified;
+	}
+
 
 	public double getDistance() {
 		return distance;
 	}
+
 
 	public void setDistance(double distance) {
 		this.distance = distance;

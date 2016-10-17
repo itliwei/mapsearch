@@ -23,41 +23,29 @@
 		insert into car_loc (car_id, status,
 			lat, lng, gps_time, direction,
 			speed, gmt_created, gmt_modified
-		)
-		values (#{carId,jdbcType=INTEGER},
-			#{status,jdbcType=INTEGER},
-			#{lat,jdbcType=DOUBLE}, #{lng,jdbcType=DOUBLE}, #{gpsTime,jdbcType=VARCHAR},
-			#{direction,jdbcType=INTEGER},
-			#{speed,jdbcType=DOUBLE}, #{gmtCreated,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+		)values (#{carId},#{status},#{lat}, #{lng}, #{gpsTime},
+			#{direction},#{speed}, #{gmtCreated}, #{gmtModified})
 	</insert>
 	
 	<update id="updateByCarId" parameterType="com.yimayhd.mapsearch.client.domain.CarLocDO">
-		update car_loc
-		<set>
-			<if test="status != null">
-				status = #{status,jdbcType=INTEGER},
-			</if>
-			<if test="lat != null">
-				lat = #{lat,jdbcType=DOUBLE},
-			</if>
-			<if test="lng != null">
-				lng = #{lng,jdbcType=DOUBLE},
-			</if>
-			<if test="gpsTime != null">
-				gps_time = #{gpsTime,jdbcType=VARCHAR},
-			</if>
-			<if test="direction != null">
-				direction = #{direction,jdbcType=INTEGER},
-			</if>
-			<if test="speed != null">
-				speed = #{speed,jdbcType=DOUBLE},
-			</if>
-			<if test="gmtModified != null">
-				gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-			</if>
-		</set>
+		update car_loc set lat = #{lat},
+				lng = #{lng},
+				gps_time = #{gpsTime},
+				direction = #{direction},
+				speed = #{speed},
+				gmt_modified = #{gmtModified},
 		where car_id = #{carId}
 	</update>
+	
+	<update id="updateCarStatus">
+		update car_loc set status=#{status} where car_id = #{carId}
+	</update>
+	
+	<select id="getCarByCarId" resultMap="baseResultMap">
+			SELECT  <include refid="base_Column_List" />
+			FROM car_loc 
+			where car_id = #{carId}
+	</select>
 	
 	<select id="nearSearch" resultMap="baseResultMap">
 			SELECT  <include refid="base_Column_List" />

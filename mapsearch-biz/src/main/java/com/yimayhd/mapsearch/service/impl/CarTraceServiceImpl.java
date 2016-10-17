@@ -45,10 +45,10 @@ public class CarTraceServiceImpl implements CarTraceService{
 		TraceQueryResult result = new TraceQueryResult();
 
 		try {
-			if (carTraceQueryDTO == null) {
+			if (carTraceQueryDTO == null || carTraceQueryDTO.getOrderId()<1) {
 				result.setErrorCode(ErrorCode.PARAM_ERROR);
 			} else {
-				result.setList(carTraceManager.queryCarTrace(carTraceQueryDTO));
+				result.setList(carTraceManager.queryCarTrace(carTraceQueryDTO.getOrderId()));
 				result.setSuccess(true);
 			}
 		} catch (Exception e) {

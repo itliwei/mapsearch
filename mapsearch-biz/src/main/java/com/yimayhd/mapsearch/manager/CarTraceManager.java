@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yimayhd.mapsearch.client.domain.CarTraceDO;
 import com.yimayhd.mapsearch.client.domain.param.CarTraceDTO;
-import com.yimayhd.mapsearch.client.domain.param.CarTraceQueryDTO;
 import com.yimayhd.mapsearch.dao.CarTraceDOMapper;
 
 public class CarTraceManager {
@@ -24,7 +23,7 @@ public class CarTraceManager {
 		return carTraceDOMapper.insert(carTraceDO);
 	}
 
-	public List<CarTraceDO> queryCarTrace(CarTraceQueryDTO carTraceQueryDTO) {
-		return carTraceDOMapper.getCarTraceByOrderId(carTraceQueryDTO);
+	public List<CarTraceDO> queryCarTrace(long orderId) {
+		return carTraceDOMapper.getCarTraceByOrderId(orderId);
 	}
 }

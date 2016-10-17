@@ -16,6 +16,8 @@ public class CarLocQueryDTO extends BaseDO {
 	private double radius;
 	
 	private int topN;
+	
+	private int status;
 
 	public double getLat() {
 		return lat;
@@ -47,5 +49,13 @@ public class CarLocQueryDTO extends BaseDO {
 
 	public void setTopN(int topN) {
 		this.topN = topN;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 }

@@ -7,20 +7,20 @@ public class CarLocDTO extends BaseDO {
 	private static final long serialVersionUID = 2260175617245835689L;
 
 	private long id;
+	
+	private int status;
+	
+	private long carId;
 
-	private Integer carId;
+	private double lat;
 
-	private Integer status;
-
-	private Double lat;
-
-	private Double lng;
+	private double lng;
 
 	private String gpsTime;
 
 	private Integer direction;
 
-	private Double speed;
+	private double speed;
 
 	public long getId() {
 		return id;
@@ -28,6 +28,22 @@ public class CarLocDTO extends BaseDO {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public long getCarId() {
+		return carId;
+	}
+
+	public void setCarId(long carId) {
+		this.carId = carId;
 	}
 
 	public double getLat() {
@@ -46,22 +62,6 @@ public class CarLocDTO extends BaseDO {
 		this.lng = lng;
 	}
 
-	public Integer getCarId() {
-		return carId;
-	}
-
-	public void setCarId(Integer carId) {
-		this.carId = carId;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	public String getGpsTime() {
 		return gpsTime;
 	}
@@ -78,19 +78,11 @@ public class CarLocDTO extends BaseDO {
 		this.direction = direction;
 	}
 
-	public Double getSpeed() {
+	public double getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(Double speed) {
+	public void setSpeed(double speed) {
 		this.speed = speed;
-	}
-
-	public void setLat(Double lat) {
-		this.lat = lat;
-	}
-
-	public void setLng(Double lng) {
-		this.lng = lng;
 	}
 }
