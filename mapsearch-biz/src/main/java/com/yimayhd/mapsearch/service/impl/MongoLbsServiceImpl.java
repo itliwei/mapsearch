@@ -2,8 +2,8 @@ package com.yimayhd.mapsearch.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.yimayhd.mapsearch.client.domain.mongo.*;
-import com.yimayhd.mapsearch.client.enums.ErrorCode;
-import com.yimayhd.mapsearch.client.errorcode.ReturnCode;
+//import com.yimayhd.mapsearch.client.enums.ErrorCode;
+//import com.yimayhd.mapsearch.client.errorcode.ReturnCode;
 import com.yimayhd.mapsearch.client.service.MongoLbsService;
 import com.yimayhd.mapsearch.mongo.dao.CarPointDao;
 import com.yimayhd.mapsearch.mongo.dao.CarRoadDao;
@@ -46,7 +46,7 @@ public class MongoLbsServiceImpl implements MongoLbsService {
     public int batchInsertCarPoint(List<CarPoint> carPointList) {
         if (carPointList == null || carPointList.size() == 0 ){
             logger.error("saveCarRoad 参数异常");
-            DubboExtProperty.setErrorCode(ReturnCode.PARAMETER_ERROR);
+            //DubboExtProperty.setErrorCode(ReturnCode.PARAMETER_ERROR);
         }
         return carPointDao.batchInsert(carPointList,"carPoint");
     }
@@ -62,7 +62,7 @@ public class MongoLbsServiceImpl implements MongoLbsService {
     public int saveCarPoint(CarPoint carPoint) {
         if (carPoint == null ){
             logger.error("saveCarRoad 参数异常");
-            DubboExtProperty.setErrorCode(ReturnCode.PARAMETER_ERROR);
+            //DubboExtProperty.setErrorCode(ReturnCode.PARAMETER_ERROR);
         }
         return carPointDao.save(carPoint,"carPoint");
     }
@@ -71,7 +71,7 @@ public class MongoLbsServiceImpl implements MongoLbsService {
     public int saveCarRoad(CarRoad carRoad) {
         if (carRoad == null ){
             logger.error("saveCarRoad 参数异常");
-            DubboExtProperty.setErrorCode(ReturnCode.PARAMETER_ERROR);
+           //DubboExtProperty.setErrorCode(ReturnCode.PARAMETER_ERROR);
         }
         return  carRoadDao.save(carRoad,"carRoad");
     }
@@ -82,7 +82,7 @@ public class MongoLbsServiceImpl implements MongoLbsService {
         //判断是否有索引
         if (carPointNearQuery == null || carPointNearQuery.getLongitude()==0.0 || carPointNearQuery.getLatitude()==0){
             logger.error("geoNear 参数异常");
-            carPointNearResult.setErrorCode(ErrorCode.PARAM_ERROR);
+            //carPointNearResult.setErrorCode(ErrorCode.PARAM_ERROR);
             return null;
         }
 //        createIndex();

@@ -18,7 +18,7 @@ public class BaseResult<T> extends ResultSupport {
 
     
 
-    public static <U> BaseResult<U> buildFailResult(String errorCode, String errorMsg, U value) {
+    public static <U> BaseResult<U> buildFailResult(int errorCode, String errorMsg, U value) {
         BaseResult<U> baseResult = new BaseResult<U>();
         baseResult.setSuccess(false);
         baseResult.setErrorCode(errorCode);

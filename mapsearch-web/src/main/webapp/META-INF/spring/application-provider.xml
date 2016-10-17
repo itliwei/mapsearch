@@ -26,9 +26,19 @@
         <property name="retries" value="${dubbo.retries}"/>
     </bean>
     
-    <bean id="exportGeoPositionService" class="com.alibaba.dubbo.config.spring.ServiceBean">
-        <property name="interface" value="com.yimayhd.mapsearch.testmysql.service.GeoPositionService"/>
-        <property name="ref" ref="geoPositionService"/>
+    <!-- 车位置 -->
+    <bean id="exportCarLocService" class="com.alibaba.dubbo.config.spring.ServiceBean">
+        <property name="interface" value="com.yimayhd.mapsearch.client.service.CarLocService"/>
+        <property name="ref" ref="carLocService"/>
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="timeout" value="${export.dubbo.timeout}"/>
+        <property name="version" value="${export.dubbo.version}"/>
+        <property name="retries" value="${dubbo.retries}"/>
+    </bean>
+    <bean id="exportCarLocService" class="com.alibaba.dubbo.config.spring.ServiceBean">
+        <property name="interface" value="com.yimayhd.mapsearch.client.service.CarTraceService"/>
+        <property name="ref" ref="carTraceService"/>
         <property name="application" ref="dubboApplicationConfig"/>
         <property name="registry" ref="dubboRegistryConfig"/>
         <property name="timeout" value="${export.dubbo.timeout}"/>
@@ -36,13 +46,5 @@
         <property name="retries" value="${dubbo.retries}"/>
     </bean>
     
-     <bean id="exportSpatialRetrievalService" class="com.alibaba.dubbo.config.spring.ServiceBean">
-        <property name="interface" value="com.yimayhd.mapsearch.testmysql.service.SpatialRetrievalService"/>
-        <property name="ref" ref="spatialRetrievalService"/>
-        <property name="application" ref="dubboApplicationConfig"/>
-        <property name="registry" ref="dubboRegistryConfig"/>
-        <property name="timeout" value="${export.dubbo.timeout}"/>
-        <property name="version" value="${export.dubbo.version}"/>
-        <property name="retries" value="${dubbo.retries}"/>
-    </bean>
+    
 </beans>

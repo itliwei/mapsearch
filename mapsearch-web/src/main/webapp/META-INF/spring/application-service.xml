@@ -14,6 +14,7 @@
 
     <bean id="carService" class="com.yimayhd.mapsearch.service.impl.CarServiceImpl" />
     
-    <bean id="geoPositionService" class="com.yimayhd.mapsearch.testmysql.service.GeoPositionServiceImpl"/>
-    <bean id="spatialRetrievalServiceImpl" class="com.yimayhd.mapsearch.testmysql.service.SpatialRetrievalServiceImpl"/>
+    <bean id="carLocService" class="com.yimayhd.mapsearch.service.impl.CarLocServiceImpl"/>
+    
+    <bean id="carTraceService" class="com.yimayhd.mapsearch.service.impl.CarTraceServiceImpl"/>
 </beans>

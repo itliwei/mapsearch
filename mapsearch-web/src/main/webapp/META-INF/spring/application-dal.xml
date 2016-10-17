@@ -27,9 +27,9 @@
 	    <property name="url" value="${jdbc.url}"/>
 	    <property name="username" value="${jdbc.username}" />
 	    <property name="password" value="${jdbc.password}" />
-	    <property name="initialSize" value="1" />
-	    <property name="minIdle" value="1" /> 
-	    <property name="maxActive" value="20" />
+	    <property name="initialSize" value="100" />
+	    <property name="minIdle" value="50" /> 
+	    <property name="maxActive" value="500" />
 	    <property name="maxWait" value="60000" />
 		<property name="timeBetweenEvictionRunsMillis" value="60000" />
 	    <property name="minEvictableIdleTimeMillis" value="300000" />
@@ -54,7 +54,7 @@
 	</bean>
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.yimayhd.mapsearch.testmysql.dao"/>
+		<property name="basePackage" value="com.yimayhd.mapsearch.dao"/>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
 </beans>

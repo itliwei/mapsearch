@@ -2,9 +2,9 @@ package com.yimayhd.mapsearch.client.result;
 
 
 
-import com.yimayhd.mapsearch.client.enums.ErrorCode;
-
 import java.io.Serializable;
+
+import com.yimayhd.mapsearch.client.errorcode.ErrorCode;
 
 /**
  * Created by 海浩 on 2015/3/29.
@@ -14,7 +14,7 @@ public class ResultSupport implements Serializable {
     private static final long serialVersionUID = -2235152751651905167L;
     private boolean success = true;
     private String resultMsg;
-    private String errorCode;
+    private int errorCode;
 
     public ResultSupport() {
 
@@ -37,16 +37,16 @@ public class ResultSupport implements Serializable {
     }
 
     public void setErrorCode(ErrorCode errorCode) {
-        this.resultMsg = errorCode.getDesc();
+        this.resultMsg = errorCode.getErrorMsg();
         this.success = false;
-        this.errorCode = errorCode.name();
+        this.errorCode = errorCode.getErrorCode();
     }
 
-    public String getErrorCode() {
+    public int getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(String errorCode) {
+    public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
     }
 }

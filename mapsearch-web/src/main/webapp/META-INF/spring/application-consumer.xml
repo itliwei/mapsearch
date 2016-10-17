@@ -27,18 +27,9 @@
 		<property name="retries" value="${dubbo.retries}" />
 	</bean>
 
-	<bean id="geoPositionService" class="com.alibaba.dubbo.config.spring.ReferenceBean">
-		<property name="interface" value="com.yimayhd.mapsearch.testmysql.service.GeoPositionService" />
-		<property name="application" ref="dubboApplicationConfig" />
-		<property name="registry" ref="dubboRegistryConfig" />
-		<property name="timeout" value="${consumer.dubbo.timeout}" />
-		<property name="check" value="${consumer.dubbo.check}" />
-		<property name="version" value="${consumer.idgen.dubbo.version}" />
-		<property name="retries" value="${dubbo.retries}" />
-	</bean>
-
-	<bean id="spatialRetrievalService" class="com.alibaba.dubbo.config.spring.ReferenceBean">
-		<property name="interface" value="com.yimayhd.mapsearch.testmysql.service.SpatialRetrievalService" />
+	<!-- 车位置 -->
+	<bean id="carLocService" class="com.alibaba.dubbo.config.spring.ReferenceBean">
+		<property name="interface" value="com.yimayhd.mapsearch.client.service.CarLocService" />
 		<property name="application" ref="dubboApplicationConfig" />
 		<property name="registry" ref="dubboRegistryConfig" />
 		<property name="timeout" value="${consumer.dubbo.timeout}" />
