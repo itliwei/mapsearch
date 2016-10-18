@@ -43,7 +43,7 @@ public interface CarLocService {
 	
 	
 	/**
-	 * 更新车的状态
+	 * 按照CarId查询
 	 *
 	 * @param carLocDTO
 	 * @return

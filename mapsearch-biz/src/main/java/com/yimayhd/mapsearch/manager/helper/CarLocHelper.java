@@ -53,7 +53,7 @@ public class CarLocHelper {
 		
 		carLocDO.setGmtModified(new Date());
 		
-		return null;
+		return carLocDO;
 	}
 
 	

@@ -2,9 +2,11 @@ package com.yimayhd.mapsearch.client.domain;
 
 import java.util.Date;
 
-public class CarLocDO {
+public class CarLocDO extends BaseDO{
 	
-    private long id;
+	private static final long serialVersionUID = -6416210048981404112L;
+
+	private long id;
 
     private long carId;
 

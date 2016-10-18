@@ -12,8 +12,6 @@ public class CarTraceDTO extends BaseDO {
 
 	private long orderId;
 
-	private int status;
-
 	private double lat;
 
 	private double lng;
@@ -46,14 +44,6 @@ public class CarTraceDTO extends BaseDO {
 
 	public void setOrderId(long orderId) {
 		this.orderId = orderId;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
 	}
 
 	public double getLat() {
