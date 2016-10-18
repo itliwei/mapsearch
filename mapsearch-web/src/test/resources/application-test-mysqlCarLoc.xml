@@ -32,5 +32,9 @@
 		<property name="version" value="1.0.0.test"/>
 	</bean>
 	
+	 <bean id="msgSender" class="com.yimayhd.mapsearch.mq.common.MsgSenderService"
+          init-method="init" destroy-method="destroy">
+        <property name="nameServer" value="192.168.1.206:9876"/>
+    </bean>
 	
 </beans>

@@ -7,6 +7,12 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
 	default-autowire="byName">
+	
+	<bean id="msgSender" class="com.yimayhd.mapsearch.mq.common.MsgSenderService"
+          init-method="init" destroy-method="destroy">
+        <property name="nameServer" value="${rocketmq.domain.name}"/>
+    </bean>
+    
 	<bean id="carLocConsumer" class="com.yimayhd.mapsearch.mq.consumer.CarLocConsumer"
 		init-method="init" destroy-method="destroy">
 		<property name="nameServer" value="${rocketmq.server.name}" />
