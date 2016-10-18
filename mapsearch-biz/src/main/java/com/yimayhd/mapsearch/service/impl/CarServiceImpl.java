@@ -1,12 +1,10 @@
 package com.yimayhd.mapsearch.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.yimayhd.mapsearch.client.domain.es.CarVo;
 import com.yimayhd.mapsearch.client.domain.es.LocationPoint;
 import com.yimayhd.mapsearch.client.query.PageQuery;
 import com.yimayhd.mapsearch.client.service.CarService;
 import com.yimayhd.mapsearch.es.car.CarClient;
-import org.apache.commons.lang3.time.StopWatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,11 +43,11 @@ public class CarServiceImpl implements CarService {
 
 
     public CarVo searchById(long id) {
-        return null;
+        return carClient.searchCarById(id);
     }
 
     public List<CarVo> searchByGeoDistance(double lat, double lon, double distance, PageQuery pageVo) {
-        return carClient.geoSearch2(lat,lon,distance,pageVo);
+        return carClient.geoSearch2(lat, lon, distance, pageVo);
     }
 
     @Override
@@ -86,12 +84,7 @@ public class CarServiceImpl implements CarService {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setPageNo(1);
         pageQuery.setPageSize(20);
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
         List<CarVo> carVos = searchByGeoDistance(lat, lon, distance, pageQuery);
-        stopWatch.stop();
-        System.out.println("结果为" + carVos.size() + "耗时：" + stopWatch.getTime());
-        System.out.println(JSONObject.toJSONString(carVos));
         return carVos;
     }
 

@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.yimayhd.mapsearch.testmysql.model.GeoPosition;
-import com.yimayhd.mapsearch.testmysql.service.GeoPositionService;
+import com.yimayhd.mapsearch.client.domain.param.CarLocDTO;
+import com.yimayhd.mapsearch.client.domain.param.CarLocQueryDTO;
+import com.yimayhd.mapsearch.client.service.CarLocService;
 
 /**
  * 
@@ -20,14 +21,13 @@ import com.yimayhd.mapsearch.testmysql.service.GeoPositionService;
  */
 @Controller
 @RequestMapping("/geo")
-public class
-		GeoController {
+public class GeoController {
 	
 	private final static double lat=40;
 	private final static double lng=116;
 	
 	@Autowired
-	private GeoPositionService geoPositionService;
+	private CarLocService carLocService;
  
 	//查询
 	@ResponseBody
@@ -35,16 +35,15 @@ public class
 	public String testQuery(){
 		Random r=new Random();
 		double t = (double)r.nextInt(100000)/100000;
-		return JSON.toJSONString(geoPositionService.nearSearch(lat+t, lng+t,(double)r.nextInt(1000)));
-	}
-	
-	//查询
-	@ResponseBody
-	@RequestMapping(value = "/queryTopN", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
-	public String testQueryTopN() {
-		Random r = new Random();
-		double t = (double) r.nextInt(100000) / 100000;
-		return JSON.toJSONString(geoPositionService.nearSearchTopN(lat + t, lng + t, (double) r.nextInt(10000)));
+		
+		CarLocQueryDTO carLocSearchDTO=new CarLocQueryDTO();
+		
+		carLocSearchDTO.setLat(lat+t);
+		carLocSearchDTO.setLng(lng+t);
+		carLocSearchDTO.setRadius((double)r.nextInt(1000));
+		carLocSearchDTO.setTopN(100);
+		
+		return JSON.toJSONString(carLocService.nearSearch(carLocSearchDTO));
 	}
 
 
@@ -56,11 +55,11 @@ public class
 		Random r=new Random();
 		double t = (double)r.nextInt(100000)/100000;
 
-		GeoPosition geoPosition=new GeoPosition();
-		geoPosition.setLat(lat+t);
-		geoPosition.setLng(lng+t);
+		CarLocDTO carLocDTO=new CarLocDTO();
+		carLocDTO.setLat(lat+t);
+		carLocDTO.setLng(lng+t);
 
-		geoPositionService.add(geoPosition);
+		carLocService.saveCarLoc(carLocDTO);
 
 		return "ok";
 	}
@@ -72,7 +71,13 @@ public class
 		Random r = new Random();
 		double t = (double) r.nextInt(100000) / 100000;
 		long id=r.nextInt(100000);
-		geoPositionService.updatePoint(lat + t, lng + t,id);
+		
+		CarLocDTO carLocDTO=new CarLocDTO();
+		carLocDTO.setLat(lat+t);
+		carLocDTO.setLng(lng+t);
+		carLocDTO.setId(id);
+		
+		carLocService.updateCarLoc(carLocDTO);
 
 		return "ok";
 	}

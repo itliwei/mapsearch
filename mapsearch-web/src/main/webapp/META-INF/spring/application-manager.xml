@@ -20,5 +20,6 @@
 	</bean>-->
 	
 	<!-- ==================   tair end    ==================== -->
-
+	<bean id="carLocManager" 	class="com.yimayhd.mapsearch.manager.CarLocManager"/>
+	<bean id="carTraceManager" 	class="com.yimayhd.mapsearch.manager.CarTraceManager"/>
 </beans>

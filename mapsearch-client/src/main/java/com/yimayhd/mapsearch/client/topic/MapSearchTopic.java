@@ -6,9 +6,12 @@ package com.yimayhd.mapsearch.client.topic;
  */
 public enum MapSearchTopic {
 
-    CREATE(MapSearchTopic.TOPIC,"CREATE","创建");
+    CREATE(MapSearchTopic.TOPIC,"CREATE","创建"),
+	CARLOC(MapSearchTopic.TOPIC,"CARLOC","车实时位置"), 
+	CARTRACE(MapSearchTopic.TOPIC,"CARTRACE","车行车轨迹");
 
     public static final String TOPIC = "MAPSEARCH";
+    
     /**
      * 主题
      */

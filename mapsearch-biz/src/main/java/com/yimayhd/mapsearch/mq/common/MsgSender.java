@@ -1,4 +1,4 @@
-package com.yimayhd.mapsearch.mq;
+package com.yimayhd.mapsearch.mq.common;
 
 import java.io.Serializable;
 
