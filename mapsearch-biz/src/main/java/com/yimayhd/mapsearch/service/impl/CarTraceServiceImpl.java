@@ -12,8 +12,8 @@ import com.yimayhd.mapsearch.client.result.TraceQueryResult;
 import com.yimayhd.mapsearch.client.service.CarTraceService;
 import com.yimayhd.mapsearch.manager.CarTraceManager;
 
-public class CarTraceServiceImpl implements CarTraceService{
-	
+public class CarTraceServiceImpl implements CarTraceService {
+
 	private static final Logger logger = LoggerFactory.getLogger(CarTraceServiceImpl.class);
 
 	@Autowired
@@ -21,41 +21,25 @@ public class CarTraceServiceImpl implements CarTraceService{
 
 	@Override
 	public ResultSupport saveCarTrace(CarTraceDTO carTraceDTO) {
-		
-		ResultSupport result = new ResultSupport();
-
 		try {
-			if (carTraceDTO == null) {
-				result.setErrorCode(ErrorCode.PARAM_ERROR);
-			} else {
-				carTraceManager.saveCarTrace(carTraceDTO);
-				result.setSuccess(true);
-			}
+			return carTraceManager.saveCarTrace(carTraceDTO);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+			ResultSupport result = new ResultSupport();
 			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+			return result;
 		}
-
-		return result;
 	}
 
 	@Override
 	public TraceQueryResult queryCarTrace(CarTraceQueryDTO carTraceQueryDTO) {
-		
-		TraceQueryResult result = new TraceQueryResult();
-
 		try {
-			if (carTraceQueryDTO == null || carTraceQueryDTO.getOrderId()<1) {
-				result.setErrorCode(ErrorCode.PARAM_ERROR);
-			} else {
-				result.setList(carTraceManager.queryCarTrace(carTraceQueryDTO.getOrderId()));
-				result.setSuccess(true);
-			}
+			return carTraceManager.queryCarTrace(carTraceQueryDTO);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+			TraceQueryResult result = new TraceQueryResult();
 			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+			return result;
 		}
-
-		return result;
 	}
 }

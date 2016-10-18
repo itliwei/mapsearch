@@ -13,7 +13,6 @@ import com.yimayhd.mapsearch.client.result.ResultSupport;
 import com.yimayhd.mapsearch.client.result.SingleQueryResult;
 import com.yimayhd.mapsearch.client.service.CarLocService;
 import com.yimayhd.mapsearch.manager.CarLocManager;
-import com.yimayhd.mapsearch.manager.helper.CarLocHelper;
 
 /**
  * mysql版本的地理位置检索
@@ -29,118 +28,75 @@ public class CarLocServiceImpl implements CarLocService {
 	@Autowired
 	private CarLocManager carLocManager;
 
+	@Override
 	public ResultSupport saveCarLoc(CarLocDTO carLocDTO) {
-
-		ResultSupport result = new ResultSupport();
-
 		try {
-			if (!CarLocHelper.checkCarLoc(carLocDTO)) {
-				result.setErrorCode(ErrorCode.PARAM_ERROR);
-			} else {
-				carLocManager.saveCarLoc(carLocDTO);
-				result.setSuccess(true);
-			}
+			return carLocManager.saveCarLoc(carLocDTO);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+			ResultSupport result = new ResultSupport();
 			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+			return result;
 		}
-
-		return result;
 	}
 
+	@Override
 	public ResultSupport updateCarLoc(CarLocDTO carLocDTO) {
-
-		ResultSupport result = new ResultSupport();
-
 		try {
-			if (carLocDTO == null) {
-				result.setErrorCode(ErrorCode.PARAM_ERROR);
-			} else {
-				carLocManager.updateCarLoc(carLocDTO);
-				result.setSuccess(true);
-			}
+			return carLocManager.updateCarLoc(carLocDTO);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+			ResultSupport result = new ResultSupport();
 			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+			return result;
 		}
-
-		return result;
-	}
-
-	public BatchQueryResult nearSearch(CarLocQueryDTO carLocSearchDTO) {
-
-		BatchQueryResult result = new BatchQueryResult();
-
-		try {
-			if (carLocSearchDTO == null) {
-				result.setErrorCode(ErrorCode.PARAM_ERROR);
-			} else {
-				result.setList(carLocManager.nearSearch(carLocSearchDTO));
-				result.setSuccess(true);
-			}
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
-		}
-
-		return result;
-	}
-
-	public BatchQueryResult areaSearch(CarLocQueryDTO carLocSearchDTO) {
-
-		BatchQueryResult result = new BatchQueryResult();
-
-		try {
-			if (carLocSearchDTO == null) {
-				result.setErrorCode(ErrorCode.PARAM_ERROR);
-			} else {
-				result.setList(carLocManager.areaSearch(carLocSearchDTO));
-				result.setSuccess(true);
-			}
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
-		}
-
-		return result;
 	}
 
 	@Override
 	public ResultSupport updateCarStatus(CarStatusDTO carStatusDTO) {
-		ResultSupport result = new ResultSupport();
-
 		try {
-			if (carStatusDTO == null || carStatusDTO.getCarId()<1 || carStatusDTO.getStatus()<1) {
-				result.setErrorCode(ErrorCode.PARAM_ERROR);
-			} else {
-				carLocManager.updateCarStatus(carStatusDTO.getCarId(),carStatusDTO.getStatus());
-				result.setSuccess(true);
-			}
+			return carLocManager.updateCarStatus(carStatusDTO);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+			ResultSupport result = new ResultSupport();
 			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+			return result;
 		}
-
-		return result;
 	}
 
 	@Override
 	public SingleQueryResult getCarByCarId(CarLocDTO carLocDTO) {
-		
-		SingleQueryResult result = new SingleQueryResult();
-
 		try {
-			if (carLocDTO == null || carLocDTO.getCarId()<1) {
-				result.setErrorCode(ErrorCode.PARAM_ERROR);
-			} else {
-				result.setValue(carLocManager.getCarByCarId(carLocDTO.getCarId()));
-				result.setSuccess(true);
-			}
+			return carLocManager.getCarByCarId(carLocDTO);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+			SingleQueryResult result = new SingleQueryResult();
 			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+			return result;
 		}
+	}
 
-		return result;
+	@Override
+	public BatchQueryResult nearSearch(CarLocQueryDTO carLocSearchDTO) {
+		try {
+			return carLocManager.nearSearch(carLocSearchDTO);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			BatchQueryResult result = new BatchQueryResult();
+			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+			return result;
+		}
+	}
+
+	@Override
+	public BatchQueryResult areaSearch(CarLocQueryDTO carLocSearchDTO) {
+		try {
+			return carLocManager.areaSearch(carLocSearchDTO);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			BatchQueryResult result = new BatchQueryResult();
+			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+			return result;
+		}
 	}
 }

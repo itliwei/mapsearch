@@ -38,10 +38,12 @@
 		#{gmtCreated,jdbcType=TIMESTAMP})
 	</insert>
 	
-	<select id="getCarTraceByOrderId" resultMap="baseResultMap">
+	<select id="getCarTrace" resultMap="baseResultMap">
 		select
 		<include refid="base_Column_List" />
 		from car_trace
 		where order_id = #{orderId}
+		order by gmt_created
+		LIMIT #{startRow},#{pageSize}
 	</select>
 </mapper>
