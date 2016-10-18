@@ -9,9 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.yimayhd.mapsearch.client.domain.CarLocDO;
 import com.yimayhd.mapsearch.client.domain.param.CarLocDTO;
 import com.yimayhd.mapsearch.client.domain.param.CarLocQueryDTO;
+import com.yimayhd.mapsearch.client.domain.param.CarLocTO;
 import com.yimayhd.mapsearch.client.domain.param.CarStatusDTO;
 import com.yimayhd.mapsearch.client.errorcode.ErrorCode;
 import com.yimayhd.mapsearch.client.query.CarLocNearQuery;
@@ -20,6 +22,7 @@ import com.yimayhd.mapsearch.client.result.ResultSupport;
 import com.yimayhd.mapsearch.client.result.SingleQueryResult;
 import com.yimayhd.mapsearch.dao.CarLocDOMapper;
 import com.yimayhd.mapsearch.manager.helper.CarLocHelper;
+import com.yimayhd.mapsearch.manager.helper.CarLocToHelper;
 import com.yimayhd.mapsearch.util.GpsUtil;
 
 public class CarLocManager {
@@ -180,5 +183,20 @@ public class CarLocManager {
 		query.setPageSize(carLocSearchDTO.getTopN());
 
 		return carLocDOMapper.nearSearch(query);
+	}
+
+	public boolean saveCarLoc(CarLocTO carLocTO) {
+		if(!CarLocToHelper.checkParam(carLocTO)){
+			logger.error("参数错误",JSON.toJSON(carLocTO));
+		}else{
+			try{
+				CarLocDO carLocDO=CarLocToHelper.fullCarLoc(carLocTO);
+				carLocDOMapper.updateCarInfo(carLocDO);
+			}catch(Exception e){
+				logger.error(e.getMessage(), e);
+				return false;//重试
+			}
+		}
+		return true;
 	}
 }

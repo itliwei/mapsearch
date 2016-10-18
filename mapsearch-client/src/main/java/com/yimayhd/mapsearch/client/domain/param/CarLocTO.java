@@ -10,11 +10,11 @@ public class CarLocTO extends BaseDO {
 	
 	private long orderId;/*订单*/
 
-	private double lat;
+	private double lat;/*维度*/
 
-	private double lng;
+	private double lng;/*经度*/
 
-	private String gpsTime;
+	private String gpsTime;/*gps时间*/
 
 	private Integer direction;/*车方向*/
 
