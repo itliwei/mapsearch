@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yimayhd.mapsearch.dao.CarTraceDOMapper">
+
+	<resultMap id="baseResultMap" type="com.yimayhd.mapsearch.client.domain.CarTraceDO">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="car_id" jdbcType="BIGINT" property="carId" />
+		<result column="order_id" jdbcType="BIGINT" property="orderId" />
+		<result column="lat" jdbcType="DOUBLE" property="lat" />
+		<result column="lng" jdbcType="DOUBLE" property="lng" />
+		<result column="road_lng" jdbcType="DOUBLE" property="roadLng" />
+		<result column="road_lat" jdbcType="DOUBLE" property="roadLat" />
+		<result column="gps_time" jdbcType="VARCHAR" property="gpsTime" />
+		<result column="direction" jdbcType="INTEGER" property="direction" />
+		<result column="speed" jdbcType="DOUBLE" property="speed" />
+		<result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
+	</resultMap>
+
+	<sql id="base_Column_List">
+		id, car_id, order_id, lat, lng, road_lng, road_lat,
+		gps_time, direction,
+		speed, gmt_created
+	</sql>
+
+	<insert id="insert" parameterType="com.yimayhd.mapsearch.client.domain.CarTraceDO">
+		insert into car_trace (car_id,
+		order_id,
+		lat, lng, road_lng, road_lat,
+		gps_time, direction, speed,
+		gmt_created)
+		values (#{carId,jdbcType=BIGINT},
+		#{orderId,jdbcType=BIGINT},
+		#{lat,jdbcType=DOUBLE},
+		#{lng,jdbcType=DOUBLE}, #{roadLng,jdbcType=DOUBLE},
+		#{roadLat,jdbcType=DOUBLE},
+		#{gpsTime,jdbcType=VARCHAR},
+		#{direction,jdbcType=INTEGER}, #{speed,jdbcType=DOUBLE},
+		#{gmtCreated,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="getCarTraceByOrderId" resultMap="baseResultMap">
+		select
+		<include refid="base_Column_List" />
+		from car_trace
+		where order_id = #{orderId}
+	</select>
+</mapper>

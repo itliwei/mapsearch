@@ -18,7 +18,8 @@
 	<import resource="../META-INF/spring/application-consumer.xml" />-->
 	<import resource="../META-INF/spring/application-service.xml" />
 	<import resource="../META-INF/spring/application-provider.xml" />
-	<!--<import resource="../META-INF/spring/application-mq.xml" />
+	<import resource="../META-INF/spring/application-mq.xml" />
+	<!--
 	<import resource="../META-INF/spring/application-repo.xml" />
 	<import resource="../META-INF/spring/application-export-client.xml" />
 	<import resource="../META-INF/spring/application-export-api.xml"/>-->

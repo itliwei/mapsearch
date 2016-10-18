@@ -8,6 +8,7 @@
 	</settings>
 	    
     <mappers>
-		<mapper resource="sqlmap/sqlmap.xml" />
+		<mapper resource="sqlmap/CarLocDOMapper.xml" />
+		<mapper resource="sqlmap/CarTraceDOMapper.xml" />
 	</mappers>
 </configuration>
