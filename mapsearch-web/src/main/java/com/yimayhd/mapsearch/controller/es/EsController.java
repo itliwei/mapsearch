@@ -43,4 +43,12 @@ public class EsController {
     public String testUpdateCarPoint() {
         return JSON.toJSONString(carService.testUpdateIndex());
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/queryId", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    public String testSearch() {
+        int carId = (int) (Math.random() * 100000);
+        return JSON.toJSONString(carService.searchById(carId));
+    }
 }

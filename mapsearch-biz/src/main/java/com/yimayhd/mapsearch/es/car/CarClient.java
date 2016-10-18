@@ -96,4 +96,8 @@ public class CarClient extends EsBase {
     public boolean updateCar(CarVo carVo) {
         return this.upsert(EsBasicEnum.CAR.getIndex(), EsBasicEnum.CAR.getType(), String.valueOf(carVo.getId()), JSONObject.toJSONString(carVo));
     }
+
+    public CarVo searchCarById(long id){
+        return this.searchById(EsBasicEnum.CAR.getIndex(), EsBasicEnum.CAR.getType(), String.valueOf(id),CarVo.class);
+    }
 }
