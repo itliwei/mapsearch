@@ -12,6 +12,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -62,6 +63,40 @@ public class MongoUtil {
     }
 
     /**
+     * 获取弧度
+     * @param lng1
+     * @param lat1
+     * @param lng2
+     * @param lat2
+     * @return
+     */
+    public static String getRadian(double lng1,double lat1, double lng2,  double lat2){
+        double  diff = Math.atan((lng2-lng1) /(lat2- lat1) ) / Math.PI * 180;
+        if (diff == 0){
+            diff = 0;
+        }
+        diff = diff>=0?diff:diff+360;
+        return String.format("%.1f",diff);
+    }
+
+
+    public static String getTimeStr(long t1,long t2,int size){
+        long diff = t2 - t1;
+        long avgDiff = diff / (size-1);
+        StringBuilder sb = new StringBuilder();
+        sb.append(t1);
+        for (int i=1;i<size;i++){
+            sb.append(",");
+            sb.append(t1+avgDiff*i);
+        }
+        return sb.toString();
+    }
+
+
+
+
+
+    /**
      * 获取随机经纬度
      * @return double[]
      */
@@ -104,6 +139,7 @@ public class MongoUtil {
             // 显示结果
             HttpEntity entity = response.getEntity();
             String string = EntityUtils.toString(entity);
+            System.out.print(string+"...................");
             JSONObject jo =JSONObject.parseObject(string);
             String status = jo.getString("status");
             if ("1".equals(status)){
@@ -125,13 +161,24 @@ public class MongoUtil {
     }
 
 
-
-
-    public static void main(String[] args){
+    private static double getRoadDistance(String locationStr) {
+        String[] locationArr = locationStr.split(";");
         double distance = 0.0;
+        for (int i=locationArr.length;i>1;i--){
+            String endLocation = locationArr[i-1];
+            String startLocation = locationArr[i - 2];
+            String[] endSplit = endLocation.split(",");
+            String[] startSplit = startLocation.split(",");
+            distance =  distance+ MongoUtil.getLineDistance(Double.parseDouble(startSplit[0]), Double.parseDouble(startSplit[1]), Double.parseDouble(endSplit[0]), Double.parseDouble(endSplit[1]));
+        }
+        return distance;
+    }
 
-        /*for ()
-        getLineDistance();*/
+
+
+
+    public static void main(String[] args) throws IOException {
+        getLineDistance(116.48323761535383,39.99987900971187,116.4789,39.998603);
     }
 
 }

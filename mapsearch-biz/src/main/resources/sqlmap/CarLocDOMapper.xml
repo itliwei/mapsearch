@@ -19,7 +19,7 @@
 		id, car_id, status, lat, lng, gps_time, direction, speed, gmt_created,gmt_modified
 	</sql>
 		
-	<insert id="insert" parameterType="com.yimayhd.mapsearch.client.domain.CarLocDO">
+	<insert id="saveCar" parameterType="com.yimayhd.mapsearch.client.domain.CarLocDO">
 		insert into car_loc (car_id, status,
 			lat, lng, gps_time, direction,
 			speed, gmt_created, gmt_modified
@@ -27,13 +27,13 @@
 			#{direction},#{speed}, #{gmtCreated}, #{gmtModified})
 	</insert>
 	
-	<update id="updateByCarId" parameterType="com.yimayhd.mapsearch.client.domain.CarLocDO">
+	<update id="updateCarInfo" parameterType="com.yimayhd.mapsearch.client.domain.CarLocDO">
 		update car_loc set lat = #{lat},
 				lng = #{lng},
 				gps_time = #{gpsTime},
 				direction = #{direction},
 				speed = #{speed},
-				gmt_modified = #{gmtModified},
+				gmt_modified = #{gmtModified}
 		where car_id = #{carId}
 	</update>
 	

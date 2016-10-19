@@ -1,6 +1,6 @@
 package com.yimayhd.mapsearch.client.query;
 
-public class CarLocNearQuery extends PageQuery{
+public class CarTraceQuery extends PageQuery{
 
 	private static final long serialVersionUID = 1L;
 	

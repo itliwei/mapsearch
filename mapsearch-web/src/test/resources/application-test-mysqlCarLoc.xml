@@ -1,0 +1,40 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<bean id="dubboApplicationConfig" class="com.alibaba.dubbo.config.ApplicationConfig">
+		<property name="name" value="trademanager" />
+	</bean>
+
+	<bean id="dubboRegistryConfig" class="com.alibaba.dubbo.config.RegistryConfig">
+		<property name="address" value="zookeeper://192.168.1.202:2181" />
+	</bean>
+
+	<bean id="dubboProtocolConfig" class="com.alibaba.dubbo.config.ProtocolConfig">
+		<property name="port" value="-1" />
+	</bean>
+
+	<bean id="carLocService" class="com.alibaba.dubbo.config.spring.ReferenceBean">
+		<property name="interface" value="com.yimayhd.mapsearch.client.service.CarLocService"/>
+		<property name="application" ref="dubboApplicationConfig"/>
+		<property name="registry" ref="dubboRegistryConfig"/>
+		<property name="url" value="dubbo://192.168.100.30:20880" />
+		<property name="version" value="1.0.0.test"/>
+	</bean>
+	
+	<bean id="carTraceService" class="com.alibaba.dubbo.config.spring.ReferenceBean">
+		<property name="interface" value="com.yimayhd.mapsearch.client.service.CarTraceService"/>
+		<property name="application" ref="dubboApplicationConfig"/>
+		<property name="registry" ref="dubboRegistryConfig"/>
+		<property name="url" value="dubbo://192.168.100.30:20880" />
+		<property name="version" value="1.0.0.test"/>
+	</bean>
+	
+	 <bean id="msgSender" class="com.yimayhd.mapsearch.mq.common.MsgSenderService"
+          init-method="init" destroy-method="destroy">
+        <property name="nameServer" value="192.168.1.206:9876"/>
+    </bean>
+	
+</beans>
