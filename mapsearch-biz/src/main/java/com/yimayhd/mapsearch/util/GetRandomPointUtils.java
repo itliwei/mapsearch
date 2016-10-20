@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,10 +20,15 @@ public class GetRandomPointUtils {
     public static void main(String[] args){
 //        calcute(116.4789,39.998603,0.5,5);
 //        rad1(116.410778,39.907623,116.239117,39.970799);
-//        MyLatLng A=new MyLatLng(116.410778,39.907623);
-//        MyLatLng B=new MyLatLng(116.239117,39.970799);
-//        getAngle(A,B);
-        getRoadLocation("116.478916,39.998672;116.47883,40.000308;116.478702,40.002067;116.481899,40.001853;116.484849,40.000407");
+//        MyLatLng A=new MyLatLng(116.352466,40.007721);
+//        MyLatLng B=new MyLatLng(116.359075,40.008231);
+//        double angle = getAngle(A, B);
+//        System.out.println(angle);
+//        getRoadLocation("116.478916,39.998672;116.47883,40.000308;116.478702,40.002067;116.481899,40.001853;116.484849,40.000407");
+//        getRoadLocation("116.352809,40.00113;116.35253,40.005839;116.356382,40.007869;116.362325,40.008765");
+//        getRoadLocation("116.347328,40.060039;116.35428,40.061369;116.359344,40.062273;116.363228,40.061632;116.365825,40.060548");
+        getRoadLocation("116.347328,40.060039;116.340097,40.05884;116.331042,40.055555;116.331213,40.051482;116.334432,40.047129;116.339989,40.040082;116.344109,40.03508");
+
     }
 
     public static String calcute(double startlongitude,double startlatitude,double maxdist,int count){
@@ -46,7 +52,9 @@ public class GetRandomPointUtils {
             String lat = (String) jsonObject.get("lat");
             String lon = (String) jsonObject.get("lon");
             String speed = (String) jsonObject.get("speed");
+            speed = speed.split(".")[0];
             String direction = (String) jsonObject.get("brg");
+            direction = direction.split(".")[0];
             locationSB.append(lon);
             locationSB.append(",");
             locationSB.append(lat);
@@ -70,7 +78,7 @@ public class GetRandomPointUtils {
         String directionStr = directionSB.toString();
         String location = null;
         try {
-            location = MongoUtil.getRoadLocation("abcd123456", locationStr, timeStr, speedStr, directionStr);
+            location = MongoUtil.getRoadLocation("abcd123456", locationStr, timeStr, directionStr,speedStr);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -114,10 +122,6 @@ public class GetRandomPointUtils {
         return jsonArr;
     }
 
-    private static JSONArray getJsonStr(String lonlatArr){
-
-        return null;
-    }
 
     public static double rad(double dg){
         return (dg* Math.PI / 180);
@@ -161,13 +165,14 @@ public class GetRandomPointUtils {
         String[] split = locationStr.split(";");
         int length = split.length;
         StringBuffer dircetionSB = new StringBuffer("1,");
-        StringBuffer speedSB = new StringBuffer("1,");
+        StringBuffer speedSB = new StringBuffer("20,");
         StringBuffer timeSB = new StringBuffer();
         Date date = new Date();
         long time = date.getTime() / 1000;
         timeSB.append(time);
         timeSB.append(",");
         double distance = 0;
+        DecimalFormat    df   = new DecimalFormat("######0");
         for (int i=1;i<length;i++){
             String str = split[i-1];
             String[] split1 = str.split(",");
@@ -175,12 +180,17 @@ public class GetRandomPointUtils {
             String str2 = split[i];
             String[] split2 = str2.split(",");
             MyLatLng startLatLng = new MyLatLng(Double.parseDouble(split2[0]),Double.parseDouble(split2[1]));
+
             double angle = getAngle(endLatLng,startLatLng);
-            dircetionSB.append(angle);
+            String angleStr = df.format(angle);
+            dircetionSB.append(angleStr);
             dircetionSB.append(",");
+
             double lineDistance = MongoUtil.getLineDistance(Double.parseDouble(split1[0]), Double.parseDouble(split1[1]), Double.parseDouble(split2[0]), Double.parseDouble(split2[1]));
-            double speed = lineDistance * 3.6 / 50;
-            speedSB.append(speed);
+
+            double speed = lineDistance * 3.6 / 500>50?50:lineDistance * 3.6 / 500;
+            String speedStr = df.format(speed);
+            speedSB.append(speedStr);
             speedSB.append(",");
             time = time+50;
             distance = distance + lineDistance;
@@ -191,7 +201,7 @@ public class GetRandomPointUtils {
         }
         String abcd123456 = null;
         try {
-            abcd123456 = MongoUtil.getRoadLocation("abcd123456", locationStr, timeSB.toString(), speedSB.toString(), dircetionSB.toString());
+            abcd123456 = MongoUtil.getRoadLocation("abcd123456", locationStr, timeSB.toString(), dircetionSB.toString(), speedSB.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

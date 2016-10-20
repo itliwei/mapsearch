@@ -102,6 +102,25 @@ public class MongoLbsServiceTest {
 	}
 
 
+	@Test
+	public void testDLong() throws IOException {
+		long t1 = System.currentTimeMillis();
+		String locationStr = MongoUtil.getRoadLocation("abcd123456", "116.496167,39.917066;116.496149,39.917205;116.496149,39.917326", "1434077500,1434077501,1434077510", "1,1,2", "1,1,2");
+		String[] locationArr = locationStr.split(";");
+		double distance = 0.0;
+		for (int i=locationArr.length;i>1;i--){
+			String endLocation = locationArr[i-1];
+			String startLocation = locationArr[i - 2];
+			String[] endSplit = endLocation.split(",");
+			String[] startSplit = startLocation.split(",");
+			distance =  distance+ MongoUtil.getLineDistance(Double.parseDouble(startSplit[0]),Double.parseDouble(startSplit[1]),Double.parseDouble(endSplit[0]),Double.parseDouble(endSplit[1]));
+		}
+		long t2 = System.currentTimeMillis();
+		System.out.println(distance+"...................................."+(t2-t1));
+	}
+
+
+
 	/**
 	 * print result
 	 * @param result
