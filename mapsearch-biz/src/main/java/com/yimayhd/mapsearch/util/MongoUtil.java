@@ -155,25 +155,40 @@ public class MongoUtil {
         }
         return sb.toString();
     }
+    /**
+     * 获取形式距离(多个司机距用户的距离)
+     * @param origins String
+     * @param destination String
+     * @throws IOException
+     */
+    public static  String  getDriveDistance(String origins,String destination ) throws IOException {
+        HttpClient httpclient = new DefaultHttpClient();
+        long t1 = System.currentTimeMillis();
+
+        HttpGet httpget = new HttpGet(
+                "http://restapi.amap.com/v3/distance?key=959e9ee93388f4bd5a144aabcc884a2e&origins="+origins+"&destination="+destination);
+        // 执行
+        HttpResponse response = httpclient.execute(httpget);
+        long t2 = System.currentTimeMillis();
+        System.out.println("一次请求时长："+(t2-t1));
+        //返回状态
+        int code = response.getStatusLine().getStatusCode();
+
+        if(code==200){
+            // 显示结果
+            HttpEntity entity = response.getEntity();
+            return EntityUtils.toString(entity);
+
+
+        }
+        return null;
+    }
+
+
 
     private static double rad(double d) {
         return d * Math.PI / 180.0;
     }
-
-
-    private static double getRoadDistance(String locationStr) {
-        String[] locationArr = locationStr.split(";");
-        double distance = 0.0;
-        for (int i=locationArr.length;i>1;i--){
-            String endLocation = locationArr[i-1];
-            String startLocation = locationArr[i - 2];
-            String[] endSplit = endLocation.split(",");
-            String[] startSplit = startLocation.split(",");
-            distance =  distance+ MongoUtil.getLineDistance(Double.parseDouble(startSplit[0]), Double.parseDouble(startSplit[1]), Double.parseDouble(endSplit[0]), Double.parseDouble(endSplit[1]));
-        }
-        return distance;
-    }
-
 
 
 
