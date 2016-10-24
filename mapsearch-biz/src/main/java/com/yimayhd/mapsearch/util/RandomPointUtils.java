@@ -5,10 +5,10 @@ import java.text.DecimalFormat;
 import java.util.Date;
 
 /**
- * Created by Administrator on 2016/10/18.
- * liwei
+ * Created by liwei on 2016/10/18.
+ * 获取随机点工具类
  */
-public class GetRandomPointUtils {
+public class RandomPointUtils {
 
     public static void main(String[] args){
 //        MyLatLng A=new MyLatLng(116.352466,40.007721);
@@ -26,9 +26,9 @@ public class GetRandomPointUtils {
     public static String getRoadLocation(String locationStr){
         String[] split = locationStr.split(";");
         int length = split.length;
-        StringBuffer dircetionSB = new StringBuffer("1,");
-        StringBuffer speedSB = new StringBuffer("20,");
-        StringBuffer timeSB = new StringBuffer();
+        StringBuilder directionSB = new StringBuilder("1,");
+        StringBuilder speedSB = new StringBuilder("20,");
+        StringBuilder timeSB = new StringBuilder();
         Date date = new Date();
         long time = date.getTime() / 1000;
         timeSB.append(time);
@@ -45,8 +45,8 @@ public class GetRandomPointUtils {
             //获取夹角
             double angle = getAngle(endLatLng,startLatLng);
             String angleStr = df.format(angle);
-            dircetionSB.append(angleStr);
-            dircetionSB.append(",");
+            directionSB.append(angleStr);
+            directionSB.append(",");
             //获取直线距离
             double lineDistance = MongoUtil.getLineDistance(Double.parseDouble(split1[0]), Double.parseDouble(split1[1]), Double.parseDouble(split2[0]), Double.parseDouble(split2[1]));
             //获取速度
@@ -63,7 +63,7 @@ public class GetRandomPointUtils {
         }
         String carIdLocation = null;
         try {
-            carIdLocation = MongoUtil.getRoadLocation("abcd123456", locationStr, timeSB.toString(), dircetionSB.toString(), speedSB.toString());
+            carIdLocation = MongoUtil.getRoadLocation("abcd123456", locationStr, timeSB.toString(), directionSB.toString(), speedSB.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,7 +123,5 @@ public class GetRandomPointUtils {
             Ed=Ec*Math.cos(m_RadLa);
         }
     }
-
-
 
 }

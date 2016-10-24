@@ -11,12 +11,11 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 /**
  * Created by Administrator on 2016/9/30.
+ * MongoDb工具类
  */
 public class MongoUtil {
 
@@ -53,10 +52,10 @@ public class MongoUtil {
         double radLat1 = rad(lat1);
         double radLat2 = rad(lat2);
         double difference = radLat1 - radLat2;
-        double mdifference = rad(lng1) - rad(lng2);
+        double radDifference = rad(lng1) - rad(lng2);
         double distance = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(difference / 2), 2)
                 + Math.cos(radLat1) * Math.cos(radLat2)
-                * Math.pow(Math.sin(mdifference / 2), 2)));
+                * Math.pow(Math.sin(radDifference / 2), 2)));
         distance = distance * EARTH_RADIUS;
         distance = Math.round(distance * 10000) / 10000;
         return distance;
@@ -74,8 +73,7 @@ public class MongoUtil {
         int nextLat = random.nextInt((int) ((maxLat-minLat)*10000));
         double lon = MongoUtil.add(minLon, 0.00001 * nextLon);
         double lat = MongoUtil.add(minLat, 0.00001 * nextLat);
-        double[] arr =new double[]{lon,lat};
-        return arr;
+        return new double[]{lon,lat};
     }
 
     /**
@@ -111,8 +109,8 @@ public class MongoUtil {
             String status = jo.getString("status");
             if ("1".equals(status)){
                 JSONArray roads = jo.getJSONArray("roads");
-                for (int i=0;i<roads.size();i++){
-                    JSONObject road = (JSONObject) roads.get(i);
+                for (Object road1 : roads) {
+                    JSONObject road = (JSONObject) road1;
                     sb.append(road.getString("crosspoint"));
                     sb.append(";");
                 }
@@ -149,6 +147,8 @@ public class MongoUtil {
     }
 
 
+
+
     /**
      * 获取弧度
      * @param d double
@@ -157,8 +157,6 @@ public class MongoUtil {
     private static double rad(double d) {
         return d * Math.PI / 180.0;
     }
-
-
 
     public static void main(String[] args) throws IOException {
         getLineDistance(116.48323761535383,39.99987900971187,116.4789,39.998603);
