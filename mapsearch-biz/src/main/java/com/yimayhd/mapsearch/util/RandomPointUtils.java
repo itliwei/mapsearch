@@ -1,8 +1,11 @@
 package com.yimayhd.mapsearch.util;
 
-import java.io.IOException;
+import com.yimayhd.mapsearch.repo.AMapRepo;
+
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by liwei on 2016/10/18.
@@ -61,13 +64,15 @@ public class RandomPointUtils {
             timeSB.append(",");
 
         }
-        String carIdLocation = null;
-        try {
-            carIdLocation = MongoUtil.getRoadLocation("abcd123456", locationStr, timeSB.toString(), directionSB.toString(), speedSB.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return carIdLocation;
+        Map<String,String> paramMap = new HashMap<String,String>();
+
+        paramMap.put("carId","car123456");
+        paramMap.put("locations",locationStr);
+        paramMap.put("times",timeSB.toString());
+        paramMap.put("directions", directionSB.toString());
+        paramMap.put("speeds", speedSB.toString());
+
+        return AMapRepo.getRoadLocation(paramMap);
     }
 
     /**
