@@ -30,9 +30,9 @@ public class MongoUtil {
 
     /**
      * double类型相加函数
-     * @param v1
-     * @param v2
-     * @return
+     * @param v1 double
+     * @param v2 double
+     * @return double
      */
     public static double add(double v1,double v2){
         BigDecimal b1 = new BigDecimal(Double.toString(v1));
@@ -43,11 +43,11 @@ public class MongoUtil {
 
     /**
      * 直线距离
-     * @param lng1
-     * @param lat1
-     * @param lng2
-     * @param lat2
-     * @return
+     * @param lng1 double
+     * @param lat1 double
+     * @param lng2 double
+     * @param lat2 double
+     * @return double
      */
     public static double getLineDistance(double lng1,double lat1, double lng2,  double lat2){
         double radLat1 = rad(lat1);
@@ -61,39 +61,6 @@ public class MongoUtil {
         distance = Math.round(distance * 10000) / 10000;
         return distance;
     }
-
-    /**
-     * 获取弧度
-     * @param lng1
-     * @param lat1
-     * @param lng2
-     * @param lat2
-     * @return
-     */
-    public static String getRadian(double lng1,double lat1, double lng2,  double lat2){
-        double  diff = Math.atan((lng2-lng1) /(lat2- lat1) ) / Math.PI * 180;
-        if (diff == 0){
-            diff = 0;
-        }
-        diff = diff>=0?diff:diff+360;
-        return String.format("%.1f",diff);
-    }
-
-
-    public static String getTimeStr(long t1,long t2,int size){
-        long diff = t2 - t1;
-        long avgDiff = diff / (size-1);
-        StringBuilder sb = new StringBuilder();
-        sb.append(t1);
-        for (int i=1;i<size;i++){
-            sb.append(",");
-            sb.append(t1+avgDiff*i);
-        }
-        return sb.toString();
-    }
-
-
-
 
 
     /**
@@ -156,7 +123,7 @@ public class MongoUtil {
         return sb.toString();
     }
     /**
-     * 获取形式距离(多个司机距用户的距离)
+     * 获取驾车行驶距离(多个司机距用户的距离)
      * @param origins String
      * @param destination String
      * @throws IOException
@@ -173,19 +140,20 @@ public class MongoUtil {
         System.out.println("一次请求时长："+(t2-t1));
         //返回状态
         int code = response.getStatusLine().getStatusCode();
-
         if(code==200){
             // 显示结果
             HttpEntity entity = response.getEntity();
             return EntityUtils.toString(entity);
-
-
         }
         return null;
     }
 
 
-
+    /**
+     * 获取弧度
+     * @param d double
+     * @return double
+     */
     private static double rad(double d) {
         return d * Math.PI / 180.0;
     }
