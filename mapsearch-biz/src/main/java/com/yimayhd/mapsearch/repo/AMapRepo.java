@@ -30,9 +30,13 @@ public class AMapRepo {
      */
     public static  String  getRoadLocation(Map<String ,String> paramMap)  {
         String carId = paramMap.get("carId");
+        //相邻经纬度gps时间间隔小于300s，距离小于1km。格式为：X1,Y1;X2,Y2……，最多支持20个经纬度
         String locations = paramMap.get("locations");
+        //gps时间，要求为utc时间，与参数locations指定的坐标点一一对应。多个时间之间使用半角逗号“,”分隔
         String times = paramMap.get("times");
+        //车辆的方位角，与参数locations指定的坐标点一一对应,以正北方向为0度，沿顺时针方向为正值，取值范围[0,360)，精确到小数点后一位浮点型，多个方位角之间使用半角逗号“,”分隔
         String directions = paramMap.get("directions");
+        //车辆行驶速度，与参数locations指定的坐标点一一对应，单位：km/h 浮点型，多个速度值之间使用半角逗号“,”分隔
         String speeds = paramMap.get("speeds");
         HttpClient httpclient = new DefaultHttpClient();
         long t1 = System.currentTimeMillis();
@@ -85,7 +89,7 @@ public class AMapRepo {
 
     /**
      * 获取驾车行驶距离(多个司机距用户的距离)
-     * @param origins 起始位置（可以是多个）
+     * @param origins 起始位置（可以是多个，坐标对见用“| ”分隔；经度和纬度用","分隔）
      * @param destination 终点位置（只能一个）
      * return   JSONArray
      */
