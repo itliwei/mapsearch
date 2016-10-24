@@ -50,7 +50,10 @@ public class AMapRepo {
         long t2 = System.currentTimeMillis();
         System.out.println("一次请求时长："+(t2-t1));
         //返回状态
-        int code = response.getStatusLine().getStatusCode();
+        int code = 0;
+        if (response != null) {
+            code = response.getStatusLine().getStatusCode();
+        }
 
         StringBuilder resultSB = new StringBuilder();
         if(code==200){
@@ -103,7 +106,10 @@ public class AMapRepo {
         long t2 = System.currentTimeMillis();
         System.out.println("一次请求时长："+(t2-t1));
         //返回状态
-        int code = response.getStatusLine().getStatusCode();
+        int code = 0;
+        if (response != null) {
+            code = response.getStatusLine().getStatusCode();
+        }
         if(code==200){
             // 显示结果
             HttpEntity entity = response.getEntity();
