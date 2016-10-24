@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class MongoUtil {
 
-    private static double EARTH_RADIUS = 6378137;
+    private static final double EARTH_RADIUS = 6378137;
     //最大经纬度
     private static final double maxLat = 40.017472;
     private static final double minLat = 39.828952;
