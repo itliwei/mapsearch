@@ -1,5 +1,7 @@
 package com.yimayhd.mapsearch.util;
 
+import com.yimayhd.mapsearch.client.domain.mongo.MyLatLng;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Random;
@@ -76,6 +78,32 @@ public class MongoUtil {
     private static double rad(double d) {
         return d * Math.PI / 180.0;
     }
+
+
+    /**
+     * 获取夹角
+     * @param A MyLatLng
+     * @param B MyLatLng
+     * @return double
+     */
+    public  static double getAngle(MyLatLng A,MyLatLng B){
+        double dx=(B.m_RadLo-A.m_RadLo)*A.Ed;
+        double dy=(B.m_RadLa-A.m_RadLa)*A.Ec;
+        double angle;
+        angle=Math.atan(Math.abs(dx/dy))*180./Math.PI;
+        double dLo=B.m_Longitude-A.m_Longitude;
+        double dLa=B.m_Latitude-A.m_Latitude;
+        if(dLo>0&&dLa<=0){
+            angle=(90.-angle)+90;
+        }
+        else if(dLo<=0&&dLa<0){
+            angle=angle+180.;
+        }else if(dLo<0&&dLa>=0){
+            angle= (90.-angle)+270;
+        }
+        return angle;
+    }
+
 
     public static void main(String[] args) throws IOException {
         getLineDistance(116.48323761535383,39.99987900971187,116.4789,39.998603);
