@@ -28,16 +28,11 @@ public class MongoLbsServiceTest {
 	@Autowired
 	private MongoLbsService mongoLbsService;
 
-
-
-
 	@Test
 	public void testSave(){
-
 		long t1 = System.currentTimeMillis();
 		Random random = new Random();
 		List<CarPoint> list = new ArrayList<CarPoint>();
-
 
 		for(int i = 0;i<100000;i++){
 			CarPoint carPoint =new CarPoint();
@@ -56,8 +51,7 @@ public class MongoLbsServiceTest {
 
 		int count = mongoLbsService.batchInsertCarPoint(list);
 		long t2 = System.currentTimeMillis();
-		System.out.println("ºÄÊ±:"+(t2-t1)+" ¼ÇÂ¼Êý"+count);
-
+		System.out.println("ï¿½ï¿½Ê±:"+(t2-t1)+" ï¿½ï¿½Â¼ï¿½ï¿½"+count);
 	}
 
 	@Test
@@ -73,7 +67,7 @@ public class MongoLbsServiceTest {
 			personQuery.setLongitude(arr[0]);
 			personQuery.setLatitude(arr[1]);
 			CarPointNearResult personList = mongoLbsService.geoNearCarPoint(personQuery);
-			LOGGER.info("**************************   ÊýÁ¿£º" +count +" ·¶Î§£º"+count/100 +JSON.toJSONString(personList));
+			LOGGER.info("**************************   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" +count +" ï¿½ï¿½Î§ï¿½ï¿½"+count/100 +JSON.toJSONString(personList));
 //			printResult(personList, "testGetPersonNearList");
 		}
 	}
@@ -83,43 +77,6 @@ public class MongoLbsServiceTest {
 		CarPoint carPoint = mongoLbsService.updateCarPoint();
 		System.out.print(JSON.toJSONString(carPoint));
 	}
-
-	@Test
-	public void testGetDistance() throws IOException {
-		long t1 = System.currentTimeMillis();
-		String locationStr = MongoUtil.getRoadLocation("abcd123456", "116.496167,39.917066;116.496149,39.917205;116.496149,39.917326", "1434077500,1434077501,1434077510", "1,1,2", "1,1,2");
-		String[] locationArr = locationStr.split(";");
-		double distance = 0.0;
-		for (int i=locationArr.length;i>1;i--){
-			String endLocation = locationArr[i-1];
-			String startLocation = locationArr[i - 2];
-			String[] endSplit = endLocation.split(",");
-			String[] startSplit = startLocation.split(",");
-			distance =  distance+ MongoUtil.getLineDistance(Double.parseDouble(startSplit[0]),Double.parseDouble(startSplit[1]),Double.parseDouble(endSplit[0]),Double.parseDouble(endSplit[1]));
-		}
-		long t2 = System.currentTimeMillis();
-		System.out.println(distance+"...................................."+(t2-t1));
-	}
-
-
-	@Test
-	public void testDLong() throws IOException {
-		long t1 = System.currentTimeMillis();
-		String locationStr = MongoUtil.getRoadLocation("abcd123456", "116.496167,39.917066;116.496149,39.917205;116.496149,39.917326", "1434077500,1434077501,1434077510", "1,1,2", "1,1,2");
-		String[] locationArr = locationStr.split(";");
-		double distance = 0.0;
-		for (int i=locationArr.length;i>1;i--){
-			String endLocation = locationArr[i-1];
-			String startLocation = locationArr[i - 2];
-			String[] endSplit = endLocation.split(",");
-			String[] startSplit = startLocation.split(",");
-			distance =  distance+ MongoUtil.getLineDistance(Double.parseDouble(startSplit[0]),Double.parseDouble(startSplit[1]),Double.parseDouble(endSplit[0]),Double.parseDouble(endSplit[1]));
-		}
-		long t2 = System.currentTimeMillis();
-		System.out.println(distance+"...................................."+(t2-t1));
-	}
-
-
 
 	/**
 	 * print result
