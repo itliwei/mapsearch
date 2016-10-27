@@ -124,7 +124,6 @@ public class CarServiceImplTest {
     }
 
 
-//    @Test
 //    public void setIndexTypeMappingTest() {
 //        String mapping = "{\n" +
 //                "            \"car\":{\n" +

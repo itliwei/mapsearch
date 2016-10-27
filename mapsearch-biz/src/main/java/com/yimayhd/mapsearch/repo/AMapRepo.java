@@ -134,4 +134,60 @@ public class AMapRepo {
         }
         return null;
     }
+
+
+    /**
+     * 获取驾车行驶路线（距离、时间）
+     * @param origin 起始位置（只能一个）
+     * @param destination 终点位置（只能一个）
+     * @param waypoints 终点位置（可以多个，以";"切割，最多16个坐标点）
+     * return   JSONArray
+     */
+    public static  JSONObject  getDrivePath(String origin,String destination, String waypoints){
+        HttpClient httpclient = new DefaultHttpClient();
+        long t1 = System.currentTimeMillis();
+
+        HttpGet httpget = new HttpGet(
+                "http://restapi.amap.com/v3/direction/driving?key="+AMAP_KEY+"&origin="+origin+"&destination="+destination+"&waypoints"+waypoints);
+        // 执行
+        HttpResponse response = null;
+        try {
+            response = httpclient.execute(httpget);
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("一次请求时长："+(t2-t1));
+        //返回状态
+        int code = 0;
+        if (response != null) {
+            code = response.getStatusLine().getStatusCode();
+        }
+        if(code==200){
+            // 显示结果
+            HttpEntity entity = response.getEntity();
+            String string = null;
+            try {
+                string = EntityUtils.toString(entity);
+            } catch (IOException e) {
+                e.printStackTrace();
+                logger.error(e.getMessage());
+            }
+            JSONObject jo =JSONObject.parseObject(string);
+            int status = jo.getIntValue("status");
+            if (status == AMapStatus.SUCCESS.getStatus()){
+                JSONObject route = jo.getJSONObject("route");
+                if (route != null ){
+                    JSONArray paths = route.getJSONArray("paths");
+                    if (paths != null && paths.size() > 0){
+                        return  (JSONObject)paths.get(0);
+                    }
+                }
+            }else {
+                logger.error(jo.getString("infocode")+" "+jo.getString("info") );
+            }
+        }
+        return null;
+    }
 }
