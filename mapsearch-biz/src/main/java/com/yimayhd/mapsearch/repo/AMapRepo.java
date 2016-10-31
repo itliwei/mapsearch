@@ -34,7 +34,8 @@ public class AMapRepo {
         String locations = paramMap.get("locations");
         //gps时间，要求为utc时间，与参数locations指定的坐标点一一对应。多个时间之间使用半角逗号“,”分隔
         String times = paramMap.get("times");
-        //车辆的方位角，与参数locations指定的坐标点一一对应,以正北方向为0度，沿顺时针方向为正值，取值范围[0,360)，精确到小数点后一位浮点型，多个方位角之间使用半角逗号“,”分隔
+        //车辆的方位角，与参数locations指定的坐标点一一对应,以正北方向为0度，沿顺时针方向为正值，取值范围[0,360)，
+        // 精确到小数点后一位浮点型，多个方位角之间使用半角逗号“,”分隔
         String directions = paramMap.get("directions");
         //车辆行驶速度，与参数locations指定的坐标点一一对应，单位：km/h 浮点型，多个速度值之间使用半角逗号“,”分隔
         String speeds = paramMap.get("speeds");
@@ -42,7 +43,8 @@ public class AMapRepo {
         long t1 = System.currentTimeMillis();
 
         HttpGet httpget = new HttpGet(
-                "http://restapi.amap.com/v3/autograsp?key="+AMAP_KEY+"&carid="+carId+"&locations="+locations+"&time="+times+"&direction="+directions+"&speed="+speeds);
+                "http://restapi.amap.com/v3/autograsp?key="+AMAP_KEY+"&carid="+carId+"&locations="
+                        +locations+"&time="+times+"&direction="+directions+"&speed="+speeds);
         // 执行
         HttpResponse response = null;
         try {
@@ -140,7 +142,7 @@ public class AMapRepo {
      * 获取驾车行驶路线（距离、时间）
      * @param origin 起始位置（只能一个）
      * @param destination 终点位置（只能一个）
-     * @param waypoints 终点位置（可以多个，以";"切割，最多16个坐标点）
+     * @param waypoints 途径位置（可以多个，以";"切割，最多16个坐标点）
      * return   JSONArray
      */
     public static  JSONObject  getDrivePath(String origin,String destination, String waypoints){
@@ -148,7 +150,8 @@ public class AMapRepo {
         long t1 = System.currentTimeMillis();
 
         HttpGet httpget = new HttpGet(
-                "http://restapi.amap.com/v3/direction/driving?key="+AMAP_KEY+"&origin="+origin+"&destination="+destination+"&waypoints"+waypoints);
+                "http://restapi.amap.com/v3/direction/driving?key="+AMAP_KEY+"&origin="+origin+"&destination="
+                        +destination+"&waypoints"+waypoints);
         // 执行
         HttpResponse response = null;
         try {
