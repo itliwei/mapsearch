@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class AMapRepo {
     private static final Logger logger = LoggerFactory.getLogger(AMapRepo.class);
-    private static String AMAP_KEY = "959e9ee93388f4bd5a144aabcc884a2e";
+    private static final String AMAP_KEY = "959e9ee93388f4bd5a144aabcc884a2e";
 
     /**
      * 获取抓路信息
@@ -65,25 +65,25 @@ public class AMapRepo {
         if(code==200){
             // 显示结果
             HttpEntity entity = response.getEntity();
-            String string = null;
+            String entityStr = null;
             try {
-                string = EntityUtils.toString(entity);
+                entityStr = EntityUtils.toString(entity);
             } catch (IOException e) {
                 e.printStackTrace();
                 logger.error(e.getMessage());
             }
 
-            JSONObject jo =JSONObject.parseObject(string);
-            int status = jo.getIntValue("status");
+            JSONObject jsonObject =JSONObject.parseObject(entityStr);
+            int status = jsonObject.getIntValue("status");
             if (status == AMapStatus.SUCCESS.getStatus()){
-                JSONArray roads = jo.getJSONArray("roads");
-                for (Object road1 : roads) {
-                    JSONObject road = (JSONObject) road1;
-                    resultSB.append(road.getString("crosspoint"));
+                JSONArray roads = jsonObject.getJSONArray("roads");
+                for (Object road : roads) {
+                    JSONObject roadObject = (JSONObject) road;
+                    resultSB.append(roadObject.getString("crosspoint"));
                     resultSB.append(";");
                 }
             }else {
-                logger.error(jo.getString("infocode")+" "+jo.getString("info") );
+                logger.error(jsonObject.getString("infocode")+" "+jsonObject.getString("info") );
             }
         }
         return resultSB.toString();
@@ -119,19 +119,19 @@ public class AMapRepo {
         if(code==200){
             // 显示结果
             HttpEntity entity = response.getEntity();
-            String string = null;
+            String entityStr = null;
             try {
-                string = EntityUtils.toString(entity);
+                entityStr = EntityUtils.toString(entity);
             } catch (IOException e) {
                 e.printStackTrace();
                 logger.error(e.getMessage());
             }
-            JSONObject jo =JSONObject.parseObject(string);
-            int status = jo.getIntValue("status");
+            JSONObject jsonObject =JSONObject.parseObject(entityStr);
+            int status = jsonObject.getIntValue("status");
             if (status == AMapStatus.SUCCESS.getStatus()){
-                return jo.getJSONArray("results");
+                return jsonObject.getJSONArray("results");
             }else {
-                logger.error(jo.getString("infocode")+" "+jo.getString("info") );
+                logger.error(jsonObject.getString("infocode")+" "+jsonObject.getString("info") );
             }
         }
         return null;
@@ -169,18 +169,18 @@ public class AMapRepo {
         }
         if(code==200){
             // 显示结果
-            HttpEntity entity = response.getEntity();
-            String string = null;
+            HttpEntity httpEntity = response.getEntity();
+            String httpEntityStr = null;
             try {
-                string = EntityUtils.toString(entity);
+                httpEntityStr = EntityUtils.toString(httpEntity);
             } catch (IOException e) {
                 e.printStackTrace();
                 logger.error(e.getMessage());
             }
-            JSONObject jo =JSONObject.parseObject(string);
-            int status = jo.getIntValue("status");
+            JSONObject jsonObject =JSONObject.parseObject(httpEntityStr);
+            int status = jsonObject.getIntValue("status");
             if (status == AMapStatus.SUCCESS.getStatus()){
-                JSONObject route = jo.getJSONObject("route");
+                JSONObject route = jsonObject.getJSONObject("route");
                 if (route != null ){
                     JSONArray paths = route.getJSONArray("paths");
                     if (paths != null && paths.size() > 0){
@@ -188,7 +188,7 @@ public class AMapRepo {
                     }
                 }
             }else {
-                logger.error(jo.getString("infocode")+" "+jo.getString("info") );
+                logger.error(jsonObject.getString("infocode")+" "+jsonObject.getString("info") );
             }
         }
         return null;
